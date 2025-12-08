@@ -153,9 +153,9 @@
             text-decoration: none;
             white-space: nowrap;
             margin-left: 0.5rem;
+            color: inherit;
             border: none;
             background: transparent;
-            color: inherit;
         }
         
         .user-profile:hover {
@@ -335,6 +335,7 @@
             margin-top: 2rem;
             text-decoration: none;
             border: 1px solid rgba(138, 43, 226, 0.3);
+            color: inherit;
         }
         
         .mobile-user-avatar {
@@ -1126,8 +1127,8 @@
                     <a href="#about">About</a>
                     <a href="#contact">Contact</a>
                     
-                    <!-- User Profile at far right - CHANGED: Removed target="_blank" -->
-                    <button class="user-profile" id="user-profile-btn">
+                    <!-- User Profile at far right - CHANGED: Link đến portfolio trong cùng tab -->
+                    <a href="https://h13digital.github.io/#portfolio" class="user-profile">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>
                         </div>
@@ -1135,7 +1136,7 @@
                             <span class="user-name">HIEP NGUYEN</span>
                             <span class="user-role">Marketing Architect</span>
                         </div>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1190,8 +1191,8 @@
                     </a>
                 </div>
                 
-                <!-- CHANGED: Removed target="_blank" from mobile user profile -->
-                <button class="mobile-user-profile" id="mobile-user-profile-btn">
+                <!-- CHANGED: Link đến portfolio trong cùng tab -->
+                <a href="https://h13digital.github.io/#portfolio" class="mobile-user-profile">
                     <div class="mobile-user-avatar">
                         <i class="fas fa-user"></i>
                     </div>
@@ -1199,7 +1200,7 @@
                         <span class="mobile-user-name">HIEP NGUYEN</span>
                         <span class="mobile-user-role">Marketing Architect</span>
                     </div>
-                </button>
+                </a>
                 
                 <!-- Keep portfolio link external but opens in same tab -->
                 <a href="https://h13digital.github.io/#portfolio" class="mobile-portfolio-link">
@@ -1535,8 +1536,6 @@
         const mobileCloseBtn = document.getElementById('mobile-close-btn');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         const logoIcon = document.getElementById('logo-icon');
-        const userProfileBtn = document.getElementById('user-profile-btn');
-        const mobileUserProfileBtn = document.getElementById('mobile-user-profile-btn');
         const mainHeader = document.getElementById('main-header');
         
         // Toggle mobile menu
@@ -1550,42 +1549,6 @@
             mobileNavOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
         });
-        
-        // User profile buttons click handlers
-        if (userProfileBtn) {
-            userProfileBtn.addEventListener('click', () => {
-                const targetSection = document.querySelector('#about');
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    updateActiveNavLink('#about');
-                }
-            });
-        }
-        
-        if (mobileUserProfileBtn) {
-            mobileUserProfileBtn.addEventListener('click', () => {
-                const targetSection = document.querySelector('#about');
-                if (targetSection) {
-                    // Close mobile menu
-                    mobileNavOverlay.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                    
-                    // Scroll to section
-                    setTimeout(() => {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }, 300);
-                    
-                    // Update active states
-                    updateActiveNavLink('#about');
-                }
-            });
-        }
         
         // Close mobile menu when clicking on a link
         mobileNavLinks.forEach(link => {
