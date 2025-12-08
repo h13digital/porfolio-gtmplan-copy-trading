@@ -32,8 +32,17 @@
             background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
             padding: 1rem 0;
             border-bottom: 1px solid #334155;
-            position: sticky; top: 0; z-index: 100;
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .header-hidden {
+            transform: translateY(-100%);
+        }
+        .header-visible {
+            transform: translateY(0);
         }
         .header-container {
             display: flex;
@@ -144,6 +153,9 @@
             text-decoration: none;
             white-space: nowrap;
             margin-left: 0.5rem;
+            border: none;
+            background: transparent;
+            color: inherit;
         }
         
         .user-profile:hover {
@@ -777,6 +789,64 @@
             .contact-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            /* Better spacing for mobile */
+            section {
+                padding: 1.8rem 1.5rem;
+                margin: 1.5rem 0;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .metric {
+                font-size: 2rem;
+            }
+            
+            .toggle-header {
+                padding: 0.9rem;
+                font-size: 1rem;
+            }
+            
+            .toggle-content {
+                padding: 0 0.8rem;
+            }
+            
+            .toggle-content.active {
+                padding: 0.8rem;
+            }
+            
+            .about-section {
+                padding: 1.8rem;
+            }
+            
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+            
+            .profile-name {
+                font-size: 1.5rem;
+            }
+            
+            .skill-card {
+                padding: 1.5rem;
+            }
+            
+            .contact-item {
+                padding: 1.5rem;
+            }
         }
         
         /* Mobile Breakpoint */
@@ -798,8 +868,8 @@
             }
             
             section { 
-                padding: 1.8rem; 
-                margin: 1.5rem 0;
+                padding: 1.5rem; 
+                margin: 1.2rem 0;
             }
             
             .cards-container { 
@@ -808,7 +878,7 @@
             }
             
             .card {
-                padding: 1.5rem;
+                padding: 1.3rem;
             }
             
             .contact-grid {
@@ -825,6 +895,11 @@
                 padding: 0.8rem 1.5rem;
                 font-size: 0.9rem;
                 margin: 0.3rem;
+                display: block;
+                width: 100%;
+                max-width: 280px;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .about-section {
@@ -832,13 +907,13 @@
             }
             
             .profile-image {
-                width: 120px;
-                height: 120px;
-                font-size: 50px;
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
             }
             
             .profile-name {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             h2 {
@@ -847,6 +922,19 @@
             
             .metric {
                 font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+                margin: 1.5rem 0 0.7rem 0;
+            }
+            
+            ul, ol {
+                padding-left: 1.2rem;
+            }
+            
+            li {
+                margin-bottom: 0.6rem;
             }
         }
         
@@ -859,7 +947,7 @@
             }
             
             .hero {
-                padding: 3rem 1rem;
+                padding: 2.5rem 1rem;
             }
             
             .hero h1 {
@@ -873,10 +961,12 @@
             
             .tagline {
                 font-size: 1rem;
+                line-height: 1.5;
             }
             
             section {
-                padding: 1.5rem;
+                padding: 1.3rem 1rem;
+                margin: 1rem 0;
             }
             
             .mobile-nav-container {
@@ -920,8 +1010,26 @@
             }
             
             .toggle-header {
-                font-size: 1rem;
+                font-size: 0.95rem;
                 padding: 0.8rem;
+            }
+            
+            .profile-image {
+                width: 90px;
+                height: 90px;
+                font-size: 35px;
+            }
+            
+            .skill-card {
+                padding: 1.2rem;
+            }
+            
+            .skill-title {
+                font-size: 15px;
+            }
+            
+            .skill-desc {
+                font-size: 13px;
             }
         }
         
@@ -933,22 +1041,63 @@
             
             .sub-sub-headline {
                 font-size: 0.85rem;
+                padding: 0.4rem 0.9rem;
             }
             
             .cta-button {
-                display: block;
-                width: 100%;
-                margin: 0.5rem 0;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
             }
             
             .mobile-nav-links a {
                 font-size: 0.9rem;
+                padding: 0.7rem 0.9rem;
+            }
+            
+            .profile-name {
+                font-size: 1.2rem;
+            }
+            
+            .profile-title {
+                font-size: 0.9rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .metric {
+                font-size: 1.6rem;
+            }
+        }
+        
+        /* Extra optimization for very small screens */
+        @media (max-width: 350px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .tagline {
+                font-size: 0.95rem;
+            }
+            
+            section {
+                padding: 1.1rem 0.9rem;
+            }
+            
+            .card {
+                padding: 1.1rem;
+            }
+            
+            .toggle-header {
+                font-size: 0.9rem;
+                padding: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="main-header">
         <div class="container header-container">
             <!-- Logo icon - Crypto cube -->
             <a href="#hero" class="logo-icon" id="logo-icon">
@@ -977,8 +1126,8 @@
                     <a href="#about">About</a>
                     <a href="#contact">Contact</a>
                     
-                    <!-- User Profile at far right -->
-                    <a href="https://h13digital.github.io/#portfolio" class="user-profile" target="_blank">
+                    <!-- User Profile at far right - CHANGED: Removed target="_blank" -->
+                    <button class="user-profile" id="user-profile-btn">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>
                         </div>
@@ -986,7 +1135,7 @@
                             <span class="user-name">HIEP NGUYEN</span>
                             <span class="user-role">Marketing Architect</span>
                         </div>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1041,7 +1190,8 @@
                     </a>
                 </div>
                 
-                <a href="https://h13digital.github.io/#portfolio" class="mobile-user-profile" target="_blank">
+                <!-- CHANGED: Removed target="_blank" from mobile user profile -->
+                <button class="mobile-user-profile" id="mobile-user-profile-btn">
                     <div class="mobile-user-avatar">
                         <i class="fas fa-user"></i>
                     </div>
@@ -1049,10 +1199,10 @@
                         <span class="mobile-user-name">HIEP NGUYEN</span>
                         <span class="mobile-user-role">Marketing Architect</span>
                     </div>
-                    <i class="fas fa-external-link-alt" style="color: var(--accent-purple);"></i>
-                </a>
+                </button>
                 
-                <a href="https://h13digital.github.io/#portfolio" class="mobile-portfolio-link" target="_blank">
+                <!-- Keep portfolio link external but opens in same tab -->
+                <a href="https://h13digital.github.io/#portfolio" class="mobile-portfolio-link">
                     <i class="fas fa-external-link-alt"></i> View Full Portfolio
                 </a>
             </div>
@@ -1385,6 +1535,9 @@
         const mobileCloseBtn = document.getElementById('mobile-close-btn');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         const logoIcon = document.getElementById('logo-icon');
+        const userProfileBtn = document.getElementById('user-profile-btn');
+        const mobileUserProfileBtn = document.getElementById('mobile-user-profile-btn');
+        const mainHeader = document.getElementById('main-header');
         
         // Toggle mobile menu
         hamburgerMenu.addEventListener('click', () => {
@@ -1397,6 +1550,42 @@
             mobileNavOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
         });
+        
+        // User profile buttons click handlers
+        if (userProfileBtn) {
+            userProfileBtn.addEventListener('click', () => {
+                const targetSection = document.querySelector('#about');
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    updateActiveNavLink('#about');
+                }
+            });
+        }
+        
+        if (mobileUserProfileBtn) {
+            mobileUserProfileBtn.addEventListener('click', () => {
+                const targetSection = document.querySelector('#about');
+                if (targetSection) {
+                    // Close mobile menu
+                    mobileNavOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Scroll to section
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }, 300);
+                    
+                    // Update active states
+                    updateActiveNavLink('#about');
+                }
+            });
+        }
         
         // Close mobile menu when clicking on a link
         mobileNavLinks.forEach(link => {
@@ -1489,8 +1678,33 @@
             }
         });
 
-        // Update active nav on scroll
+        // Mobile header hide/show on scroll
+        let lastScrollTop = 0;
+        const mobileBreakpoint = 992; // Same as CSS media query
+        
         window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Only apply on mobile screens
+            if (window.innerWidth < mobileBreakpoint) {
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down
+                    mainHeader.classList.add('header-hidden');
+                    mainHeader.classList.remove('header-visible');
+                } else {
+                    // Scrolling up
+                    mainHeader.classList.remove('header-hidden');
+                    mainHeader.classList.add('header-visible');
+                }
+            } else {
+                // On desktop, ensure header is always visible
+                mainHeader.classList.remove('header-hidden');
+                mainHeader.classList.add('header-visible');
+            }
+            
+            lastScrollTop = scrollTop;
+            
+            // Update active section on scroll
             let current = '';
             const sections = document.querySelectorAll('section[id]');
             const scrollPos = window.scrollY + 100;
@@ -1540,6 +1754,9 @@
             if (currentHash) {
                 updateActiveNavLink(currentHash);
             }
+            
+            // Initialize header as visible
+            mainHeader.classList.add('header-visible');
         });
         
         // Add animation for section entrance
@@ -1583,26 +1800,69 @@
                 0%, 100% { color: var(--highlight-orange); }
                 50% { color: #ffb347; }
             }
+            
+            /* Mobile optimizations */
+            @media (max-width: 992px) {
+                .card h4 {
+                    font-size: 1.1rem;
+                }
+                
+                .metric {
+                    font-size: 1.8rem;
+                }
+                
+                .metric-label {
+                    font-size: 0.85rem;
+                }
+                
+                .cta-button {
+                    margin: 0.5rem auto;
+                }
+                
+                .skills-grid {
+                    gap: 1rem;
+                }
+                
+                .skill-card {
+                    padding: 1.3rem;
+                }
+                
+                .profile-desc {
+                    font-size: 0.95rem;
+                }
+            }
+            
+            @media (max-width: 576px) {
+                .card {
+                    padding: 1.2rem;
+                }
+                
+                .cards-container {
+                    gap: 0.9rem;
+                }
+                
+                .about-section {
+                    padding: 1.3rem;
+                }
+                
+                .skill-card {
+                    padding: 1.1rem;
+                }
+                
+                .contact-item {
+                    padding: 1.2rem;
+                }
+                
+                .footer {
+                    padding: 2rem 0 1.5rem;
+                }
+                
+                .footer-content {
+                    gap: 1.5rem;
+                }
+            }
         `;
         document.head.appendChild(style);
-        
-        // Adjust navigation layout on window resize
-        function adjustNavLayout() {
-            const navLeft = document.querySelector('.nav-left');
-            const navRight = document.querySelector('.nav-right');
-            
-            if (window.innerWidth >= 1025) {
-                // Ensure all elements are in one line
-                document.querySelector('.main-nav').style.flexWrap = 'nowrap';
-                document.querySelector('.main-nav').style.justifyContent = 'space-between';
-            }
-        }
-        
-        // Initial adjustment
-        adjustNavLayout();
-        
-        // Adjust on resize
-        window.addEventListener('resize', adjustNavLayout);
         
         // Ensure "GTM Strategy" stays on one line
         function checkNavItems() {
