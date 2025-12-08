@@ -1550,29 +1550,34 @@
             document.body.style.overflow = 'auto';
         });
         
-        // Close mobile menu when clicking on a link
+        // Close mobile menu when clicking on a link - FIXED VERSION
         mobileNavLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    // Close mobile menu
-                    mobileNavOverlay.classList.remove('active');
-                    document.body.style.overflow = 'auto';
+            link.addEventListener('click', function(e) {
+                // Prevent default only for internal links
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
                     
-                    // Scroll to section
-                    setTimeout(() => {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }, 300);
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
                     
-                    // Update active states
-                    updateActiveNavLink(targetId);
+                    if (targetSection) {
+                        // Close mobile menu
+                        mobileNavOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        
+                        // Scroll to section
+                        setTimeout(() => {
+                            targetSection.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'start' 
+                            });
+                        }, 300);
+                        
+                        // Update active states
+                        updateActiveNavLink(targetId);
+                    }
                 }
+                // External links (like portfolio) will follow their href normally
             });
         });
         
@@ -1720,6 +1725,11 @@
             
             // Initialize header as visible
             mainHeader.classList.add('header-visible');
+            
+            // Add scroll-margin-top to all sections for better scrolling
+            document.querySelectorAll('section[id]').forEach(section => {
+                section.style.scrollMarginTop = '80px';
+            });
         });
         
         // Add animation for section entrance
