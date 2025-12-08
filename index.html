@@ -15,6 +15,8 @@
             --gray: #cbd5e1;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --accent-purple: #8a2be2;
+            --accent-green: #00ff88;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         body {
@@ -43,44 +45,82 @@
             list-style: none;
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         nav a {
             color: var(--gray);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
-            padding: 0.3rem 0;
-        }
-        nav a:hover, nav a.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
-        
-        /* Header Right - Portfolio Link */
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .portfolio-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(138, 43, 226, 0.1);
-            color: #8a2be2;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
             transition: all 0.3s;
-            border: 1px solid rgba(138, 43, 226, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
         }
-        .portfolio-link:hover {
-            background: rgba(138, 43, 226, 0.2);
+        nav a:hover, nav a.active { 
+            color: var(--primary); 
+            background-color: rgba(14, 165, 233, 0.1);
+        }
+        
+        /* Special navigation for About and Contact */
+        .nav-special {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+            color: white !important;
+            font-weight: 600 !important;
+            margin-left: 0.5rem;
+        }
+        .nav-special:hover {
+            background: linear-gradient(135deg, #7a1bd2, #00cc77) !important;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
         }
-        .portfolio-link i {
-            font-size: 16px;
+        
+        /* Header Right - Portfolio Link from index.html */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .user-profile:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: var(--gray);
         }
         
         /* Hero */
@@ -124,6 +164,7 @@
             box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
         .cta-button.secondary { background: linear-gradient(to right, var(--secondary), #0d966c); }
+        
         /* Sections */
         section {
             background-color: rgba(30, 41, 59, 0.7);
@@ -150,6 +191,7 @@
         ul, ol { padding-left: 1.5rem; margin: 1rem 0; }
         li { margin-bottom: 0.7rem; }
         .highlight { color: var(--primary); font-weight: 600; }
+        
         /* Cards & Data Display */
         .cards-container {
             display: grid;
@@ -167,6 +209,7 @@
         .card h4 { color: var(--light); margin-bottom: 1rem; font-size: 1.2rem; }
         .metric { font-size: 2.2rem; font-weight: 700; color: var(--secondary); line-height: 1; }
         .metric-label { color: var(--gray); font-size: 0.9rem; margin-top: 0.3rem; }
+        
         /* Toggleable Content */
         .toggle-header {
             background: none;
@@ -390,38 +433,6 @@
             transform: translateX(5px);
         }
         
-        .dashboard-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 40px;
-            justify-content: center;
-        }
-        
-        .dashboard-link {
-            background-color: rgba(15, 23, 42, 0.8);
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            color: var(--gray);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .dashboard-link:hover {
-            background-color: rgba(14, 165, 233, 0.1);
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .dashboard-link.active {
-            background-color: rgba(14, 165, 233, 0.2);
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-        
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
@@ -435,15 +446,18 @@
             .hero h1 { font-size: 2.2rem; }
             section { padding: 1.8rem; }
             .cards-container { grid-template-columns: 1fr; }
-            nav ul { gap: 1rem; }
+            nav ul { gap: 0.5rem; }
             .header-container {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .header-right {
+            .nav-actions {
                 margin-top: 1rem;
                 width: 100%;
                 justify-content: center;
+            }
+            .user-info {
+                display: none;
             }
             .about-content {
                 grid-template-columns: 1fr;
@@ -456,6 +470,10 @@
             }
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+            .nav-special {
+                margin-left: 0;
+                margin-top: 0.5rem;
             }
         }
         
@@ -472,7 +490,7 @@
 <body>
     <header>
         <div class="container header-container">
-            <div class="logo"><i class="fas fa-chart-network"></i> Alpha<span>Copy</span></div>
+            <div class="logo"><i class="fas fa-chart-network"></i> Crypto <span>Copy Trading</span></div>
             <nav>
                 <ul>
                     <li><a href="#executive-summary" class="active">Summary</a></li>
@@ -481,13 +499,19 @@
                     <li><a href="#execution-plan">Execution</a></li>
                     <li><a href="#metrics">KPIs</a></li>
                     <li><a href="#risk">Risk</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#about" class="nav-special">About</a></li>
+                    <li><a href="#contact" class="nav-special">Contact</a></li>
                 </ul>
             </nav>
-            <div class="header-right">
-                <a href="https://h13digital.github.io/#portfolio" class="portfolio-link" target="_blank">
-                    <i class="fas fa-user"></i> HIEP NGUYEN - Marketing Architect
+            <div class="nav-actions">
+                <a href="https://h13digital.github.io/#portfolio" class="user-profile" target="_blank">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">HIEP NGUYEN</span>
+                        <span class="user-role">Marketing Architect</span>
+                    </div>
                 </a>
             </div>
         </div>
@@ -784,7 +808,7 @@
                 <div>
                     <h4 class="footer-title">Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="#home" class="footer-link">Home</a></li>
+                        <li><a href="#hero" class="footer-link">Home</a></li>
                         <li><a href="#executive-summary" class="footer-link">Executive Summary</a></li>
                         <li><a href="#gtm-strategy" class="footer-link">GTM Strategy</a></li>
                         <li><a href="#about" class="footer-link">About Me</a></li>
@@ -802,13 +826,6 @@
                         <li><a href="#" class="footer-link">API Documentation</a></li>
                     </ul>
                 </div>
-            </div>
-            
-            <div class="dashboard-links">
-                <a href="https://h13digital.github.io/#portfolio" class="dashboard-link">Portfolio Home</a>
-                <a href="dashboard01.html" class="dashboard-link">Performance Dashboard</a>
-                <a href="dashboard02.html" class="dashboard-link">Attribution Dashboard</a>
-                <a href="dashboard03.html" class="dashboard-link">Acquisition Funnel</a>
             </div>
             
             <div class="footer-bottom">
@@ -849,13 +866,15 @@
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
-                window.scrollTo({
-                    top: targetSection.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                // Update active nav link
-                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-                this.classList.add('active');
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    // Update active nav link
+                    document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                }
             });
         });
 
@@ -889,6 +908,52 @@
             const body = 'Hello Hiep,\n\nI saw your AlphaCopy GTM Plan and would like to discuss...';
             window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
+        
+        // Highlight current section in navigation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentHash = window.location.hash;
+            if (currentHash) {
+                const targetLink = document.querySelector(`nav a[href="${currentHash}"]`);
+                if (targetLink) {
+                    document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                    targetLink.classList.add('active');
+                }
+            }
+        });
+        
+        // Add animation for section entrance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Add CSS for section animation
+        const style = document.createElement('style');
+        style.textContent = `
+            section {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease, transform 0.6s ease;
+            }
+            section.section-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
