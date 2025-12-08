@@ -55,6 +55,7 @@
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
+            z-index: 101;
         }
         
         .logo-icon:hover {
@@ -175,6 +176,202 @@
         .user-role {
             font-size: 12px;
             color: var(--gray);
+        }
+        
+        /* Mobile Hamburger Menu */
+        .hamburger-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 101;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .hamburger-menu:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Mobile Navigation Overlay */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.98);
+            z-index: 99;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-nav-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .mobile-nav-container {
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .mobile-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .mobile-logo-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .mobile-logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .mobile-close-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .mobile-close-btn:hover {
+            color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .mobile-nav-links a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--light);
+            text-decoration: none;
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            background-color: rgba(30, 41, 59, 0.7);
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .mobile-nav-links a i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        .mobile-nav-links a:hover, .mobile-nav-links a.active {
+            background-color: rgba(14, 165, 233, 0.15);
+            border-left-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .mobile-user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(0, 255, 136, 0.1));
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-decoration: none;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .mobile-user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .mobile-user-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .mobile-user-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+        
+        .mobile-user-role {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .mobile-portfolio-link {
+            display: inline-block;
+            margin-top: 1rem;
+            text-align: center;
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .mobile-portfolio-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
         }
         
         /* Hero */
@@ -525,7 +722,7 @@
             font-size: 14px;
         }
         
-        /* Responsive */
+        /* Responsive - Mobile First Approach */
         @media (max-width: 1200px) {
             .nav-left {
                 gap: 1rem;
@@ -550,60 +747,25 @@
             }
         }
         
-        @media (max-width: 1024px) {
-            .header-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
+        /* Tablet Breakpoint */
+        @media (max-width: 992px) {
             .main-nav {
-                margin-left: 0;
-                margin-top: 15px;
-                width: 100%;
+                display: none; /* Hide desktop nav on tablet */
             }
             
-            .nav-left, .nav-right {
-                width: 100%;
-                justify-content: center;
-                margin: 10px 0;
+            .hamburger-menu {
+                display: block; /* Show hamburger menu */
             }
             
-            .nav-right {
-                justify-content: center;
-                margin-top: 15px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .sub-sub-headline {
-                font-size: 1rem;
-                padding: 0.5rem 1.2rem;
-            }
-            section { padding: 1.8rem; }
-            .cards-container { grid-template-columns: 1fr; }
-            
-            .nav-left {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.8rem;
+            .header-container {
+                justify-content: space-between;
             }
             
-            .nav-right {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1rem;
+            .logo-icon {
+                margin-right: auto;
             }
             
-            .nav-left a {
-                font-size: 0.85rem;
-                padding: 0.4rem 0.6rem;
-            }
-            
-            .nav-right a:not(.user-profile) {
-                font-size: 0.8rem;
-            }
-            
+            /* Adjust sections for tablet */
             .about-content {
                 grid-template-columns: 1fr;
             }
@@ -613,14 +775,82 @@
             }
             
             .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Mobile Breakpoint */
+        @media (max-width: 768px) {
+            .hero h1 { 
+                font-size: 2.2rem; 
+                line-height: 1.2;
+            }
+            
+            .sub-sub-headline {
+                font-size: 1rem;
+                padding: 0.5rem 1.2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            section { 
+                padding: 1.8rem; 
+                margin: 1.5rem 0;
+            }
+            
+            .cards-container { 
+                grid-template-columns: 1fr; 
+                gap: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .contact-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
             .footer-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                margin: 0.3rem;
+            }
+            
+            .about-section {
+                padding: 1.5rem;
+            }
+            
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+            
+            .profile-name {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .metric {
+                font-size: 1.8rem;
             }
         }
         
+        /* Small Mobile */
         @media (max-width: 576px) {
             .logo-icon {
                 width: 35px;
@@ -628,8 +858,12 @@
                 font-size: 18px;
             }
             
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .sub-sub-headline {
@@ -637,27 +871,52 @@
                 padding: 0.4rem 1rem;
             }
             
-            .nav-left, .nav-right {
-                gap: 0.5rem;
+            .tagline {
+                font-size: 1rem;
             }
             
-            .nav-left a {
+            section {
+                padding: 1.5rem;
+            }
+            
+            .mobile-nav-container {
+                padding: 1.5rem;
+            }
+            
+            .mobile-nav-links a {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .mobile-user-profile {
+                padding: 1rem;
+            }
+            
+            .mobile-user-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .mobile-user-name {
+                font-size: 0.9rem;
+            }
+            
+            .mobile-user-role {
                 font-size: 0.8rem;
-                padding: 0.3rem 0.5rem;
             }
             
-            .nav-right a:not(.user-profile) {
-                font-size: 0.75rem;
+            .mobile-portfolio-link {
+                padding: 0.7rem;
+                font-size: 0.85rem;
             }
             
-            .user-avatar {
-                width: 30px;
-                height: 30px;
-                font-size: 12px;
+            .footer {
+                padding: 3rem 0 1.5rem;
             }
             
-            .user-profile {
-                padding: 6px 8px;
+            .footer-bottom {
+                font-size: 0.8rem;
             }
             
             .toggle-header {
@@ -666,19 +925,24 @@
             }
         }
         
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
+        /* Large Mobile */
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.6rem;
             }
-            .skills-grid {
-                grid-template-columns: 1fr;
+            
+            .sub-sub-headline {
+                font-size: 0.85rem;
             }
-        }
-        
-        /* Ensure "GTM Strategy" stays on one line */
-        @media (min-width: 1101px) {
-            .nav-left a {
-                white-space: nowrap;
+            
+            .cta-button {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-nav-links a {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -691,6 +955,12 @@
                 <i class="fas fa-cube"></i>
             </a>
             
+            <!-- Hamburger Menu Button (Mobile) -->
+            <button class="hamburger-menu" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Desktop Navigation -->
             <div class="main-nav">
                 <!-- Left Navigation - Aligned to left -->
                 <div class="nav-left">
@@ -718,6 +988,73 @@
                         </div>
                     </a>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+            <div class="mobile-nav-container">
+                <div class="mobile-nav-header">
+                    <div class="mobile-logo">
+                        <div class="mobile-logo-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="mobile-logo-text">Crypto Copy Trading</div>
+                    </div>
+                    <button class="mobile-close-btn" id="mobile-close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="mobile-nav-links">
+                    <a href="#executive-summary" class="mobile-nav-link">
+                        <span><i class="fas fa-file-alt"></i> Summary</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#market-analysis" class="mobile-nav-link">
+                        <span><i class="fas fa-bullseye"></i> Market</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#gtm-strategy" class="mobile-nav-link">
+                        <span><i class="fas fa-chess-board"></i> GTM Strategy</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#execution-plan" class="mobile-nav-link">
+                        <span><i class="fas fa-tasks"></i> Execution</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#metrics" class="mobile-nav-link">
+                        <span><i class="fas fa-chart-line"></i> KPIs</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#risk" class="mobile-nav-link">
+                        <span><i class="fas fa-shield-alt"></i> Risk</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#about" class="mobile-nav-link">
+                        <span><i class="fas fa-user"></i> About</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#contact" class="mobile-nav-link">
+                        <span><i class="fas fa-envelope"></i> Contact</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                
+                <a href="https://h13digital.github.io/#portfolio" class="mobile-user-profile" target="_blank">
+                    <div class="mobile-user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="mobile-user-info">
+                        <span class="mobile-user-name">HIEP NGUYEN</span>
+                        <span class="mobile-user-role">Marketing Architect</span>
+                    </div>
+                    <i class="fas fa-external-link-alt" style="color: var(--accent-purple);"></i>
+                </a>
+                
+                <a href="https://h13digital.github.io/#portfolio" class="mobile-portfolio-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> View Full Portfolio
+                </a>
             </div>
         </div>
     </header>
@@ -1042,6 +1379,59 @@
     </footer>
 
     <script>
+        // Mobile Navigation
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+        const mobileCloseBtn = document.getElementById('mobile-close-btn');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        const logoIcon = document.getElementById('logo-icon');
+        
+        // Toggle mobile menu
+        hamburgerMenu.addEventListener('click', () => {
+            mobileNavOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Close mobile menu
+        mobileCloseBtn.addEventListener('click', () => {
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close mobile menu when clicking on a link
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    // Close mobile menu
+                    mobileNavOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Scroll to section
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }, 300);
+                    
+                    // Update active states
+                    updateActiveNavLink(targetId);
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        mobileNavOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileNavOverlay) {
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
         // Toggle detail sections
         function toggleDetail(id) {
             const content = document.getElementById(id);
@@ -1066,7 +1456,7 @@
             });
         }
 
-        // Smooth scrolling for navigation
+        // Smooth scrolling for desktop navigation
         document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1079,14 +1469,13 @@
                     });
                     
                     // Update active nav link
-                    document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(link => link.classList.remove('active'));
-                    this.classList.add('active');
+                    updateActiveNavLink(targetId);
                 }
             });
         });
         
         // Logo icon click handler
-        document.getElementById('logo-icon').addEventListener('click', function(e) {
+        logoIcon.addEventListener('click', function(e) {
             e.preventDefault();
             const heroSection = document.querySelector('#hero');
             if (heroSection) {
@@ -1094,6 +1483,9 @@
                     top: heroSection.offsetTop - 80,
                     behavior: 'smooth'
                 });
+                
+                // Update active states
+                updateActiveNavLink('#hero');
             }
         });
 
@@ -1111,13 +1503,27 @@
                 }
             });
 
+            updateActiveNavLink(`#${current}`);
+        });
+        
+        // Function to update active navigation links
+        function updateActiveNavLink(targetId) {
+            // Update desktop nav links
             document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
+                if (link.getAttribute('href') === targetId) {
                     link.classList.add('active');
                 }
             });
-        });
+            
+            // Update mobile nav links
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === targetId) {
+                    link.classList.add('active');
+                }
+            });
+        }
         
         // Contact form simulation
         document.querySelector('.cta-button[href^="mailto"]').addEventListener('click', function(e) {
@@ -1132,11 +1538,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const currentHash = window.location.hash;
             if (currentHash) {
-                const targetLink = document.querySelector(`.nav-left a[href="${currentHash}"], .nav-right a[href="${currentHash}"]`);
-                if (targetLink) {
-                    document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(link => link.classList.remove('active'));
-                    targetLink.classList.add('active');
-                }
+                updateActiveNavLink(currentHash);
             }
         });
         
@@ -1170,28 +1572,6 @@
             section.section-visible {
                 opacity: 1;
                 transform: translateY(0);
-            }
-            
-            /* Ensure navigation items are properly aligned */
-            @media (min-width: 1025px) {
-                .main-nav {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    width: 100%;
-                }
-                
-                .nav-left {
-                    justify-content: flex-start;
-                }
-                
-                .nav-right {
-                    justify-content: flex-end;
-                }
-                
-                .user-profile {
-                    margin-left: 0.5rem;
-                }
             }
             
             /* Orange highlight effect for toggle buttons */
