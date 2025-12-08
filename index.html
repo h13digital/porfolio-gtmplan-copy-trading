@@ -208,26 +208,27 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
         
-        /* Mobile Navigation Overlay */
+        /* Mobile Navigation Overlay - FIXED */
         .mobile-nav-overlay {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(15, 23, 42, 0.98);
-            z-index: 99;
+            z-index: 999;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
         
         .mobile-nav-overlay.active {
-            display: flex;
             opacity: 1;
+            visibility: visible;
         }
         
         .mobile-nav-container {
@@ -240,6 +241,12 @@
             padding: 2rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             border: 1px solid #334155;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-nav-overlay.active .mobile-nav-container {
+            transform: translateY(0);
         }
         
         .mobile-nav-header {
@@ -453,6 +460,7 @@
             border-left: 5px solid var(--primary);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s;
+            scroll-margin-top: 80px;
         }
         section:hover { transform: translateY(-5px); }
         h2 {
@@ -790,64 +798,6 @@
             .contact-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
-            /* Better spacing for mobile */
-            section {
-                padding: 1.8rem 1.5rem;
-                margin: 1.5rem 0;
-            }
-            
-            .hero {
-                padding: 3rem 1rem;
-            }
-            
-            .cards-container {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-            
-            .card {
-                padding: 1.5rem;
-            }
-            
-            .metric {
-                font-size: 2rem;
-            }
-            
-            .toggle-header {
-                padding: 0.9rem;
-                font-size: 1rem;
-            }
-            
-            .toggle-content {
-                padding: 0 0.8rem;
-            }
-            
-            .toggle-content.active {
-                padding: 0.8rem;
-            }
-            
-            .about-section {
-                padding: 1.8rem;
-            }
-            
-            .profile-image {
-                width: 120px;
-                height: 120px;
-                font-size: 50px;
-            }
-            
-            .profile-name {
-                font-size: 1.5rem;
-            }
-            
-            .skill-card {
-                padding: 1.5rem;
-            }
-            
-            .contact-item {
-                padding: 1.5rem;
-            }
         }
         
         /* Mobile Breakpoint */
@@ -869,8 +819,8 @@
             }
             
             section { 
-                padding: 1.5rem; 
-                margin: 1.2rem 0;
+                padding: 1.8rem; 
+                margin: 1.5rem 0;
             }
             
             .cards-container { 
@@ -879,7 +829,7 @@
             }
             
             .card {
-                padding: 1.3rem;
+                padding: 1.5rem;
             }
             
             .contact-grid {
@@ -896,11 +846,6 @@
                 padding: 0.8rem 1.5rem;
                 font-size: 0.9rem;
                 margin: 0.3rem;
-                display: block;
-                width: 100%;
-                max-width: 280px;
-                margin-left: auto;
-                margin-right: auto;
             }
             
             .about-section {
@@ -908,13 +853,13 @@
             }
             
             .profile-image {
-                width: 100px;
-                height: 100px;
-                font-size: 40px;
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
             }
             
             .profile-name {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
             
             h2 {
@@ -923,19 +868,6 @@
             
             .metric {
                 font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.2rem;
-                margin: 1.5rem 0 0.7rem 0;
-            }
-            
-            ul, ol {
-                padding-left: 1.2rem;
-            }
-            
-            li {
-                margin-bottom: 0.6rem;
             }
         }
         
@@ -948,7 +880,7 @@
             }
             
             .hero {
-                padding: 2.5rem 1rem;
+                padding: 3rem 1rem;
             }
             
             .hero h1 {
@@ -962,12 +894,10 @@
             
             .tagline {
                 font-size: 1rem;
-                line-height: 1.5;
             }
             
             section {
-                padding: 1.3rem 1rem;
-                margin: 1rem 0;
+                padding: 1.5rem;
             }
             
             .mobile-nav-container {
@@ -1011,26 +941,8 @@
             }
             
             .toggle-header {
-                font-size: 0.95rem;
+                font-size: 1rem;
                 padding: 0.8rem;
-            }
-            
-            .profile-image {
-                width: 90px;
-                height: 90px;
-                font-size: 35px;
-            }
-            
-            .skill-card {
-                padding: 1.2rem;
-            }
-            
-            .skill-title {
-                font-size: 15px;
-            }
-            
-            .skill-desc {
-                font-size: 13px;
             }
         }
         
@@ -1042,57 +954,16 @@
             
             .sub-sub-headline {
                 font-size: 0.85rem;
-                padding: 0.4rem 0.9rem;
             }
             
             .cta-button {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.85rem;
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
             }
             
             .mobile-nav-links a {
                 font-size: 0.9rem;
-                padding: 0.7rem 0.9rem;
-            }
-            
-            .profile-name {
-                font-size: 1.2rem;
-            }
-            
-            .profile-title {
-                font-size: 0.9rem;
-            }
-            
-            h2 {
-                font-size: 1.3rem;
-            }
-            
-            .metric {
-                font-size: 1.6rem;
-            }
-        }
-        
-        /* Extra optimization for very small screens */
-        @media (max-width: 350px) {
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-            
-            .tagline {
-                font-size: 0.95rem;
-            }
-            
-            section {
-                padding: 1.1rem 0.9rem;
-            }
-            
-            .card {
-                padding: 1.1rem;
-            }
-            
-            .toggle-header {
-                font-size: 0.9rem;
-                padding: 0.7rem;
             }
         }
     </style>
@@ -1127,7 +998,7 @@
                     <a href="#about">About</a>
                     <a href="#contact">Contact</a>
                     
-                    <!-- User Profile at far right - CHANGED: Link đến portfolio trong cùng tab -->
+                    <!-- User Profile at far right -->
                     <a href="https://h13digital.github.io/#portfolio" class="user-profile">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>
@@ -1191,7 +1062,6 @@
                     </a>
                 </div>
                 
-                <!-- CHANGED: Link đến portfolio trong cùng tab -->
                 <a href="https://h13digital.github.io/#portfolio" class="mobile-user-profile">
                     <div class="mobile-user-avatar">
                         <i class="fas fa-user"></i>
@@ -1200,9 +1070,9 @@
                         <span class="mobile-user-name">HIEP NGUYEN</span>
                         <span class="mobile-user-role">Marketing Architect</span>
                     </div>
+                    <i class="fas fa-external-link-alt" style="color: var(--accent-purple);"></i>
                 </a>
                 
-                <!-- Keep portfolio link external but opens in same tab -->
                 <a href="https://h13digital.github.io/#portfolio" class="mobile-portfolio-link">
                     <i class="fas fa-external-link-alt"></i> View Full Portfolio
                 </a>
@@ -1530,62 +1400,143 @@
     </footer>
 
     <script>
-        // Mobile Navigation
-        const hamburgerMenu = document.getElementById('hamburger-menu');
-        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-        const mobileCloseBtn = document.getElementById('mobile-close-btn');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        const logoIcon = document.getElementById('logo-icon');
-        const mainHeader = document.getElementById('main-header');
-        
-        // Toggle mobile menu
-        hamburgerMenu.addEventListener('click', () => {
-            mobileNavOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        // Close mobile menu
-        mobileCloseBtn.addEventListener('click', () => {
-            mobileNavOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close mobile menu when clicking on a link - FIXED VERSION
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Prevent default only for internal links
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
+        // Mobile Navigation - FIXED VERSION
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+            const mobileCloseBtn = document.getElementById('mobile-close-btn');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const mainHeader = document.getElementById('main-header');
+            
+            // Toggle mobile menu - SIMPLE VERSION
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener('click', function() {
+                    mobileNavOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+            
+            // Close mobile menu
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', function() {
+                    mobileNavOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+            
+            // Close mobile menu when clicking on a link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Only for internal links
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        
                         // Close mobile menu
                         mobileNavOverlay.classList.remove('active');
                         document.body.style.overflow = 'auto';
                         
-                        // Scroll to section
-                        setTimeout(() => {
-                            targetSection.scrollIntoView({ 
-                                behavior: 'smooth', 
-                                block: 'start' 
-                            });
-                        }, 300);
+                        // Get target section
+                        const targetSection = document.querySelector(href);
+                        if (targetSection) {
+                            // Update active nav link
+                            updateActiveNavLink(href);
+                            
+                            // Scroll to section after a short delay
+                            setTimeout(() => {
+                                window.scrollTo({
+                                    top: targetSection.offsetTop - 80,
+                                    behavior: 'smooth'
+                                });
+                            }, 300);
+                        }
+                    }
+                    // External links will open normally
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            mobileNavOverlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Mobile header hide/show on scroll
+            let lastScrollTop = 0;
+            const mobileBreakpoint = 992;
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Only apply on mobile screens
+                if (window.innerWidth < mobileBreakpoint) {
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        // Scrolling down
+                        mainHeader.classList.add('header-hidden');
+                        mainHeader.classList.remove('header-visible');
+                    } else {
+                        // Scrolling up
+                        mainHeader.classList.remove('header-hidden');
+                        mainHeader.classList.add('header-visible');
+                    }
+                } else {
+                    // On desktop, ensure header is always visible
+                    mainHeader.classList.remove('header-hidden');
+                    mainHeader.classList.add('header-visible');
+                }
+                
+                lastScrollTop = scrollTop;
+                
+                // Update active section on scroll
+                updateActiveSectionOnScroll();
+            });
+            
+            // Initialize header as visible
+            mainHeader.classList.add('header-visible');
+            
+            // Highlight current section in navigation on page load
+            const currentHash = window.location.hash;
+            if (currentHash) {
+                updateActiveNavLink(currentHash);
+            }
+            
+            // Smooth scrolling for desktop navigation
+            document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
                         
-                        // Update active states
+                        // Update active nav link
                         updateActiveNavLink(targetId);
                     }
-                }
-                // External links (like portfolio) will follow their href normally
+                });
             });
-        });
-        
-        // Close mobile menu when clicking outside
-        mobileNavOverlay.addEventListener('click', (e) => {
-            if (e.target === mobileNavOverlay) {
-                mobileNavOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
+            
+            // Logo icon click handler
+            const logoIcon = document.getElementById('logo-icon');
+            if (logoIcon) {
+                logoIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const heroSection = document.querySelector('#hero');
+                    if (heroSection) {
+                        window.scrollTo({
+                            top: heroSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active states
+                        updateActiveNavLink('#hero');
+                    }
+                });
             }
         });
         
@@ -1612,81 +1563,6 @@
                 icon.classList.toggle('fa-chevron-up', !isAnyOpen);
             });
         }
-
-        // Smooth scrolling for desktop navigation
-        document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Update active nav link
-                    updateActiveNavLink(targetId);
-                }
-            });
-        });
-        
-        // Logo icon click handler
-        logoIcon.addEventListener('click', function(e) {
-            e.preventDefault();
-            const heroSection = document.querySelector('#hero');
-            if (heroSection) {
-                window.scrollTo({
-                    top: heroSection.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                // Update active states
-                updateActiveNavLink('#hero');
-            }
-        });
-
-        // Mobile header hide/show on scroll
-        let lastScrollTop = 0;
-        const mobileBreakpoint = 992; // Same as CSS media query
-        
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Only apply on mobile screens
-            if (window.innerWidth < mobileBreakpoint) {
-                if (scrollTop > lastScrollTop && scrollTop > 100) {
-                    // Scrolling down
-                    mainHeader.classList.add('header-hidden');
-                    mainHeader.classList.remove('header-visible');
-                } else {
-                    // Scrolling up
-                    mainHeader.classList.remove('header-hidden');
-                    mainHeader.classList.add('header-visible');
-                }
-            } else {
-                // On desktop, ensure header is always visible
-                mainHeader.classList.remove('header-hidden');
-                mainHeader.classList.add('header-visible');
-            }
-            
-            lastScrollTop = scrollTop;
-            
-            // Update active section on scroll
-            let current = '';
-            const sections = document.querySelectorAll('section[id]');
-            const scrollPos = window.scrollY + 100;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            updateActiveNavLink(`#${current}`);
-        });
         
         // Function to update active navigation links
         function updateActiveNavLink(targetId) {
@@ -1707,151 +1583,31 @@
             });
         }
         
+        // Function to update active section on scroll
+        function updateActiveSectionOnScroll() {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            updateActiveNavLink(`#${current}`);
+        }
+        
         // Contact form simulation
-        document.querySelector('.cta-button[href^="mailto"]').addEventListener('click', function(e) {
+        document.querySelector('.cta-button[href^="mailto"]')?.addEventListener('click', function(e) {
             e.preventDefault();
             const email = 'hiep@example.com';
             const subject = 'Interest in AlphaCopy GTM Plan';
             const body = 'Hello Hiep,\n\nI saw your AlphaCopy GTM Plan and would like to discuss...';
             window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
-        
-        // Highlight current section in navigation on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentHash = window.location.hash;
-            if (currentHash) {
-                updateActiveNavLink(currentHash);
-            }
-            
-            // Initialize header as visible
-            mainHeader.classList.add('header-visible');
-            
-            // Add scroll-margin-top to all sections for better scrolling
-            document.querySelectorAll('section[id]').forEach(section => {
-                section.style.scrollMarginTop = '80px';
-            });
-        });
-        
-        // Add animation for section entrance
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('section-visible');
-                }
-            });
-        }, observerOptions);
-        
-        // Observe all sections
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        // Add CSS for section animation
-        const style = document.createElement('style');
-        style.textContent = `
-            section {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.6s ease, transform 0.6s ease;
-            }
-            section.section-visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            
-            /* Orange highlight effect for toggle buttons */
-            .toggle-header {
-                animation: subtlePulse 3s infinite;
-            }
-            
-            @keyframes subtlePulse {
-                0%, 100% { color: var(--highlight-orange); }
-                50% { color: #ffb347; }
-            }
-            
-            /* Mobile optimizations */
-            @media (max-width: 992px) {
-                .card h4 {
-                    font-size: 1.1rem;
-                }
-                
-                .metric {
-                    font-size: 1.8rem;
-                }
-                
-                .metric-label {
-                    font-size: 0.85rem;
-                }
-                
-                .cta-button {
-                    margin: 0.5rem auto;
-                }
-                
-                .skills-grid {
-                    gap: 1rem;
-                }
-                
-                .skill-card {
-                    padding: 1.3rem;
-                }
-                
-                .profile-desc {
-                    font-size: 0.95rem;
-                }
-            }
-            
-            @media (max-width: 576px) {
-                .card {
-                    padding: 1.2rem;
-                }
-                
-                .cards-container {
-                    gap: 0.9rem;
-                }
-                
-                .about-section {
-                    padding: 1.3rem;
-                }
-                
-                .skill-card {
-                    padding: 1.1rem;
-                }
-                
-                .contact-item {
-                    padding: 1.2rem;
-                }
-                
-                .footer {
-                    padding: 2rem 0 1.5rem;
-                }
-                
-                .footer-content {
-                    gap: 1.5rem;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Ensure "GTM Strategy" stays on one line
-        function checkNavItems() {
-            const navItems = document.querySelectorAll('.nav-left a');
-            navItems.forEach(item => {
-                if (item.offsetHeight > 40) {
-                    // Item is wrapping to two lines
-                    item.style.fontSize = '0.9rem';
-                    item.style.padding = '0.4rem 0.6rem';
-                }
-            });
-        }
-        
-        // Check nav items on load and resize
-        window.addEventListener('load', checkNavItems);
-        window.addEventListener('resize', checkNavItems);
     </script>
 </body>
 </html>
