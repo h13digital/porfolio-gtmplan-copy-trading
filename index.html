@@ -2,14 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CryptoCopyPro - Practical Go-to-Market Plan (Bootstrapped)</title>
+    
+    <!-- Meta tags tối ưu mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a365d">
+    <meta name="format-detection" content="telephone=no">
+    
     <style>
         /* ====== ROOT VARIABLES ====== */
         :root {
             --primary: #1a365d;
             --primary-light: #2d3748;
-            --secondary: #805ad5; /* Màu tím đặc trưng crypto */
+            --secondary: #805ad5;
             --accent: #9f7aea;
             --success: #38a169;
             --warning: #d69e2e;
@@ -21,11 +29,10 @@
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 8px;
             --transition: all 0.3s ease;
-            
-            /* New variables from index.html */
             --accent-purple: #8a2be2;
             --accent-green: #00ff88;
             --highlight-orange: #f59e0b;
+            --vh: 1vh; /* Biến cho viewport height */
         }
         
         /* ====== RESET & BASE STYLES ====== */
@@ -34,6 +41,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent; /* Loại bỏ highlight khi tap trên mobile */
         }
         
         body {
@@ -42,9 +50,24 @@
             line-height: 1.7;
             font-size: 16px;
             min-height: 100vh;
+            min-height: calc(var(--vh, 1vh) * 100);
+            overflow-y: auto;
+            overflow-x: hidden;
+            width: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
-        /* ====== TOP NAVIGATION - UPDATED WITH RIGHT NAV ====== */
+        /* Fix cho iOS input zoom */
+        @media screen and (max-width: 768px) {
+            input, 
+            select, 
+            textarea {
+                font-size: 16px !important; /* Ngăn iOS zoom tự động */
+            }
+        }
+        
+        /* ====== TOP NAVIGATION - OPTIMIZED FOR MOBILE ====== */
         .top-nav {
             background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
@@ -53,6 +76,9 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            /* Hỗ trợ safe area cho iPhone notch */
+            padding-top: max(0.8rem, env(safe-area-inset-top, 0.8rem));
+            padding-bottom: max(0.8rem, env(safe-area-inset-bottom, 0.8rem));
         }
         
         .top-nav-container {
@@ -61,15 +87,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
+            min-height: 44px; /* Touch target tối thiểu cho iOS */
         }
         
         .top-nav-brand {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            z-index: 1002;
         }
         
         .top-nav-logo {
@@ -81,23 +109,62 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            flex-shrink: 0; /* Ngăn logo bị co lại */
         }
         
         .crypto-gradient {
             background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
         }
         
+        /* HAMBURGER MENU FOR MOBILE - CẢI THIỆN */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 44px; /* Touch target đủ lớn */
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1002;
+            margin-right: -5px; /* Bù padding để dễ tap */
+        }
+        
+        .hamburger-menu span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+        
         .top-nav-menu {
             display: flex;
-            gap: 1.5rem;
+            gap: 0.5rem;
             align-items: center;
+            transition: var(--transition);
         }
         
         /* Added from index.html for right navigation */
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 0.5rem;
             margin-left: auto;
         }
         
@@ -112,11 +179,14 @@
             align-items: center;
             gap: 0.5rem;
             white-space: nowrap;
+            font-size: 0.9rem;
+            min-height: 44px; /* Touch target tối thiểu */
+            justify-content: center;
         }
         
         /* Style for About and Contact links - smaller, lowercase, no icon */
         .nav-right .top-nav-link {
-            font-size: 0.75em;
+            font-size: 0.8rem;
             text-transform: lowercase;
             padding: 0.5rem 0.8rem;
         }
@@ -151,6 +221,7 @@
             color: inherit;
             border: none;
             background: transparent;
+            min-height: 44px; /* Touch target tối thiểu */
         }
         
         .user-profile:hover {
@@ -167,6 +238,8 @@
             justify-content: center;
             color: white;
             font-size: 14px;
+            overflow: hidden;
+            flex-shrink: 0;
         }
         
         .user-info {
@@ -187,6 +260,177 @@
         
         .top-nav-link i {
             font-size: 1.1rem;
+        }
+        
+        /* ====== MAIN NAVIGATION - OPTIMIZED FOR MOBILE ====== */
+        .main-nav {
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 64px;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav {
+                top: 0; /* Trên mobile, main-nav sẽ ở top khi top-nav ẩn */
+            }
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 1rem;
+            position: relative;
+        }
+        
+        .nav-scroll-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            flex: 1;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Ẩn scrollbar trên Firefox */
+            -ms-overflow-style: none; /* Ẩn scrollbar trên IE/Edge */
+        }
+        
+        .nav-scroll-wrapper::-webkit-scrollbar {
+            display: none; /* Ẩn scrollbar trên WebKit browsers */
+        }
+        
+        .nav-scroll-arrow {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px; /* Touch target đủ lớn */
+            min-width: 44px;
+            background: var(--light);
+            color: var(--primary);
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .nav-scroll-arrow:hover {
+            background: #edf2f7;
+        }
+        
+        .nav-scroll-arrow.left {
+            border-right: 1px solid var(--border);
+        }
+        
+        .nav-scroll-arrow.right {
+            border-left: 1px solid var(--border);
+        }
+        
+        .nav-item {
+            padding: 1rem 1.2rem;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+            flex-shrink: 0; /* Prevent items from shrinking */
+            min-height: 44px; /* Touch target tối thiểu */
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+            background: rgba(49, 130, 206, 0.05);
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background: rgba(66, 153, 225, 0.08);
+        }
+        
+        .nav-item.active::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* ====== MOBILE DROPDOWN NAVIGATION ====== */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(2px); /* Hiệu ứng blur cho iOS */
+        }
+        
+        .mobile-nav-overlay.active {
+            opacity: 1;
+        }
+        
+        .mobile-nav-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+            /* Hỗ trợ safe area cho iPhone */
+            padding-top: max(80px, env(safe-area-inset-top, 80px));
+            padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
+        }
+        
+        .mobile-nav-menu.active {
+            right: 0;
+        }
+        
+        .mobile-nav-item {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+            min-height: 44px; /* Touch target tối thiểu */
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-nav-item:hover,
+        .mobile-nav-item.active {
+            color: var(--accent);
+            background: rgba(66, 153, 225, 0.05);
+        }
+        
+        .mobile-nav-header {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
         }
         
         /* ====== MAIN CONTAINER ====== */
@@ -287,71 +531,6 @@
             margin-bottom: 0.3rem;
         }
         
-        /* ====== MAIN NAVIGATION ====== */
-        .main-nav {
-            background: var(--light);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 64px;
-            z-index: 999;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            overflow-x: auto;
-            padding: 0 1rem;
-            scrollbar-width: thin;
-        }
-        
-        .nav-container::-webkit-scrollbar {
-            height: 4px;
-        }
-        
-        .nav-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-        .nav-container::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 4px;
-        }
-        
-        .nav-item {
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            color: var(--gray);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .nav-item:hover {
-            color: var(--primary);
-            background: rgba(49, 130, 206, 0.05);
-        }
-        
-        .nav-item.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-            background: rgba(66, 153, 225, 0.08);
-        }
-        
-        .nav-item.active::after {
-            content: "";
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px 3px 0 0;
-        }
-        
         /* ====== MAIN CONTENT ====== */
         .content {
             padding: 2rem;
@@ -420,7 +599,7 @@
             background: white;
             border: 2px solid var(--secondary);
             color: var(--primary-light);
-            text-align: center; /* Canh giữa toàn bộ nội dung */
+            text-align: center;
         }
         
         #gtm-plan-info h2 {
@@ -440,8 +619,8 @@
             border-radius: var(--radius);
             padding: 1.5rem;
             margin: 1.5rem auto 0;
-            max-width: 70%; /* Giảm xuống 70% chiều rộng */
-            text-align: left; /* Giữ canh trái cho nội dung bên trong */
+            max-width: 70%;
+            text-align: left;
         }
         
         ul, ol {
@@ -454,19 +633,69 @@
             line-height: 1.6;
         }
         
-        /* ====== TABLES ====== */
-        .table-responsive {
+        /* ====== TABLES - TỐI ƯU CHO MOBILE SCROLLING ====== */
+        .table-container {
+            width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             margin: 1.5rem 0;
             border-radius: var(--radius);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
+            position: relative;
+            touch-action: pan-x; /* Quan trọng: cho phép cuộn ngang trên mobile */
+            overscroll-behavior-x: contain; /* Ngăn hiệu ứng overscroll */
+            scrollbar-width: thin; /* Firefox */
+        }
+        
+        /* Scrollbar styling for tables */
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        /* Scroll hint for mobile - CẢI THIỆN */
+        .table-scroll-hint {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: rgba(138, 43, 226, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: none;
+            z-index: 10;
+            pointer-events: none;
+            animation: pulse 2s infinite;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(-5px); }
+            100% { opacity: 0.7; transform: translateX(0); }
         }
         
         .table-full {
             width: 100%;
             border-collapse: collapse;
             min-width: 1000px;
+            table-layout: auto;
         }
         
         .table-full th {
@@ -476,14 +705,17 @@
             padding: 1rem;
             text-align: left;
             border-bottom: 2px solid var(--border);
+            white-space: nowrap;
             position: sticky;
             top: 0;
+            z-index: 5;
         }
         
         .table-full td {
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             vertical-align: top;
+            min-width: 120px;
         }
         
         .table-full tr:hover {
@@ -494,18 +726,54 @@
             background: #fafafa;
         }
         
-        .col-activity { width: 18%; }
-        .col-purpose { width: 12%; }
-        .col-why { width: 15%; }
-        .col-achieve { width: 12%; }
-        .col-how { width: 15%; }
-        .col-cost { width: 8%; }
-        .col-kpi { width: 10%; }
-        .col-risk { width: 10%; }
+        /* Column widths */
+        .col-activity { width: 18%; min-width: 180px; }
+        .col-purpose { width: 12%; min-width: 120px; }
+        .col-why { width: 15%; min-width: 150px; }
+        .col-achieve { width: 12%; min-width: 120px; }
+        .col-how { width: 15%; min-width: 150px; }
+        .col-cost { width: 8%; min-width: 80px; }
+        .col-kpi { width: 10%; min-width: 100px; }
+        .col-risk { width: 10%; min-width: 100px; }
         
         .risk-low { color: var(--success); font-weight: 600; }
         .risk-medium { color: var(--warning); font-weight: 600; }
         .risk-high { color: var(--danger); font-weight: 600; }
+        
+        /* ROI table */
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .roi-table th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .roi-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .roi-table tr.scenario-conservative {
+            background: rgba(245, 245, 245, 0.8);
+        }
+        
+        .roi-table tr.scenario-expected {
+            background: rgba(230, 247, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .roi-table tr.scenario-aggressive {
+            background: rgba(246, 255, 237, 0.8);
+        }
         
         /* ====== CARDS & GRIDS ====== */
         .summary-grid {
@@ -710,74 +978,13 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         
-        /* ====== RISK MATRIX ====== */
-        .risk-matrix {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-        }
-        
-        .risk-matrix th {
-            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        .risk-matrix td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        
-        .risk-matrix tr:hover {
-            background: #f8fafc;
-        }
-        
-        /* ====== ROI TABLE ====== */
-        .roi-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-        }
-        
-        .roi-table th {
-            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        .roi-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        
-        .roi-table tr.scenario-conservative {
-            background: rgba(245, 245, 245, 0.8);
-        }
-        
-        .roi-table tr.scenario-expected {
-            background: rgba(230, 247, 255, 0.8);
-            font-weight: 600;
-        }
-        
-        .roi-table tr.scenario-aggressive {
-            background: rgba(246, 255, 237, 0.8);
-        }
-        
-        /* ====== ABOUT & CONTACT SECTIONS (from index.html) - FIXED BACKGROUND ====== */
+        /* ====== ABOUT & CONTACT SECTIONS ====== */
         .about-section {
-            background-color: white; /* Changed from dark to white */
+            background-color: white;
             border-radius: 20px;
             padding: 40px;
             margin-top: 20px;
-            border: 1px solid var(--border); /* Changed to match the theme */
+            border: 1px solid var(--border);
         }
         
         .about-content {
@@ -803,6 +1010,7 @@
             font-size: 60px;
             color: white;
             box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3);
+            overflow: hidden;
         }
         
         .profile-name {
@@ -820,7 +1028,7 @@
         }
         
         .profile-desc {
-            color: #2d3748; /* Changed to dark color for better readability */
+            color: #2d3748;
             line-height: 1.7;
         }
         
@@ -831,10 +1039,10 @@
         }
         
         .skill-card {
-            background-color: white; /* Changed from dark to white */
+            background-color: white;
             border-radius: 12px;
             padding: 20px;
-            border: 1px solid var(--border); /* Changed to match theme */
+            border: 1px solid var(--border);
             transition: all 0.3s;
             box-shadow: var(--shadow);
         }
@@ -899,9 +1107,9 @@
         .contact-item {
             text-align: center;
             padding: 20px;
-            background: white; /* Changed from dark to white */
+            background: white;
             border-radius: 12px;
-            border: 1px solid var(--border); /* Changed to match theme */
+            border: 1px solid var(--border);
             box-shadow: var(--shadow);
             transition: all 0.3s;
         }
@@ -922,11 +1130,13 @@
             color: var(--primary);
         }
         
-        /* ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) ====== */
+        /* ====== SECONDARY FOOTER ====== */
         .footer-secondary {
             padding: 60px 0 30px;
-            background-color: #1a365d; /* Updated to match commandcenter.html */
+            background-color: #1a365d;
             border-top: 1px solid #2d2d4a;
+            /* Hỗ trợ safe area cho iPhone */
+            padding-bottom: max(30px, env(safe-area-inset-bottom, 30px));
         }
         
         .footer-secondary-content {
@@ -981,7 +1191,7 @@
             font-size: 14px;
         }
         
-        /* ====== CTA BUTTON (from index.html) ====== */
+        /* ====== CTA BUTTON ====== */
         .cta-button {
             display: inline-block;
             background: linear-gradient(to right, var(--primary), var(--primary-light));
@@ -994,6 +1204,11 @@
             border: none;
             cursor: pointer;
             margin: 0.5rem;
+            min-height: 44px; /* Touch target tối thiểu */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .cta-button:hover {
@@ -1001,7 +1216,55 @@
             box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
         
-        /* ====== RESPONSIVE DESIGN ====== */
+        /* ====== SCROLL TO TOP BUTTON ====== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+            transition: var(--transition);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            /* Hỗ trợ safe area cho iPhone */
+            bottom: max(30px, env(safe-area-inset-bottom, 30px));
+            right: max(30px, env(safe-area-inset-right, 30px));
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* ====== PROGRESS BAR ====== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+        
+        /* ====== RESPONSIVE DESIGN - TỐI ƯU CHO MOBILE ====== */
+        
+        /* Tablet */
         @media (max-width: 1024px) {
             .container {
                 margin: 1rem;
@@ -1039,34 +1302,140 @@
             }
             
             #gtm-plan-info .version {
-                max-width: 85%; /* Tăng lên một chút cho tablet */
+                max-width: 85%;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.9rem;
             }
         }
         
-        @media (max-width: 768px) {
-            .top-nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+        /* Tablet và Mobile lớn (900px) */
+        @media (max-width: 900px) {
+            .hamburger-menu {
+                display: flex;
             }
             
             .top-nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 20px 20px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+                z-index: 1001;
+                /* Hỗ trợ safe area cho iPhone */
+                padding-top: max(80px, env(safe-area-inset-top, 80px));
+                padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
+            }
+            
+            .top-nav-menu.active {
+                right: 0;
+            }
+            
+            .top-nav-link {
+                color: var(--dark);
                 width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius);
+                margin-bottom: 0.5rem;
+                justify-content: flex-start;
+                min-height: 44px;
+            }
+            
+            .top-nav-link:hover,
+            .top-nav-link.active {
+                background: rgba(66, 153, 225, 0.1);
+                color: var(--accent);
             }
             
             .nav-right {
+                flex-direction: column;
+                width: 100%;
                 margin-left: 0;
-                justify-content: center;
+                gap: 0.5rem;
             }
             
-            .user-info {
-                display: none;
+            .nav-right .top-nav-link {
+                font-size: 0.9rem;
+                text-transform: none;
+            }
+            
+            .user-profile {
+                margin-left: 0;
+                width: 100%;
+                justify-content: flex-start;
+                border-top: 1px solid var(--border);
+                padding-top: 1rem;
+                margin-top: 0.5rem;
+            }
+            
+            /* Main navigation cho tablet */
+            .nav-scroll-arrow {
+                display: flex;
             }
             
             .main-nav {
-                top: 120px;
+                top: 64px;
+            }
+            
+            .meta-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Table fixes for tablet */
+            .table-container {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                width: calc(100% + 2rem);
+            }
+            
+            .table-scroll-hint {
+                display: flex;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.8rem;
+            }
+        }
+        
+        /* Mobile (768px) */
+        @media (max-width: 768px) {
+            /* CẢI THIỆN QUAN TRỌNG CHO MOBILE */
+            
+            /* Typography tối ưu cho mobile */
+            body {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            
+            p, li {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            
+            .top-nav-container {
+                padding: 0.5rem 1rem;
+            }
+            
+            .top-nav-brand {
+                font-size: 1.1rem;
+            }
+            
+            .top-nav-logo {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
             }
             
             .header {
@@ -1075,19 +1444,27 @@
             
             .header h1 {
                 font-size: 1.8rem;
+                line-height: 1.2;
             }
             
             .subtitle {
                 font-size: 1.1rem;
-            }
-            
-            .meta-info {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+                line-height: 1.3;
             }
             
             .section {
                 padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+            
+            .section h3 {
+                font-size: 1.25rem;
+                line-height: 1.3;
             }
             
             .summary-grid,
@@ -1095,6 +1472,19 @@
             .team-grid,
             .contingency-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .summary-card {
+                padding: 1.25rem;
+            }
+            
+            .summary-card .value {
+                font-size: 2rem;
+            }
+            
+            .kpi-value {
+                font-size: 1.75rem;
             }
             
             .timeline::before {
@@ -1112,6 +1502,7 @@
             
             .timeline-content {
                 margin-left: 2rem;
+                padding: 1rem;
             }
             
             .contact-grid {
@@ -1119,38 +1510,154 @@
             }
             
             #gtm-plan-info .version {
-                max-width: 95%; /* Tăng lên cho mobile */
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .top-nav-menu {
-                flex-direction: column;
-                gap: 0.5rem;
-                width: 100%;
+                max-width: 95%;
+                padding: 1.25rem;
             }
             
-            .nav-right {
-                flex-direction: column;
-                width: 100%;
+            /* About section tối ưu cho mobile */
+            .about-section {
+                padding: 1.5rem;
             }
             
-            .top-nav-link {
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+            
+            .profile-name {
+                font-size: 1.25rem;
+            }
+            
+            /* Mobile navigation cho main nav */
+            .nav-scroll-wrapper {
+                display: none;
+            }
+            
+            .nav-scroll-arrow {
+                display: none;
+            }
+            
+            .mobile-nav-btn {
+                display: block;
                 width: 100%;
-                justify-content: center;
+                padding: 1rem;
+                background: var(--light);
+                border: none;
+                border-bottom: 1px solid var(--border);
+                font-weight: 600;
+                color: var(--primary);
+                cursor: pointer;
+                text-align: center;
+                min-height: 44px;
+            }
+            
+            .mobile-nav-btn i {
+                margin-right: 0.5rem;
+            }
+            
+            .mobile-nav-overlay,
+            .mobile-nav-menu {
+                display: block;
             }
             
             .main-nav {
-                top: 160px;
+                padding: 0;
             }
             
             .nav-container {
-                justify-content: flex-start;
+                padding: 0;
             }
             
-            .nav-item {
-                padding: 0.8rem 1rem;
+            /* Table fixes for mobile - CẢI THIỆN QUAN TRỌNG */
+            .table-container {
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                width: calc(100% + 3rem);
+                touch-action: pan-x pan-y;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.8rem;
                 font-size: 0.9rem;
+            }
+            
+            .table-full .col-activity { min-width: 160px; }
+            .table-full .col-purpose { min-width: 110px; }
+            .table-full .col-why { min-width: 130px; }
+            .table-full .col-achieve { min-width: 110px; }
+            .table-full .col-how { min-width: 130px; }
+            .table-full .col-cost { min-width: 75px; }
+            .table-full .col-kpi { min-width: 95px; }
+            .table-full .col-risk { min-width: 95px; }
+            
+            .roi-table {
+                min-width: 700px;
+            }
+            
+            /* Cải thiện hiệu suất - giảm hiệu ứng hover trên mobile */
+            .summary-card:hover,
+            .team-card:hover,
+            .contingency-card:hover,
+            .contact-item:hover,
+            .skill-card:hover {
+                transform: none;
+            }
+            
+            /* Footer tối ưu cho mobile */
+            .footer-secondary {
+                padding: 40px 0 20px;
+            }
+            
+            .footer-secondary-content {
+                padding: 0 1.5rem;
+                gap: 2rem;
+            }
+            
+            /* Giảm animation để tăng hiệu suất */
+            .section {
+                animation: none;
+            }
+            
+            /* Giảm shadow để tăng hiệu suất */
+            .section,
+            .summary-card,
+            .team-card,
+            .contingency-card {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+        }
+        
+        /* Mobile nhỏ (480px) */
+        @media (max-width: 480px) {
+            .top-nav-container {
+                padding: 0.5rem;
+            }
+            
+            .top-nav-brand span {
+                display: none;
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .meta-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
             }
             
             .content {
@@ -1159,14 +1666,15 @@
             
             .section {
                 padding: 1rem;
+                margin-bottom: 1.5rem;
             }
             
             .section h2 {
-                font-size: 1.5rem;
+                font-size: 1.35rem;
             }
             
             .section h3 {
-                font-size: 1.2rem;
+                font-size: 1.15rem;
             }
             
             .timeline::before {
@@ -1190,15 +1698,171 @@
             }
             
             #gtm-plan-info .version {
-                max-width: 100%; /* Chiếm toàn bộ chiều rộng trên mobile nhỏ */
+                max-width: 100%;
                 padding: 1rem;
+            }
+            
+            .footer-secondary {
+                padding: 30px 0 15px;
+            }
+            
+            .footer-secondary-content {
+                padding: 0 1rem;
+            }
+            
+            /* Table fixes for small mobile */
+            .table-container {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                width: calc(100% + 2rem);
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+            
+            .roi-table {
+                min-width: 650px;
+            }
+        }
+        
+        /* Mobile rất nhỏ (375px) */
+        @media (max-width: 375px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .mobile-nav-menu {
+                width: 85%;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+            
+            .table-full .col-activity { min-width: 140px; }
+            .table-full .col-purpose { min-width: 100px; }
+            .table-full .col-why { min-width: 120px; }
+            .table-full .col-achieve { min-width: 100px; }
+            .table-full .col-how { min-width: 120px; }
+            .table-full .col-cost { min-width: 70px; }
+            .table-full .col-kpi { min-width: 90px; }
+            .table-full .col-risk { min-width: 90px; }
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                text-align: center;
+                margin: 0.5rem 0;
+            }
+        }
+        
+        /* Mobile cực nhỏ (320px) */
+        @media (max-width: 320px) {
+            .container {
+                margin: 0.5rem;
+                border-radius: 6px;
+            }
+            
+            .content {
+                padding: 0.75rem;
+            }
+            
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .summary-card .value {
+                font-size: 1.75rem;
+            }
+            
+            .kpi-value {
+                font-size: 1.5rem;
+            }
+            
+            .mobile-nav-menu {
+                width: 90%;
+            }
+        }
+        
+        /* ====== TỐI ƯU CHO DARK MODE TRÊN MOBILE ====== */
+        @media (prefers-color-scheme: dark) {
+            @media (max-width: 768px) {
+                body {
+                    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+                }
+                
+                .container {
+                    background: #2d3748;
+                    color: #e2e8f0;
+                }
+                
+                .section {
+                    background: #4a5568;
+                    color: #e2e8f0;
+                }
+                
+                .summary-card,
+                .team-card,
+                .contingency-card,
+                .kpi-card {
+                    background: #4a5568;
+                    color: #e2e8f0;
+                    border-color: #718096;
+                }
+                
+                .summary-card .value,
+                .kpi-value {
+                    color: #fff;
+                }
+                
+                .table-full th {
+                    background: #2d3748;
+                    color: #e2e8f0;
+                }
+                
+                .table-full td {
+                    color: #e2e8f0;
+                }
+                
+                .table-full tr:hover {
+                    background: #4a5568;
+                }
+                
+                .table-full tr:nth-child(even) {
+                    background: #3d4655;
+                }
+            }
+        }
+        
+        /* ====== ANIMATIONS ====== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (min-width: 769px) {
+            .section {
+                animation: fadeIn 0.5s ease-out;
             }
         }
         
         /* ====== PRINT STYLES ====== */
         @media print {
             .top-nav,
-            .main-nav {
+            .main-nav,
+            .mobile-nav-btn,
+            .hamburger-menu,
+            .scroll-top {
                 display: none;
             }
             
@@ -1226,86 +1890,71 @@
                 break-inside: avoid;
             }
             
-            .table-responsive {
+            .table-container {
                 overflow: visible;
                 box-shadow: none;
                 border: 1px solid #ddd;
             }
+            
+            .table-full {
+                min-width: auto !important;
+                width: 100% !important;
+            }
         }
         
-        /* ====== ANIMATIONS ====== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Đảm bảo safe area cho iOS không ảnh hưởng đến scroll */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
         }
         
-        .section {
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        /* ====== SCROLL TO TOP BUTTON ====== */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
-            transition: var(--transition);
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-        }
-        
-        .scroll-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .scroll-top:hover {
-            background: var(--secondary);
-            transform: translateY(-5px);
-        }
-        
-        /* ====== HIGHLIGHT EFFECT ====== */
-        .highlight {
-            background: linear-gradient(120deg, rgba(66, 153, 225, 0.2) 0%, rgba(66, 153, 225, 0) 100%);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            border-left: 3px solid var(--accent);
-        }
-        
-        /* ====== PROGRESS BAR ====== */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            z-index: 1001;
-            transition: width 0.3s ease;
+        /* Fix cho iOS momentum scroll */
+        .container, .content, .table-container {
+            -webkit-overflow-scrolling: touch;
         }
     </style>
+    
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- TOP NAVIGATION - UPDATED WITH ABOUT & CONTACT -->
+    <!-- MOBILE NAVIGATION OVERLAY -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    
+    <!-- MOBILE NAVIGATION MENU -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header">Navigation</div>
+        <a href="#executive-summary" class="mobile-nav-item active">Overview</a>
+        <a href="#pre-launch" class="mobile-nav-item">Pre-launch</a>
+        <a href="#launch-week" class="mobile-nav-item">Launch Week</a>
+        <a href="#post-launch" class="mobile-nav-item">Post-launch</a>
+        <a href="#financial-kpi" class="mobile-nav-item">Budget & KPIs</a>
+        <a href="#risk-management" class="mobile-nav-item">Risk Management</a>
+        <a href="#team-timeline" class="mobile-nav-item">Team & Timeline</a>
+        <a href="#success-criteria" class="mobile-nav-item">Success Criteria</a>
+        <a href="#gtm-plan-info" class="mobile-nav-item">GTM Plan Info</a>
+        <a href="#about" class="mobile-nav-item">About</a>
+        <a href="#contact" class="mobile-nav-item">Contact</a>
+    </div>
+    
+    <!-- TOP NAVIGATION - OPTIMIZED FOR MOBILE -->
     <nav class="top-nav">
         <div class="top-nav-container">
             <div class="top-nav-brand">
                 <div class="top-nav-logo crypto-gradient">CC</div>
                 <span>CryptoCopyPro</span>
             </div>
-            <div class="top-nav-menu">
+            
+            <!-- Hamburger menu for mobile -->
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="top-nav-menu" id="topNavMenu">
                 <a href="crypto-gotomarketplan.html" class="top-nav-link active">
                     <i class="fas fa-map-marked-alt"></i>
                     GTM Plan
@@ -1325,7 +1974,7 @@
                     </a>
                     <a href="https://h13digital.github.io/#portfolio" class="top-nav-link user-profile">
                         <div class="user-avatar">
-                            <i class="fas fa-user"></i>
+                            <img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                         </div>
                         <div class="user-info">
                             <span class="user-name">HIEP NGUYEN</span>
@@ -1341,7 +1990,7 @@
     <div class="progress-bar" id="progressBar"></div>
     
     <!-- SCROLL TO TOP BUTTON -->
-    <div class="scroll-top" id="scrollTop">
+    <div class="scroll-top" id="scrollTop" aria-label="Scroll to top">
         <i class="fas fa-chevron-up"></i>
     </div>
     
@@ -1371,17 +2020,33 @@
             </div>
         </header>
         
-        <!-- MAIN NAVIGATION -->
+        <!-- MAIN NAVIGATION - OPTIMIZED FOR MOBILE -->
         <nav class="main-nav">
             <div class="nav-container">
-                <a href="#executive-summary" class="nav-item active">Overview</a>
-                <a href="#pre-launch" class="nav-item">Pre-launch</a>
-                <a href="#launch-week" class="nav-item">Launch Week</a>
-                <a href="#post-launch" class="nav-item">Post-launch</a>
-                <a href="#financial-kpi" class="nav-item">Budget & KPIs</a>
-                <a href="#risk-management" class="nav-item">Risk Management</a>
-                <a href="#team-timeline" class="nav-item">Team & Timeline</a>
-                <a href="#success-criteria" class="nav-item">Success Criteria</a>
+                <!-- Mobile navigation button (visible only on small screens) -->
+                <button class="mobile-nav-btn" id="mobileNavBtn" aria-label="Open navigation menu">
+                    <i class="fas fa-bars"></i> Navigation Menu
+                </button>
+                
+                <!-- Desktop navigation with scroll arrows -->
+                <button class="nav-scroll-arrow left" id="navScrollLeft" aria-label="Scroll left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="nav-scroll-wrapper" id="navScrollWrapper">
+                    <a href="#executive-summary" class="nav-item active">Overview</a>
+                    <a href="#pre-launch" class="nav-item">Pre-launch</a>
+                    <a href="#launch-week" class="nav-item">Launch Week</a>
+                    <a href="#post-launch" class="nav-item">Post-launch</a>
+                    <a href="#financial-kpi" class="nav-item">Budget & KPIs</a>
+                    <a href="#risk-management" class="nav-item">Risk Management</a>
+                    <a href="#team-timeline" class="nav-item">Team & Timeline</a>
+                    <a href="#success-criteria" class="nav-item">Success Criteria</a>
+                </div>
+                
+                <button class="nav-scroll-arrow right" id="navScrollRight" aria-label="Scroll right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </nav>
         
@@ -1409,7 +2074,8 @@
                 </ul>
                 
                 <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <tr>
                             <th>Strengths</th>
@@ -1489,7 +2155,8 @@
                 <h3>PHASE 1: OPTIMIZED PRE-LAUNCH (6 WEEKS - $8,000)</h3>
                 
                 <h4>Week 1-2: Foundation Setup</h4>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1557,7 +2224,8 @@
                 <h3>PHASE 2: LAUNCH WEEK (WEEK 7 - $5,000)</h3>
                 
                 <h4>Launch Week Timeline</h4>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1599,7 +2267,8 @@
                 </div>
                 
                 <h4>Launch Week Budget Allocation</h4>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1678,7 +2347,8 @@
                 <h2>PART V: FINANCIAL SUMMARY & KPIS</h2>
                 
                 <h3>3-Month Budget Summary ($20,000)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1736,7 +2406,8 @@
                 </div>
                 
                 <h3>Key Performance Indicators (Crypto Platform)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -1781,7 +2452,8 @@
                 </div>
                 
                 <h3>Revenue Projection (Performance Fee Model)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -1937,7 +2609,8 @@
                 </div>
                 
                 <h3>Immediate Next Steps (Next 7 Days)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1983,7 +2656,7 @@
                 </div>
             </section>
             
-            <!-- ====== GTM PLAN INFO SECTION (MOVED BEFORE ABOUT) ====== -->
+            <!-- ====== GTM PLAN INFO SECTION ====== -->
             <section id="gtm-plan-info" class="section">
                 <h2><i class="fas fa-cube"></i> CryptoCopyPro - Practical Go-to-Market Plan</h2>
                 <p style="text-align: center;">Social copy trading platform for Binance/Bybit ecosystems with $20,000 bootstrap budget</p>
@@ -2002,7 +2675,7 @@
                 </div>
             </section>
             
-            <!-- ====== ABOUT SECTION (from index.html) ====== -->
+            <!-- ====== ABOUT SECTION ====== -->
             <section id="about" class="section">
                 <h2><i class="fas fa-user"></i> About the Dashboard Architect</h2>
                 <p>Combining data science, marketing strategy, and Web3 expertise</p>
@@ -2011,7 +2684,7 @@
                     <div class="about-content">
                         <div class="about-profile">
                             <div class="profile-image">
-                                <i class="fas fa-user"></i>
+                                <img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                             </div>
                             <div class="profile-name">HIEP NGUYEN</div>
                             <div class="profile-title">Senior Performance Marketing Architect</div>
@@ -2057,7 +2730,7 @@
                 </div>
             </section>
             
-            <!-- ====== CONTACT SECTION (from index.html) ====== -->
+            <!-- ====== CONTACT SECTION ====== -->
             <section id="contact" class="section">
                 <h2><i class="fas fa-envelope"></i> Contact Information</h2>
                 <p>Get in touch for collaborations, consulting, or project inquiries</p>
@@ -2089,7 +2762,7 @@
             </section>
         </main>
         
-        <!-- ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) - UPDATED BACKGROUND ====== -->
+        <!-- ====== SECONDARY FOOTER ====== -->
         <div class="footer-secondary">
             <div class="footer-secondary-content">
                 <div>
@@ -2141,6 +2814,312 @@
     </div>
     
     <script>
+        // ====== CẢI THIỆN HIỆU SUẤT CHO MOBILE ======
+        
+        // 1. Set viewport height variable (fix cho mobile browsers)
+        function setViewportHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        // Set initially và khi resize
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+        window.addEventListener('orientationchange', setViewportHeight);
+        
+        // 2. Prevent double-tap zoom trên mobile
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+        
+        // 3. Ngăn pull-to-refresh trên iOS - CHỈ áp dụng khi ở đầu trang
+        let startY = 0;
+        document.body.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        document.body.addEventListener('touchmove', function(e) {
+            // Chỉ ngăn pull-to-refresh khi đang ở đầu trang và kéo xuống
+            if (window.scrollY === 0 && e.touches.length === 1) {
+                const currentY = e.touches[0].clientY;
+                if (currentY > startY) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+        
+        // ====== MOBILE NAVIGATION FUNCTIONALITY ======
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const topNavMenu = document.getElementById('topNavMenu');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+        const mobileNavBtn = document.getElementById('mobileNavBtn');
+        
+        // Toggle top navigation menu (for tablets and mobile)
+        if (hamburgerMenu) {
+            hamburgerMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                topNavMenu.classList.toggle('active');
+                document.body.style.overflow = topNavMenu.classList.contains('active') ? 'hidden' : '';
+            });
+        }
+        
+        // Toggle mobile navigation menu (for small mobile)
+        if (mobileNavBtn) {
+            mobileNavBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileNavMenu.classList.add('active');
+                mobileNavOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+        
+        // Close mobile navigation when clicking overlay
+        if (mobileNavOverlay) {
+            mobileNavOverlay.addEventListener('click', function() {
+                this.classList.remove('active');
+                mobileNavMenu.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Also close top nav if open
+                if (hamburgerMenu) {
+                    hamburgerMenu.classList.remove('active');
+                    topNavMenu.classList.remove('active');
+                }
+            });
+        }
+        
+        // Close mobile navigation when clicking a link
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                mobileNavOverlay.classList.remove('active');
+                mobileNavMenu.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Also close top nav if open
+                if (hamburgerMenu) {
+                    hamburgerMenu.classList.remove('active');
+                    topNavMenu.classList.remove('active');
+                }
+                
+                // Update active state in mobile nav
+                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Close menus when window is resized to desktop size
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 900) {
+                if (hamburgerMenu) {
+                    hamburgerMenu.classList.remove('active');
+                    topNavMenu.classList.remove('active');
+                }
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // ====== MAIN NAVIGATION SCROLL FUNCTIONALITY ======
+        const navScrollWrapper = document.getElementById('navScrollWrapper');
+        const navScrollLeft = document.getElementById('navScrollLeft');
+        const navScrollRight = document.getElementById('navScrollRight');
+        
+        if (navScrollWrapper && navScrollLeft && navScrollRight) {
+            // Show/hide scroll arrows based on scroll position
+            function updateScrollArrows() {
+                const scrollLeft = navScrollWrapper.scrollLeft;
+                const maxScroll = navScrollWrapper.scrollWidth - navScrollWrapper.clientWidth;
+                
+                navScrollLeft.style.display = scrollLeft > 10 ? 'flex' : 'none';
+                navScrollRight.style.display = scrollLeft < maxScroll - 10 ? 'flex' : 'none';
+            }
+            
+            // Scroll left
+            navScrollLeft.addEventListener('click', function() {
+                navScrollWrapper.scrollBy({
+                    left: -200,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Scroll right
+            navScrollRight.addEventListener('click', function() {
+                navScrollWrapper.scrollBy({
+                    left: 200,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Update arrows on scroll
+            navScrollWrapper.addEventListener('scroll', updateScrollArrows);
+            
+            // Initial update
+            setTimeout(updateScrollArrows, 100);
+            
+            // Update arrows on window resize
+            window.addEventListener('resize', function() {
+                setTimeout(updateScrollArrows, 100);
+            });
+        }
+        
+        // ====== TABLE SCROLL FUNCTIONALITY - TỐI ƯU CHO MOBILE ======
+        function enableTableHorizontalScroll() {
+            const tableContainers = document.querySelectorAll('.table-container');
+            
+            tableContainers.forEach(container => {
+                let isDragging = false;
+                let startX, startScrollLeft;
+                let touchStartX = 0;
+                let isTouchScrolling = false;
+                
+                // Mouse events for desktop
+                container.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.pageX - container.offsetLeft;
+                    startScrollLeft = container.scrollLeft;
+                    container.style.cursor = 'grabbing';
+                    container.style.userSelect = 'none';
+                });
+                
+                container.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.pageX - container.offsetLeft;
+                    const walk = (x - startX) * 1.5;
+                    container.scrollLeft = startScrollLeft - walk;
+                });
+                
+                container.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                container.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                // Touch events for mobile - ĐÃ SỬA LỖI QUAN TRỌNG
+                container.addEventListener('touchstart', (e) => {
+                    if (e.touches.length === 1) {
+                        isTouchScrolling = true;
+                        touchStartX = e.touches[0].clientX;
+                        startScrollLeft = container.scrollLeft;
+                        // KHÔNG set scrollBehavior ở đây để cho phép scroll tự nhiên
+                    }
+                }, { passive: true });
+                
+                container.addEventListener('touchmove', (e) => {
+                    if (!isTouchScrolling || e.touches.length !== 1) return;
+                    
+                    const touchX = e.touches[0].clientX;
+                    const diffX = touchStartX - touchX;
+                    
+                    // Tính khoảng cách di chuyển
+                    const moveDistance = Math.abs(diffX);
+                    
+                    // Nếu di chuyển đủ xa theo chiều ngang
+                    if (moveDistance > 5) {
+                        // Scroll ngang
+                        container.scrollLeft = startScrollLeft + diffX;
+                        
+                        // Hide scroll hint khi người dùng bắt đầu scroll
+                        const hint = container.querySelector('.table-scroll-hint');
+                        if (hint) {
+                            hint.style.opacity = '0';
+                            setTimeout(() => {
+                                hint.style.display = 'none';
+                            }, 300);
+                        }
+                        
+                        // KHÔNG gọi preventDefault() để cho phép scroll dọc nếu cần
+                        // Chỉ set touch-action để ưu tiên scroll ngang
+                        container.style.touchAction = 'pan-x';
+                    }
+                }, { passive: true }); // Đặt passive: true để không chặn scroll
+        
+                container.addEventListener('touchend', () => {
+                    isTouchScrolling = false;
+                    // Khôi phục touch-action về mặc định
+                    container.style.touchAction = '';
+                });
+                
+                // Add cursor style for desktop
+                if (window.innerWidth > 768) {
+                    container.style.cursor = 'grab';
+                }
+            });
+        }
+        
+        // Function to check if table needs horizontal scroll
+        function checkTableScrollNeeded() {
+            const tableContainers = document.querySelectorAll('.table-container');
+            
+            tableContainers.forEach(container => {
+                const table = container.querySelector('table');
+                const hint = container.querySelector('.table-scroll-hint');
+                
+                if (table && container.clientWidth < table.scrollWidth) {
+                    container.classList.add('scrollable');
+                    if (hint && window.innerWidth <= 900) {
+                        hint.style.display = 'flex';
+                        // Auto-hide hint after 5 seconds
+                        setTimeout(() => {
+                            if (hint.style.display !== 'none') {
+                                hint.style.opacity = '0';
+                                setTimeout(() => {
+                                    hint.style.display = 'none';
+                                }, 300);
+                            }
+                        }, 5000);
+                    }
+                } else {
+                    container.classList.remove('scrollable');
+                    if (hint) {
+                        hint.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        // Hide scroll hint after user starts scrolling
+        function setupScrollHints() {
+            const tableContainers = document.querySelectorAll('.table-container');
+            
+            tableContainers.forEach(container => {
+                // Hide hint on any interaction with table
+                container.addEventListener('touchstart', function() {
+                    const hint = this.querySelector('.table-scroll-hint');
+                    if (hint) {
+                        hint.style.opacity = '0';
+                        setTimeout(() => {
+                            hint.style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                container.addEventListener('mousedown', function() {
+                    const hint = this.querySelector('.table-scroll-hint');
+                    if (hint) {
+                        hint.style.opacity = '0';
+                        setTimeout(() => {
+                            hint.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        }
+        
         // ====== NAVIGATION FUNCTIONALITY ======
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
@@ -2148,6 +3127,11 @@
                 
                 // Remove active class from all nav items
                 document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Remove active class from all mobile nav items
+                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
                     nav.classList.remove('active');
                 });
                 
@@ -2160,14 +3144,21 @@
                 
                 // Scroll to target section with smooth behavior
                 if (targetSection) {
+                    const offset = window.innerWidth <= 768 ? 80 : 120;
                     window.scrollTo({
-                        top: targetSection.offsetTop - 120,
+                        top: targetSection.offsetTop - offset,
                         behavior: 'smooth'
                     });
                 }
                 
                 // Update URL hash
                 history.pushState(null, null, targetId);
+                
+                // Update corresponding mobile nav item
+                const mobileNavItem = document.querySelector(`.mobile-nav-item[href="${targetId}"]`);
+                if (mobileNavItem) {
+                    mobileNavItem.classList.add('active');
+                }
             });
         });
         
@@ -2175,7 +3166,9 @@
         window.addEventListener('scroll', function() {
             const sections = document.querySelectorAll('.section');
             const navItems = document.querySelectorAll('.nav-item');
-            const scrollPosition = window.scrollY + 150;
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            const offset = window.innerWidth <= 768 ? 100 : 150;
+            const scrollPosition = window.scrollY + offset;
             
             let currentSection = '';
             
@@ -2188,7 +3181,16 @@
                 }
             });
             
+            // Update desktop nav items
             navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Update mobile nav items
+            mobileNavItems.forEach(item => {
                 item.classList.remove('active');
                 if (item.getAttribute('href') === currentSection) {
                     item.classList.add('active');
@@ -2207,12 +3209,15 @@
             }
         });
         
-        // ====== PROGRESS BAR FUNCTIONALITY ====== */
+        // ====== PROGRESS BAR FUNCTIONALITY ======
         function updateProgressBar() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
+            const progressBar = document.getElementById("progressBar");
+            if (progressBar) {
+                progressBar.style.width = scrolled + "%";
+            }
         }
         
         // ====== SCROLL TO TOP FUNCTIONALITY ======
@@ -2222,6 +3227,44 @@
                 behavior: 'smooth'
             });
         });
+        
+        // ====== SWIPE GESTURES FOR MOBILE MENUS ======
+        function addMobileSwipeGestures() {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                // Swipe left (close menus)
+                if (diff > swipeThreshold) {
+                    const mobileNavMenu = document.getElementById('mobileNavMenu');
+                    const topNavMenu = document.getElementById('topNavMenu');
+                    
+                    if (mobileNavMenu && mobileNavMenu.classList.contains('active')) {
+                        mobileNavMenu.classList.remove('active');
+                        document.getElementById('mobileNavOverlay').classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                    
+                    if (topNavMenu && topNavMenu.classList.contains('active')) {
+                        topNavMenu.classList.remove('active');
+                        document.getElementById('hamburgerMenu').classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
+            }
+        }
         
         // ====== PRINT FUNCTIONALITY ======
         document.addEventListener('keydown', function(e) {
@@ -2235,17 +3278,87 @@
         function setCurrentDate() {
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+            const dateElement = document.getElementById('currentDate');
+            if (dateElement) {
+                dateElement.textContent = now.toLocaleDateString('en-US', options);
+            }
+        }
+        
+        // ====== LAZY LOAD IMAGES FOR MOBILE ======
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+        }
+        
+        // ====== ADD MOBILE DEVICE CLASSES ======
+        function detectMobileDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // Check for iOS
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                document.documentElement.classList.add('ios-device');
+            }
+            
+            // Check for Android
+            if (/android/i.test(userAgent)) {
+                document.documentElement.classList.add('android-device');
+            }
+            
+            // Check for mobile in general
+            if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+                document.documentElement.classList.add('mobile-device');
+            }
+        }
+        
+        // ====== KIỂM TRA VÀ ĐẢM BẢO BODY KHÔNG BỊ KHÓA SCROLL ======
+        function ensureBodyScroll() {
+            // Chỉ mở khóa nếu không có menu nào đang mở
+            const isMobileMenuOpen = mobileNavMenu && mobileNavMenu.classList.contains('active');
+            const isTopMenuOpen = topNavMenu && topNavMenu.classList.contains('active');
+            
+            if (!isMobileMenuOpen && !isTopMenuOpen) {
+                document.body.style.overflow = '';
+                document.body.style.position = 'static';
+            }
+        }
+        
+        // ====== KIỂM TRA XEM PHẦN TỬ CÓ THỂ SCROLL ĐƯỢC KHÔNG ======
+        function checkScrollableElements() {
+            const scrollableElements = document.querySelectorAll('.table-container, .nav-scroll-wrapper, .content');
+            scrollableElements.forEach(el => {
+                if (el.scrollHeight > el.clientHeight) {
+                    el.style.overflowY = 'auto';
+                }
+            });
         }
         
         // ====== INITIALIZE EVERYTHING ON LOAD ======
         document.addEventListener('DOMContentLoaded', function() {
             setCurrentDate();
+            detectMobileDevice();
             
             // Initialize first nav item as active
             const firstNavItem = document.querySelector('.nav-item');
             if (firstNavItem) {
                 firstNavItem.classList.add('active');
+            }
+            
+            // Initialize first mobile nav item as active
+            const firstMobileNavItem = document.querySelector('.mobile-nav-item');
+            if (firstMobileNavItem) {
+                firstMobileNavItem.classList.add('active');
             }
             
             // Smooth scroll for anchor links (including top-nav links)
@@ -2256,8 +3369,9 @@
                         e.preventDefault();
                         const targetElement = document.querySelector(href);
                         if (targetElement) {
+                            const offset = window.innerWidth <= 768 ? 80 : 120;
                             window.scrollTo({
-                                top: targetElement.offsetTop - 120,
+                                top: targetElement.offsetTop - offset,
                                 behavior: 'smooth'
                             });
                             
@@ -2268,9 +3382,59 @@
                                     item.classList.add('active');
                                 }
                             });
+                            
+                            // Update active mobile nav items
+                            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                                item.classList.remove('active');
+                                if (item.getAttribute('href') === href) {
+                                    item.classList.add('active');
+                                }
+                            });
                         }
                     }
                 });
+            });
+            
+            // Initialize table scrolling functionality
+            enableTableHorizontalScroll();
+            checkTableScrollNeeded();
+            setupScrollHints();
+            
+            // Initialize swipe gestures
+            addMobileSwipeGestures();
+            
+            // Initialize lazy loading
+            lazyLoadImages();
+            
+            // Initialize scroll checking
+            checkScrollableElements();
+            ensureBodyScroll();
+            
+            // Re-check table scroll on window resize
+            window.addEventListener('resize', function() {
+                setTimeout(() => {
+                    checkTableScrollNeeded();
+                    if (navScrollWrapper) {
+                        updateScrollArrows();
+                    }
+                    checkScrollableElements();
+                    ensureBodyScroll();
+                }, 100);
+            });
+            
+            // Hide scroll hint on orientation change
+            window.addEventListener('orientationchange', function() {
+                setTimeout(() => {
+                    checkTableScrollNeeded();
+                    setViewportHeight();
+                    checkScrollableElements();
+                    ensureBodyScroll();
+                }, 300);
+            });
+            
+            // Đảm bảo scroll được mở khóa khi load
+            window.addEventListener('load', function() {
+                setTimeout(ensureBodyScroll, 500);
             });
         });
         
@@ -2295,6 +3459,26 @@
             const body = 'Hello Hiep,\n\nI saw your CryptoCopyPro GTM Plan and would like to discuss...';
             window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
-    </script>
-</body>
-</html>
+        
+        // ====== PERFORMANCE OPTIMIZATION: THROTTLE SCROLL EVENTS ======
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            if (!scrollTimeout) {
+                scrollTimeout = setTimeout(function() {
+                    scrollTimeout = null;
+                    // Update progress bar
+                    updateProgressBar();
+                    
+                    // Show/hide scroll to top button
+                    const scrollTopBtn = document.getElementById('scrollTop');
+                    if (window.scrollY > 500) {
+                        scrollTopBtn.classList.add('show');
+                    } else {
+                        scrollTopBtn.classList.remove('show');
+                    }
+                }, 100);
+            }
+        }, { passive: true });
+        
+        // Đảm bảo khi click ra ngoài menu thì mở khóa scroll
+        document.addEventListener('click', function(e) {
