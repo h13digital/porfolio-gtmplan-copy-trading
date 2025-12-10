@@ -42,10 +42,9 @@
             line-height: 1.7;
             font-size: 16px;
             min-height: 100vh;
-            overflow-x: hidden; /* Ngăn scroll ngang body */
         }
         
-        /* ====== TOP NAVIGATION - OPTIMIZED FOR MOBILE ====== */
+        /* ====== TOP NAVIGATION - UPDATED WITH RIGHT NAV ====== */
         .top-nav {
             background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
@@ -62,16 +61,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 1.5rem;
+            padding: 0 2rem;
         }
         
         .top-nav-brand {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            z-index: 1002;
         }
         
         .top-nav-logo {
@@ -89,53 +87,17 @@
             background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
         }
         
-        /* HAMBURGER MENU FOR MOBILE */
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 24px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1002;
-        }
-        
-        .hamburger-menu span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background: white;
-            border-radius: 2px;
-            transition: var(--transition);
-        }
-        
-        .hamburger-menu.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-        
-        .hamburger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger-menu.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
-        }
-        
         .top-nav-menu {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             align-items: center;
-            transition: var(--transition);
         }
         
         /* Added from index.html for right navigation */
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-left: auto;
         }
         
@@ -150,12 +112,11 @@
             align-items: center;
             gap: 0.5rem;
             white-space: nowrap;
-            font-size: 0.9rem;
         }
         
         /* Style for About and Contact links - smaller, lowercase, no icon */
         .nav-right .top-nav-link {
-            font-size: 0.8rem;
+            font-size: 0.75em;
             text-transform: lowercase;
             padding: 0.5rem 0.8rem;
         }
@@ -227,165 +188,6 @@
         
         .top-nav-link i {
             font-size: 1.1rem;
-        }
-        
-        /* ====== MAIN NAVIGATION - OPTIMIZED FOR MOBILE ====== */
-        .main-nav {
-            background: var(--light);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 64px;
-            z-index: 999;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            padding: 0 1rem;
-            position: relative;
-        }
-        
-        .nav-scroll-wrapper {
-            display: flex;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            flex: 1;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-        }
-        
-        .nav-scroll-wrapper::-webkit-scrollbar {
-            height: 4px;
-        }
-        
-        .nav-scroll-wrapper::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-        .nav-scroll-wrapper::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 4px;
-        }
-        
-        .nav-scroll-arrow {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            background: var(--light);
-            color: var(--primary);
-            border: none;
-            cursor: pointer;
-            z-index: 1;
-            font-size: 1.2rem;
-        }
-        
-        .nav-scroll-arrow:hover {
-            background: #edf2f7;
-        }
-        
-        .nav-scroll-arrow.left {
-            border-right: 1px solid var(--border);
-        }
-        
-        .nav-scroll-arrow.right {
-            border-left: 1px solid var(--border);
-        }
-        
-        .nav-item {
-            padding: 1rem 1.2rem;
-            text-decoration: none;
-            color: var(--gray);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
-            transition: var(--transition);
-            position: relative;
-            flex-shrink: 0; /* Prevent items from shrinking */
-        }
-        
-        .nav-item:hover {
-            color: var(--primary);
-            background: rgba(49, 130, 206, 0.05);
-        }
-        
-        .nav-item.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-            background: rgba(66, 153, 225, 0.08);
-        }
-        
-        .nav-item.active::after {
-            content: "";
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px 3px 0 0;
-        }
-        
-        /* ====== MOBILE DROPDOWN NAVIGATION ====== */
-        .mobile-nav-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .mobile-nav-overlay.active {
-            opacity: 1;
-        }
-        
-        .mobile-nav-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100%;
-            background: white;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 80px 20px 20px;
-            overflow-y: auto;
-            transition: right 0.3s ease;
-        }
-        
-        .mobile-nav-menu.active {
-            right: 0;
-        }
-        
-        .mobile-nav-item {
-            display: block;
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            color: var(--dark);
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
-        }
-        
-        .mobile-nav-item:hover,
-        .mobile-nav-item.active {
-            color: var(--accent);
-            background: rgba(66, 153, 225, 0.05);
-        }
-        
-        .mobile-nav-header {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border);
         }
         
         /* ====== MAIN CONTAINER ====== */
@@ -484,6 +286,71 @@
             font-size: 0.95rem;
             color: #cbd5e0;
             margin-bottom: 0.3rem;
+        }
+        
+        /* ====== MAIN NAVIGATION ====== */
+        .main-nav {
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 64px;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+            padding: 0 1rem;
+            scrollbar-width: thin;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .nav-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .nav-container::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        .nav-item {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+            background: rgba(49, 130, 206, 0.05);
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background: rgba(66, 153, 225, 0.08);
+        }
+        
+        .nav-item.active::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px 3px 0 0;
         }
         
         /* ====== MAIN CONTENT ====== */
@@ -588,65 +455,19 @@
             line-height: 1.6;
         }
         
-        /* ====== TABLES - FIXED FOR MOBILE SCROLLING ====== */
-        .table-container {
-            width: 100%;
+        /* ====== TABLES ====== */
+        .table-responsive {
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
             margin: 1.5rem 0;
             border-radius: var(--radius);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
-            position: relative;
-        }
-        
-        /* Scrollbar styling for tables */
-        .table-container::-webkit-scrollbar {
-            height: 8px;
-        }
-        
-        .table-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-        
-        .table-container::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 4px;
-        }
-        
-        .table-container::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
-        
-        /* Scroll hint for mobile */
-        .table-scroll-hint {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: none;
-            z-index: 10;
-            pointer-events: none;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
         }
         
         .table-full {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1000px; /* Đảm bảo table đủ rộng để cuộn */
-            table-layout: auto;
+            min-width: 1000px;
         }
         
         .table-full th {
@@ -658,14 +479,12 @@
             border-bottom: 2px solid var(--border);
             position: sticky;
             top: 0;
-            white-space: nowrap;
         }
         
         .table-full td {
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             vertical-align: top;
-            min-width: 120px;
         }
         
         .table-full tr:hover {
@@ -676,54 +495,18 @@
             background: #fafafa;
         }
         
-        /* Column widths */
-        .col-activity { width: 18%; min-width: 180px; }
-        .col-purpose { width: 12%; min-width: 120px; }
-        .col-why { width: 15%; min-width: 150px; }
-        .col-achieve { width: 12%; min-width: 120px; }
-        .col-how { width: 15%; min-width: 150px; }
-        .col-cost { width: 8%; min-width: 80px; }
-        .col-kpi { width: 10%; min-width: 100px; }
-        .col-risk { width: 10%; min-width: 100px; }
+        .col-activity { width: 18%; }
+        .col-purpose { width: 12%; }
+        .col-why { width: 15%; }
+        .col-achieve { width: 12%; }
+        .col-how { width: 15%; }
+        .col-cost { width: 8%; }
+        .col-kpi { width: 10%; }
+        .col-risk { width: 10%; }
         
         .risk-low { color: var(--success); font-weight: 600; }
         .risk-medium { color: var(--warning); font-weight: 600; }
         .risk-high { color: var(--danger); font-weight: 600; }
-        
-        /* ROI table */
-        .roi-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
-        }
-        
-        .roi-table th {
-            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        .roi-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        
-        .roi-table tr.scenario-conservative {
-            background: rgba(245, 245, 245, 0.8);
-        }
-        
-        .roi-table tr.scenario-expected {
-            background: rgba(230, 247, 255, 0.8);
-            font-weight: 600;
-        }
-        
-        .roi-table tr.scenario-aggressive {
-            background: rgba(246, 255, 237, 0.8);
-        }
         
         /* ====== CARDS & GRIDS ====== */
         .summary-grid {
@@ -926,6 +709,67 @@
         
         .timeline-content:hover {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ====== RISK MATRIX ====== */
+        .risk-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .risk-matrix th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .risk-matrix td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .risk-matrix tr:hover {
+            background: #f8fafc;
+        }
+        
+        /* ====== ROI TABLE ====== */
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .roi-table th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .roi-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .roi-table tr.scenario-conservative {
+            background: rgba(245, 245, 245, 0.8);
+        }
+        
+        .roi-table tr.scenario-expected {
+            background: rgba(230, 247, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .roi-table tr.scenario-aggressive {
+            background: rgba(246, 255, 237, 0.8);
         }
         
         /* ====== ABOUT & CONTACT SECTIONS (from index.html) - FIXED BACKGROUND ====== */
@@ -1159,7 +1003,7 @@
             box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
         
-        /* ====== RESPONSIVE DESIGN - OPTIMIZED FOR MOBILE ====== */
+        /* ====== RESPONSIVE DESIGN ====== */
         @media (max-width: 1024px) {
             .container {
                 margin: 1rem;
@@ -1201,108 +1045,30 @@
             }
         }
         
-        /* Tablet và Mobile lớn */
-        @media (max-width: 900px) {
-            .hamburger-menu {
-                display: flex;
+        @media (max-width: 768px) {
+            .top-nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
             }
             
             .top-nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 280px;
-                height: 100%;
-                background: white;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 80px 20px 20px;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                transition: right 0.3s ease;
-                z-index: 1001;
-            }
-            
-            .top-nav-menu.active {
-                right: 0;
-            }
-            
-            .top-nav-link {
-                color: var(--dark);
                 width: 100%;
-                padding: 1rem 1.5rem;
-                border-radius: var(--radius);
-                margin-bottom: 0.5rem;
-                justify-content: flex-start;
-            }
-            
-            .top-nav-link:hover,
-            .top-nav-link.active {
-                background: rgba(66, 153, 225, 0.1);
-                color: var(--accent);
+                justify-content: center;
+                flex-wrap: wrap;
             }
             
             .nav-right {
-                flex-direction: column;
-                width: 100%;
                 margin-left: 0;
-                gap: 0.5rem;
+                justify-content: center;
             }
             
-            .nav-right .top-nav-link {
-                font-size: 0.9rem;
-                text-transform: none;
-            }
-            
-            .user-profile {
-                margin-left: 0;
-                width: 100%;
-                justify-content: flex-start;
-                border-top: 1px solid var(--border);
-                padding-top: 1rem;
-                margin-top: 0.5rem;
-            }
-            
-            /* Main navigation cho tablet */
-            .nav-scroll-arrow {
-                display: flex;
+            .user-info {
+                display: none;
             }
             
             .main-nav {
-                top: 64px;
-            }
-            
-            .meta-info {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            /* Table fixes for tablet */
-            .table-container {
-                margin-left: -1rem;
-                margin-right: -1rem;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
-                width: calc(100% + 2rem);
-            }
-            
-            .table-scroll-hint {
-                display: block;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .top-nav-container {
-                padding: 0.5rem 1rem;
-            }
-            
-            .top-nav-brand {
-                font-size: 1.1rem;
-            }
-            
-            .top-nav-logo {
-                width: 28px;
-                height: 28px;
-                font-size: 0.9rem;
+                top: 120px;
             }
             
             .header {
@@ -1315,6 +1081,11 @@
             
             .subtitle {
                 font-size: 1.1rem;
+            }
+            
+            .meta-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
             .section {
@@ -1352,93 +1123,36 @@
             #gtm-plan-info .version {
                 max-width: 95%; /* Tăng lên cho mobile */
             }
-            
-            /* Mobile navigation cho main nav */
-            .nav-scroll-wrapper {
-                display: none;
-            }
-            
-            .nav-scroll-arrow {
-                display: none;
-            }
-            
-            .mobile-nav-btn {
-                display: block;
+        }
+        
+        @media (max-width: 480px) {
+            .top-nav-menu {
+                flex-direction: column;
+                gap: 0.5rem;
                 width: 100%;
-                padding: 1rem;
-                background: var(--light);
-                border: none;
-                border-bottom: 1px solid var(--border);
-                font-weight: 600;
-                color: var(--primary);
-                cursor: pointer;
-                text-align: center;
             }
             
-            .mobile-nav-btn i {
-                margin-right: 0.5rem;
+            .nav-right {
+                flex-direction: column;
+                width: 100%;
             }
             
-            .mobile-nav-overlay,
-            .mobile-nav-menu {
-                display: block;
+            .top-nav-link {
+                width: 100%;
+                justify-content: center;
             }
             
             .main-nav {
-                padding: 0;
+                top: 160px;
             }
             
             .nav-container {
-                padding: 0;
+                justify-content: flex-start;
             }
             
-            /* Table fixes for mobile */
-            .table-container {
-                margin-left: -1.5rem;
-                margin-right: -1.5rem;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
-                width: calc(100% + 3rem);
-            }
-            
-            .table-full th,
-            .table-full td {
-                padding: 0.8rem;
+            .nav-item {
+                padding: 0.8rem 1rem;
                 font-size: 0.9rem;
-            }
-            
-            .roi-table {
-                min-width: 700px;
-            }
-        }
-        
-        /* Mobile nhỏ */
-        @media (max-width: 480px) {
-            .top-nav-container {
-                padding: 0.5rem;
-            }
-            
-            .top-nav-brand span {
-                display: none; /* Ẩn tên trên mobile rất nhỏ */
-            }
-            
-            .user-info {
-                display: none;
-            }
-            
-            .header h1 {
-                font-size: 1.6rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .meta-info {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                padding: 1rem;
             }
             
             .content {
@@ -1447,7 +1161,6 @@
             
             .section {
                 padding: 1rem;
-                margin-bottom: 2rem;
             }
             
             .section h2 {
@@ -1482,40 +1195,12 @@
                 max-width: 100%; /* Chiếm toàn bộ chiều rộng trên mobile nhỏ */
                 padding: 1rem;
             }
-            
-            .footer-secondary {
-                padding: 40px 0 20px;
-            }
-            
-            .footer-secondary-content {
-                padding: 0 1rem;
-            }
-            
-            /* Table fixes for small mobile */
-            .table-container {
-                margin-left: -1rem;
-                margin-right: -1rem;
-                width: calc(100% + 2rem);
-            }
-            
-            .table-full th,
-            .table-full td {
-                padding: 0.6rem;
-                font-size: 0.85rem;
-            }
-            
-            .roi-table {
-                min-width: 650px;
-            }
         }
         
         /* ====== PRINT STYLES ====== */
         @media print {
             .top-nav,
-            .main-nav,
-            .mobile-nav-btn,
-            .hamburger-menu,
-            .scroll-top {
+            .main-nav {
                 display: none;
             }
             
@@ -1543,15 +1228,10 @@
                 break-inside: avoid;
             }
             
-            .table-container {
+            .table-responsive {
                 overflow: visible;
                 box-shadow: none;
                 border: 1px solid #ddd;
-            }
-            
-            .table-full {
-                min-width: auto !important;
-                width: 100% !important;
             }
         }
         
@@ -1620,41 +1300,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- MOBILE NAVIGATION OVERLAY -->
-    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-    
-    <!-- MOBILE NAVIGATION MENU -->
-    <div class="mobile-nav-menu" id="mobileNavMenu">
-        <div class="mobile-nav-header">Navigation</div>
-        <a href="#executive-summary" class="mobile-nav-item active">Overview</a>
-        <a href="#pre-launch" class="mobile-nav-item">Pre-launch</a>
-        <a href="#launch-week" class="mobile-nav-item">Launch Week</a>
-        <a href="#post-launch" class="mobile-nav-item">Post-launch</a>
-        <a href="#financial-kpi" class="mobile-nav-item">Budget & KPIs</a>
-        <a href="#risk-management" class="mobile-nav-item">Risk Management</a>
-        <a href="#team-timeline" class="mobile-nav-item">Team & Timeline</a>
-        <a href="#success-criteria" class="mobile-nav-item">Success Criteria</a>
-        <a href="#gtm-plan-info" class="mobile-nav-item">GTM Plan Info</a>
-        <a href="#about" class="mobile-nav-item">About</a>
-        <a href="#contact" class="mobile-nav-item">Contact</a>
-    </div>
-    
-    <!-- TOP NAVIGATION - OPTIMIZED FOR MOBILE -->
+    <!-- TOP NAVIGATION - UPDATED WITH ABOUT & CONTACT -->
     <nav class="top-nav">
         <div class="top-nav-container">
             <div class="top-nav-brand">
                 <div class="top-nav-logo crypto-gradient">CC</div>
                 <span>CryptoCopyPro</span>
             </div>
-            
-            <!-- Hamburger menu for mobile -->
-            <button class="hamburger-menu" id="hamburgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <div class="top-nav-menu" id="topNavMenu">
+            <div class="top-nav-menu">
                 <a href="crypto-gotomarketplan.html" class="top-nav-link active">
                     <i class="fas fa-map-marked-alt"></i>
                     GTM Plan
@@ -1720,33 +1373,17 @@
             </div>
         </header>
         
-        <!-- MAIN NAVIGATION - OPTIMIZED FOR MOBILE -->
+        <!-- MAIN NAVIGATION -->
         <nav class="main-nav">
             <div class="nav-container">
-                <!-- Mobile navigation button (visible only on small screens) -->
-                <button class="mobile-nav-btn" id="mobileNavBtn">
-                    <i class="fas fa-bars"></i> Navigation Menu
-                </button>
-                
-                <!-- Desktop navigation with scroll arrows -->
-                <button class="nav-scroll-arrow left" id="navScrollLeft">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                
-                <div class="nav-scroll-wrapper" id="navScrollWrapper">
-                    <a href="#executive-summary" class="nav-item active">Overview</a>
-                    <a href="#pre-launch" class="nav-item">Pre-launch</a>
-                    <a href="#launch-week" class="nav-item">Launch Week</a>
-                    <a href="#post-launch" class="nav-item">Post-launch</a>
-                    <a href="#financial-kpi" class="nav-item">Budget & KPIs</a>
-                    <a href="#risk-management" class="nav-item">Risk Management</a>
-                    <a href="#team-timeline" class="nav-item">Team & Timeline</a>
-                    <a href="#success-criteria" class="nav-item">Success Criteria</a>
-                </div>
-                
-                <button class="nav-scroll-arrow right" id="navScrollRight">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                <a href="#executive-summary" class="nav-item active">Overview</a>
+                <a href="#pre-launch" class="nav-item">Pre-launch</a>
+                <a href="#launch-week" class="nav-item">Launch Week</a>
+                <a href="#post-launch" class="nav-item">Post-launch</a>
+                <a href="#financial-kpi" class="nav-item">Budget & KPIs</a>
+                <a href="#risk-management" class="nav-item">Risk Management</a>
+                <a href="#team-timeline" class="nav-item">Team & Timeline</a>
+                <a href="#success-criteria" class="nav-item">Success Criteria</a>
             </div>
         </nav>
         
@@ -1774,8 +1411,7 @@
                 </ul>
                 
                 <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="table-full">
                         <tr>
                             <th>Strengths</th>
@@ -1855,8 +1491,7 @@
                 <h3>PHASE 1: OPTIMIZED PRE-LAUNCH (6 WEEKS - $8,000)</h3>
                 
                 <h4>Week 1-2: Foundation Setup</h4>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1924,8 +1559,7 @@
                 <h3>PHASE 2: LAUNCH WEEK (WEEK 7 - $5,000)</h3>
                 
                 <h4>Launch Week Timeline</h4>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1967,8 +1601,7 @@
                 </div>
                 
                 <h4>Launch Week Budget Allocation</h4>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2047,8 +1680,7 @@
                 <h2>PART V: FINANCIAL SUMMARY & KPIS</h2>
                 
                 <h3>3-Month Budget Summary ($20,000)</h3>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2106,8 +1738,7 @@
                 </div>
                 
                 <h3>Key Performance Indicators (Crypto Platform)</h3>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -2152,8 +1783,7 @@
                 </div>
                 
                 <h3>Revenue Projection (Performance Fee Model)</h3>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -2309,8 +1939,7 @@
                 </div>
                 
                 <h3>Immediate Next Steps (Next 7 Days)</h3>
-                <div class="table-container">
-                    <div class="table-scroll-hint">← Scroll →</div>
+                <div class="table-responsive">
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2514,194 +2143,6 @@
     </div>
     
     <script>
-        // ====== MOBILE NAVIGATION FUNCTIONALITY ======
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const topNavMenu = document.getElementById('topNavMenu');
-        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
-        const mobileNavMenu = document.getElementById('mobileNavMenu');
-        const mobileNavBtn = document.getElementById('mobileNavBtn');
-        
-        // Toggle top navigation menu (for tablets and mobile)
-        if (hamburgerMenu) {
-            hamburgerMenu.addEventListener('click', function() {
-                this.classList.toggle('active');
-                topNavMenu.classList.toggle('active');
-                document.body.style.overflow = topNavMenu.classList.contains('active') ? 'hidden' : '';
-            });
-        }
-        
-        // Toggle mobile navigation menu (for small mobile)
-        if (mobileNavBtn) {
-            mobileNavBtn.addEventListener('click', function() {
-                mobileNavMenu.classList.add('active');
-                mobileNavOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        }
-        
-        // Close mobile navigation when clicking overlay
-        if (mobileNavOverlay) {
-            mobileNavOverlay.addEventListener('click', function() {
-                this.classList.remove('active');
-                mobileNavMenu.classList.remove('active');
-                document.body.style.overflow = '';
-                
-                // Also close top nav if open
-                if (hamburgerMenu) {
-                    hamburgerMenu.classList.remove('active');
-                    topNavMenu.classList.remove('active');
-                }
-            });
-        }
-        
-        // Close mobile navigation when clicking a link
-        document.querySelectorAll('.mobile-nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                mobileNavOverlay.classList.remove('active');
-                mobileNavMenu.classList.remove('active');
-                document.body.style.overflow = '';
-                
-                // Also close top nav if open
-                if (hamburgerMenu) {
-                    hamburgerMenu.classList.remove('active');
-                    topNavMenu.classList.remove('active');
-                }
-                
-                // Update active state in mobile nav
-                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-        });
-        
-        // Close menus when window is resized to desktop size
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 900) {
-                if (hamburgerMenu) {
-                    hamburgerMenu.classList.remove('active');
-                    topNavMenu.classList.remove('active');
-                }
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // ====== MAIN NAVIGATION SCROLL FUNCTIONALITY ======
-        const navScrollWrapper = document.getElementById('navScrollWrapper');
-        const navScrollLeft = document.getElementById('navScrollLeft');
-        const navScrollRight = document.getElementById('navScrollRight');
-        
-        if (navScrollWrapper && navScrollLeft && navScrollRight) {
-            // Show/hide scroll arrows based on scroll position
-            function updateScrollArrows() {
-                const scrollLeft = navScrollWrapper.scrollLeft;
-                const maxScroll = navScrollWrapper.scrollWidth - navScrollWrapper.clientWidth;
-                
-                navScrollLeft.style.display = scrollLeft > 0 ? 'flex' : 'none';
-                navScrollRight.style.display = scrollLeft < maxScroll - 5 ? 'flex' : 'none';
-            }
-            
-            // Scroll left
-            navScrollLeft.addEventListener('click', function() {
-                navScrollWrapper.scrollBy({
-                    left: -200,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Scroll right
-            navScrollRight.addEventListener('click', function() {
-                navScrollWrapper.scrollBy({
-                    left: 200,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Update arrows on scroll
-            navScrollWrapper.addEventListener('scroll', updateScrollArrows);
-            
-            // Initial update
-            updateScrollArrows();
-        }
-        
-        // ====== TABLE SCROLL FUNCTIONALITY - FIXED ======
-        // Function to enable horizontal scrolling for tables on mobile
-        function enableTableHorizontalScroll() {
-            const tableContainers = document.querySelectorAll('.table-container');
-            
-            tableContainers.forEach(container => {
-                let isDragging = false;
-                let startX, startScrollLeft;
-                
-                // Mouse events for desktop
-                container.addEventListener('mousedown', (e) => {
-                    isDragging = true;
-                    startX = e.pageX - container.offsetLeft;
-                    startScrollLeft = container.scrollLeft;
-                    container.style.cursor = 'grabbing';
-                    container.style.userSelect = 'none';
-                });
-                
-                container.addEventListener('mousemove', (e) => {
-                    if (!isDragging) return;
-                    e.preventDefault();
-                    const x = e.pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2; // Multiply for faster scrolling
-                    container.scrollLeft = startScrollLeft - walk;
-                });
-                
-                container.addEventListener('mouseup', () => {
-                    isDragging = false;
-                    container.style.cursor = 'grab';
-                    container.style.userSelect = 'auto';
-                });
-                
-                container.addEventListener('mouseleave', () => {
-                    isDragging = false;
-                    container.style.cursor = 'grab';
-                    container.style.userSelect = 'auto';
-                });
-                
-                // Touch events for mobile
-                container.addEventListener('touchstart', (e) => {
-                    isDragging = true;
-                    startX = e.touches[0].pageX - container.offsetLeft;
-                    startScrollLeft = container.scrollLeft;
-                });
-                
-                container.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
-                    e.preventDefault();
-                    const x = e.touches[0].pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    container.scrollLeft = startScrollLeft - walk;
-                });
-                
-                container.addEventListener('touchend', () => {
-                    isDragging = false;
-                });
-                
-                // Add cursor style for desktop
-                if (window.innerWidth > 768) {
-                    container.style.cursor = 'grab';
-                }
-            });
-        }
-        
-        // Function to check if table needs horizontal scroll
-        function checkTableScrollNeeded() {
-            const tableContainers = document.querySelectorAll('.table-container');
-            
-            tableContainers.forEach(container => {
-                const table = container.querySelector('table');
-                if (table && container.clientWidth < table.scrollWidth) {
-                    container.classList.add('scrollable');
-                } else {
-                    container.classList.remove('scrollable');
-                }
-            });
-        }
-        
         // ====== NAVIGATION FUNCTIONALITY ======
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
@@ -2709,11 +2150,6 @@
                 
                 // Remove active class from all nav items
                 document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
-                
-                // Remove active class from all mobile nav items
-                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
                     nav.classList.remove('active');
                 });
                 
@@ -2734,12 +2170,6 @@
                 
                 // Update URL hash
                 history.pushState(null, null, targetId);
-                
-                // Update corresponding mobile nav item
-                const mobileNavItem = document.querySelector(`.mobile-nav-item[href="${targetId}"]`);
-                if (mobileNavItem) {
-                    mobileNavItem.classList.add('active');
-                }
             });
         });
         
@@ -2747,7 +2177,6 @@
         window.addEventListener('scroll', function() {
             const sections = document.querySelectorAll('.section');
             const navItems = document.querySelectorAll('.nav-item');
-            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
             const scrollPosition = window.scrollY + 150;
             
             let currentSection = '';
@@ -2761,16 +2190,7 @@
                 }
             });
             
-            // Update desktop nav items
             navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === currentSection) {
-                    item.classList.add('active');
-                }
-            });
-            
-            // Update mobile nav items
-            mobileNavItems.forEach(item => {
                 item.classList.remove('active');
                 if (item.getAttribute('href') === currentSection) {
                     item.classList.add('active');
@@ -2794,10 +2214,7 @@
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            const progressBar = document.getElementById("progressBar");
-            if (progressBar) {
-                progressBar.style.width = scrolled + "%";
-            }
+            document.getElementById("progressBar").style.width = scrolled + "%";
         }
         
         // ====== SCROLL TO TOP FUNCTIONALITY ======
@@ -2820,10 +2237,7 @@
         function setCurrentDate() {
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const dateElement = document.getElementById('currentDate');
-            if (dateElement) {
-                dateElement.textContent = now.toLocaleDateString('en-US', options);
-            }
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
         }
         
         // ====== INITIALIZE EVERYTHING ON LOAD ======
@@ -2834,12 +2248,6 @@
             const firstNavItem = document.querySelector('.nav-item');
             if (firstNavItem) {
                 firstNavItem.classList.add('active');
-            }
-            
-            // Initialize first mobile nav item as active
-            const firstMobileNavItem = document.querySelector('.mobile-nav-item');
-            if (firstMobileNavItem) {
-                firstMobileNavItem.classList.add('active');
             }
             
             // Smooth scroll for anchor links (including top-nav links)
@@ -2862,52 +2270,7 @@
                                     item.classList.add('active');
                                 }
                             });
-                            
-                            // Update active mobile nav items
-                            document.querySelectorAll('.mobile-nav-item').forEach(item => {
-                                item.classList.remove('active');
-                                if (item.getAttribute('href') === href) {
-                                    item.classList.add('active');
-                                }
-                            });
                         }
-                    }
-                });
-            });
-            
-            // Update scroll arrows on window resize
-            if (navScrollWrapper) {
-                window.addEventListener('resize', function() {
-                    setTimeout(() => {
-                        if (navScrollWrapper && navScrollLeft && navScrollRight) {
-                            const scrollLeft = navScrollWrapper.scrollLeft;
-                            const maxScroll = navScrollWrapper.scrollWidth - navScrollWrapper.clientWidth;
-                            
-                            navScrollLeft.style.display = scrollLeft > 0 ? 'flex' : 'none';
-                            navScrollRight.style.display = scrollLeft < maxScroll - 5 ? 'flex' : 'none';
-                        }
-                    }, 100);
-                });
-            }
-            
-            // Initialize table scrolling functionality
-            enableTableHorizontalScroll();
-            checkTableScrollNeeded();
-            
-            // Re-check table scroll on window resize
-            window.addEventListener('resize', function() {
-                setTimeout(checkTableScrollNeeded, 100);
-            });
-            
-            // Hide scroll hint after user starts scrolling
-            document.querySelectorAll('.table-container').forEach(container => {
-                container.addEventListener('scroll', function() {
-                    const hint = this.querySelector('.table-scroll-hint');
-                    if (hint) {
-                        hint.style.opacity = '0';
-                        setTimeout(() => {
-                            hint.style.display = 'none';
-                        }, 300);
                     }
                 });
             });
