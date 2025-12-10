@@ -588,19 +588,40 @@
             line-height: 1.6;
         }
         
-        /* ====== TABLES ====== */
+        /* ====== TABLES - RESTORED FROM ORIGINAL INDEX.HTML ====== */
         .table-responsive {
             overflow-x: auto;
             margin: 1.5rem 0;
             border-radius: var(--radius);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+        
+        /* Scrollbar styling for tables */
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
         }
         
         .table-full {
             width: 100%;
             border-collapse: collapse;
             min-width: 1000px;
+            table-layout: auto;
         }
         
         .table-full th {
@@ -612,12 +633,14 @@
             border-bottom: 2px solid var(--border);
             position: sticky;
             top: 0;
+            white-space: nowrap;
         }
         
         .table-full td {
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             vertical-align: top;
+            min-width: 120px;
         }
         
         .table-full tr:hover {
@@ -628,18 +651,53 @@
             background: #fafafa;
         }
         
-        .col-activity { width: 18%; }
-        .col-purpose { width: 12%; }
-        .col-why { width: 15%; }
-        .col-achieve { width: 12%; }
-        .col-how { width: 15%; }
-        .col-cost { width: 8%; }
-        .col-kpi { width: 10%; }
-        .col-risk { width: 10%; }
+        .col-activity { width: 18%; min-width: 180px; }
+        .col-purpose { width: 12%; min-width: 120px; }
+        .col-why { width: 15%; min-width: 150px; }
+        .col-achieve { width: 12%; min-width: 120px; }
+        .col-how { width: 15%; min-width: 150px; }
+        .col-cost { width: 8%; min-width: 80px; }
+        .col-kpi { width: 10%; min-width: 100px; }
+        .col-risk { width: 10%; min-width: 100px; }
         
         .risk-low { color: var(--success); font-weight: 600; }
         .risk-medium { color: var(--warning); font-weight: 600; }
         .risk-high { color: var(--danger); font-weight: 600; }
+        
+        /* ROI table */
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .roi-table th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .roi-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .roi-table tr.scenario-conservative {
+            background: rgba(245, 245, 245, 0.8);
+        }
+        
+        .roi-table tr.scenario-expected {
+            background: rgba(230, 247, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .roi-table tr.scenario-aggressive {
+            background: rgba(246, 255, 237, 0.8);
+        }
         
         /* ====== CARDS & GRIDS ====== */
         .summary-grid {
@@ -1190,6 +1248,16 @@
             .meta-info {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            /* Table fixes for tablet */
+            .table-responsive {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                width: calc(100% + 2rem);
+            }
         }
         
         @media (max-width: 768px) {
@@ -1293,6 +1361,26 @@
             .nav-container {
                 padding: 0;
             }
+            
+            /* Table fixes for mobile */
+            .table-responsive {
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                width: calc(100% + 3rem);
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .roi-table {
+                min-width: 700px;
+            }
         }
         
         /* Mobile nhỏ */
@@ -1371,6 +1459,23 @@
             
             .footer-secondary-content {
                 padding: 0 1rem;
+            }
+            
+            /* Table fixes for small mobile */
+            .table-responsive {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                width: calc(100% + 2rem);
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+            
+            .roi-table {
+                min-width: 650px;
             }
         }
         
@@ -2481,6 +2586,70 @@
             updateScrollArrows();
         }
         
+        // ====== TABLE SCROLL FUNCTIONALITY - FIXED ======
+        // Function to enable horizontal scrolling for tables on mobile
+        function enableTableHorizontalScroll() {
+            const tableContainers = document.querySelectorAll('.table-responsive');
+            
+            tableContainers.forEach(container => {
+                let isDragging = false;
+                let startX, startScrollLeft;
+                
+                // Mouse events for desktop
+                container.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.pageX - container.offsetLeft;
+                    startScrollLeft = container.scrollLeft;
+                    container.style.cursor = 'grabbing';
+                    container.style.userSelect = 'none';
+                });
+                
+                container.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2; // Multiply for faster scrolling
+                    container.scrollLeft = startScrollLeft - walk;
+                });
+                
+                container.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                container.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                // Touch events for mobile
+                container.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    startX = e.touches[0].pageX - container.offsetLeft;
+                    startScrollLeft = container.scrollLeft;
+                });
+                
+                container.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.touches[0].pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    container.scrollLeft = startScrollLeft - walk;
+                });
+                
+                container.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+                
+                // Add cursor style for desktop
+                if (window.innerWidth > 768) {
+                    container.style.cursor = 'grab';
+                }
+            });
+        }
+        
         // ====== NAVIGATION FUNCTIONALITY ======
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
@@ -2668,6 +2837,22 @@
                     }, 100);
                 });
             }
+            
+            // Initialize table scrolling functionality
+            enableTableHorizontalScroll();
+            
+            // Hide scroll hint after user starts scrolling
+            document.querySelectorAll('.table-responsive').forEach(container => {
+                container.addEventListener('scroll', function() {
+                    const hint = this.querySelector('.table-scroll-hint');
+                    if (hint) {
+                        hint.style.opacity = '0';
+                        setTimeout(() => {
+                            hint.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
         });
         
         // ====== TOP NAV ACTIVE STATE ======
