@@ -42,6 +42,7 @@
             line-height: 1.7;
             font-size: 16px;
             min-height: 100vh;
+            overflow-x: hidden; /* Ngăn scroll ngang body */
         }
         
         /* ====== TOP NAVIGATION - OPTIMIZED FOR MOBILE ====== */
@@ -587,7 +588,7 @@
             line-height: 1.6;
         }
         
-        /* ====== TABLES ====== */
+        /* ====== TABLES - FIXED FOR MOBILE SCROLLING ====== */
         .table-responsive {
             overflow-x: auto;
             margin: 1.5rem 0;
@@ -595,12 +596,53 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
             -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            position: relative;
+            width: 100%;
+            display: block;
+        }
+        
+        /* Fix cho iOS - đảm bảo table có thể cuộn */
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        /* Thêm chỉ báo scroll cho mobile */
+        .table-responsive::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 20px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05));
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .table-responsive.scrollable::after {
+            opacity: 1;
         }
         
         .table-full {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1000px;
+            min-width: 1000px; /* Đảm bảo table đủ rộng để cuộn */
+            table-layout: auto; /* Để các cột tự động điều chỉnh */
         }
         
         .table-full th {
@@ -612,12 +654,14 @@
             border-bottom: 2px solid var(--border);
             position: sticky;
             top: 0;
+            white-space: nowrap; /* Ngăn text xuống dòng trong header */
         }
         
         .table-full td {
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             vertical-align: top;
+            min-width: 120px; /* Đảm bảo cell không quá hẹp */
         }
         
         .table-full tr:hover {
@@ -628,14 +672,39 @@
             background: #fafafa;
         }
         
-        .col-activity { width: 18%; }
-        .col-purpose { width: 12%; }
-        .col-why { width: 15%; }
-        .col-achieve { width: 12%; }
-        .col-how { width: 15%; }
-        .col-cost { width: 8%; }
-        .col-kpi { width: 10%; }
-        .col-risk { width: 10%; }
+        /* Column widths for better mobile experience */
+        .col-activity { 
+            width: 18%; 
+            min-width: 180px;
+        }
+        .col-purpose { 
+            width: 12%; 
+            min-width: 120px;
+        }
+        .col-why { 
+            width: 15%; 
+            min-width: 150px;
+        }
+        .col-achieve { 
+            width: 12%; 
+            min-width: 120px;
+        }
+        .col-how { 
+            width: 15%; 
+            min-width: 150px;
+        }
+        .col-cost { 
+            width: 8%; 
+            min-width: 80px;
+        }
+        .col-kpi { 
+            width: 10%; 
+            min-width: 100px;
+        }
+        .col-risk { 
+            width: 10%; 
+            min-width: 100px;
+        }
         
         .risk-low { color: var(--success); font-weight: 600; }
         .risk-medium { color: var(--warning); font-weight: 600; }
@@ -875,6 +944,7 @@
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
+            min-width: 800px; /* Giảm min-width cho ROI table */
         }
         
         .roi-table th {
@@ -1251,6 +1321,19 @@
             .meta-info {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            /* Fix cho table trên tablet */
+            .table-responsive {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            
+            .table-full {
+                min-width: 900px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -1354,6 +1437,30 @@
             .nav-container {
                 padding: 0;
             }
+            
+            /* Fix cho table trên mobile */
+            .table-responsive {
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                width: calc(100% + 3rem);
+            }
+            
+            .table-full {
+                min-width: 1000px;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .roi-table {
+                min-width: 700px;
+            }
         }
         
         /* Mobile nhỏ */
@@ -1433,6 +1540,27 @@
             .footer-secondary-content {
                 padding: 0 1rem;
             }
+            
+            /* Fix cho table trên mobile nhỏ */
+            .table-responsive {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                width: calc(100% + 2rem);
+            }
+            
+            .table-full {
+                min-width: 1000px;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+            
+            .roi-table {
+                min-width: 650px;
+            }
         }
         
         /* ====== PRINT STYLES ====== */
@@ -1473,6 +1601,11 @@
                 overflow: visible;
                 box-shadow: none;
                 border: 1px solid #ddd;
+            }
+            
+            .table-full {
+                min-width: auto !important;
+                width: 100% !important;
             }
         }
         
@@ -1535,6 +1668,36 @@
             background: linear-gradient(90deg, var(--accent), var(--secondary));
             z-index: 1001;
             transition: width 0.3s ease;
+        }
+        
+        /* ====== TABLE SCROLL INDICATOR ====== */
+        .scroll-hint {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1;
+            display: none;
+            pointer-events: none;
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-hint {
+                display: block;
+                animation: pulse 2s infinite;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
     </style>
     <!-- Font Awesome for icons -->
@@ -1696,6 +1859,7 @@
                 
                 <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="table-full">
                         <tr>
                             <th>Strengths</th>
@@ -1776,6 +1940,7 @@
                 
                 <h4>Week 1-2: Foundation Setup</h4>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1844,6 +2009,7 @@
                 
                 <h4>Launch Week Timeline</h4>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1886,6 +2052,7 @@
                 
                 <h4>Launch Week Budget Allocation</h4>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1965,6 +2132,7 @@
                 
                 <h3>3-Month Budget Summary ($20,000)</h3>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2023,6 +2191,7 @@
                 
                 <h3>Key Performance Indicators (Crypto Platform)</h3>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -2068,6 +2237,7 @@
                 
                 <h3>Revenue Projection (Performance Fee Model)</h3>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -2224,6 +2394,7 @@
                 
                 <h3>Immediate Next Steps (Next 7 Days)</h3>
                 <div class="table-responsive">
+                    <span class="scroll-hint">← Scroll →</span>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2537,6 +2708,48 @@
             updateScrollArrows();
         }
         
+        // ====== TABLE SCROLL FUNCTIONALITY - FIXED ======
+        // Kiểm tra và thêm class scrollable cho table-responsive khi table có thể cuộn
+        function checkTableScroll() {
+            document.querySelectorAll('.table-responsive').forEach(tableContainer => {
+                const table = tableContainer.querySelector('table');
+                if (table && table.scrollWidth > tableContainer.clientWidth) {
+                    tableContainer.classList.add('scrollable');
+                } else {
+                    tableContainer.classList.remove('scrollable');
+                }
+            });
+        }
+        
+        // Kiểm tra table scroll khi trang load và khi resize
+        window.addEventListener('load', checkTableScroll);
+        window.addEventListener('resize', checkTableScroll);
+        
+        // Thêm touch event cho table scrolling trên mobile
+        document.querySelectorAll('.table-responsive').forEach(tableContainer => {
+            let startX;
+            let scrollLeft;
+            
+            tableContainer.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].pageX - this.offsetLeft;
+                scrollLeft = this.scrollLeft;
+                this.style.cursor = 'grabbing';
+            });
+            
+            tableContainer.addEventListener('touchmove', function(e) {
+                if (!startX) return;
+                e.preventDefault();
+                const x = e.touches[0].pageX - this.offsetLeft;
+                const walk = (x - startX) * 2; // Tốc độ scroll
+                this.scrollLeft = scrollLeft - walk;
+            });
+            
+            tableContainer.addEventListener('touchend', function() {
+                this.style.cursor = 'grab';
+                startX = null;
+            });
+        });
+        
         // ====== NAVIGATION FUNCTIONALITY ======
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
@@ -2724,6 +2937,9 @@
                     }, 100);
                 });
             }
+            
+            // Initial check for table scrolling
+            setTimeout(checkTableScroll, 100);
         });
         
         // ====== TOP NAV ACTIVE STATE ======
