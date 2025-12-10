@@ -589,60 +589,64 @@
         }
         
         /* ====== TABLES - FIXED FOR MOBILE SCROLLING ====== */
-        .table-responsive {
+        .table-container {
+            width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
             margin: 1.5rem 0;
             border-radius: var(--radius);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
             position: relative;
-            width: 100%;
-            display: block;
         }
         
-        /* Fix cho iOS - đảm bảo table có thể cuộn */
-        .table-responsive::-webkit-scrollbar {
+        /* Scrollbar styling for tables */
+        .table-container::-webkit-scrollbar {
             height: 8px;
         }
         
-        .table-responsive::-webkit-scrollbar-track {
+        .table-container::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 4px;
         }
         
-        .table-responsive::-webkit-scrollbar-thumb {
+        .table-container::-webkit-scrollbar-thumb {
             background: var(--secondary);
             border-radius: 4px;
         }
         
-        .table-responsive::-webkit-scrollbar-thumb:hover {
+        .table-container::-webkit-scrollbar-thumb:hover {
             background: var(--accent);
         }
         
-        /* Thêm chỉ báo scroll cho mobile */
-        .table-responsive::after {
-            content: "";
+        /* Scroll hint for mobile */
+        .table-scroll-hint {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 20px;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05));
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: none;
+            z-index: 10;
             pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
+            animation: pulse 2s infinite;
         }
         
-        .table-responsive.scrollable::after {
-            opacity: 1;
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
         
         .table-full {
             width: 100%;
             border-collapse: collapse;
             min-width: 1000px; /* Đảm bảo table đủ rộng để cuộn */
-            table-layout: auto; /* Để các cột tự động điều chỉnh */
+            table-layout: auto;
         }
         
         .table-full th {
@@ -654,14 +658,14 @@
             border-bottom: 2px solid var(--border);
             position: sticky;
             top: 0;
-            white-space: nowrap; /* Ngăn text xuống dòng trong header */
+            white-space: nowrap;
         }
         
         .table-full td {
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             vertical-align: top;
-            min-width: 120px; /* Đảm bảo cell không quá hẹp */
+            min-width: 120px;
         }
         
         .table-full tr:hover {
@@ -672,43 +676,54 @@
             background: #fafafa;
         }
         
-        /* Column widths for better mobile experience */
-        .col-activity { 
-            width: 18%; 
-            min-width: 180px;
-        }
-        .col-purpose { 
-            width: 12%; 
-            min-width: 120px;
-        }
-        .col-why { 
-            width: 15%; 
-            min-width: 150px;
-        }
-        .col-achieve { 
-            width: 12%; 
-            min-width: 120px;
-        }
-        .col-how { 
-            width: 15%; 
-            min-width: 150px;
-        }
-        .col-cost { 
-            width: 8%; 
-            min-width: 80px;
-        }
-        .col-kpi { 
-            width: 10%; 
-            min-width: 100px;
-        }
-        .col-risk { 
-            width: 10%; 
-            min-width: 100px;
-        }
+        /* Column widths */
+        .col-activity { width: 18%; min-width: 180px; }
+        .col-purpose { width: 12%; min-width: 120px; }
+        .col-why { width: 15%; min-width: 150px; }
+        .col-achieve { width: 12%; min-width: 120px; }
+        .col-how { width: 15%; min-width: 150px; }
+        .col-cost { width: 8%; min-width: 80px; }
+        .col-kpi { width: 10%; min-width: 100px; }
+        .col-risk { width: 10%; min-width: 100px; }
         
         .risk-low { color: var(--success); font-weight: 600; }
         .risk-medium { color: var(--warning); font-weight: 600; }
         .risk-high { color: var(--danger); font-weight: 600; }
+        
+        /* ROI table */
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .roi-table th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .roi-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .roi-table tr.scenario-conservative {
+            background: rgba(245, 245, 245, 0.8);
+        }
+        
+        .roi-table tr.scenario-expected {
+            background: rgba(230, 247, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .roi-table tr.scenario-aggressive {
+            background: rgba(246, 255, 237, 0.8);
+        }
         
         /* ====== CARDS & GRIDS ====== */
         .summary-grid {
@@ -911,68 +926,6 @@
         
         .timeline-content:hover {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* ====== RISK MATRIX ====== */
-        .risk-matrix {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-        }
-        
-        .risk-matrix th {
-            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        .risk-matrix td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        
-        .risk-matrix tr:hover {
-            background: #f8fafc;
-        }
-        
-        /* ====== ROI TABLE ====== */
-        .roi-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            min-width: 800px; /* Giảm min-width cho ROI table */
-        }
-        
-        .roi-table th {
-            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        .roi-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        
-        .roi-table tr.scenario-conservative {
-            background: rgba(245, 245, 245, 0.8);
-        }
-        
-        .roi-table tr.scenario-expected {
-            background: rgba(230, 247, 255, 0.8);
-            font-weight: 600;
-        }
-        
-        .roi-table tr.scenario-aggressive {
-            background: rgba(246, 255, 237, 0.8);
         }
         
         /* ====== ABOUT & CONTACT SECTIONS (from index.html) - FIXED BACKGROUND ====== */
@@ -1322,17 +1275,18 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            /* Fix cho table trên tablet */
-            .table-responsive {
+            /* Table fixes for tablet */
+            .table-container {
                 margin-left: -1rem;
                 margin-right: -1rem;
                 border-radius: 0;
                 border-left: none;
                 border-right: none;
+                width: calc(100% + 2rem);
             }
             
-            .table-full {
-                min-width: 900px;
+            .table-scroll-hint {
+                display: block;
             }
         }
         
@@ -1438,18 +1392,14 @@
                 padding: 0;
             }
             
-            /* Fix cho table trên mobile */
-            .table-responsive {
+            /* Table fixes for mobile */
+            .table-container {
                 margin-left: -1.5rem;
                 margin-right: -1.5rem;
                 border-radius: 0;
                 border-left: none;
                 border-right: none;
                 width: calc(100% + 3rem);
-            }
-            
-            .table-full {
-                min-width: 1000px;
             }
             
             .table-full th,
@@ -1541,15 +1491,11 @@
                 padding: 0 1rem;
             }
             
-            /* Fix cho table trên mobile nhỏ */
-            .table-responsive {
+            /* Table fixes for small mobile */
+            .table-container {
                 margin-left: -1rem;
                 margin-right: -1rem;
                 width: calc(100% + 2rem);
-            }
-            
-            .table-full {
-                min-width: 1000px;
             }
             
             .table-full th,
@@ -1597,7 +1543,7 @@
                 break-inside: avoid;
             }
             
-            .table-responsive {
+            .table-container {
                 overflow: visible;
                 box-shadow: none;
                 border: 1px solid #ddd;
@@ -1668,36 +1614,6 @@
             background: linear-gradient(90deg, var(--accent), var(--secondary));
             z-index: 1001;
             transition: width 0.3s ease;
-        }
-        
-        /* ====== TABLE SCROLL INDICATOR ====== */
-        .scroll-hint {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px 10px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 1;
-            display: none;
-            pointer-events: none;
-        }
-        
-        @media (max-width: 768px) {
-            .scroll-hint {
-                display: block;
-                animation: pulse 2s infinite;
-            }
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
         }
     </style>
     <!-- Font Awesome for icons -->
@@ -1858,8 +1774,8 @@
                 </ul>
                 
                 <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <tr>
                             <th>Strengths</th>
@@ -1939,8 +1855,8 @@
                 <h3>PHASE 1: OPTIMIZED PRE-LAUNCH (6 WEEKS - $8,000)</h3>
                 
                 <h4>Week 1-2: Foundation Setup</h4>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2008,8 +1924,8 @@
                 <h3>PHASE 2: LAUNCH WEEK (WEEK 7 - $5,000)</h3>
                 
                 <h4>Launch Week Timeline</h4>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2051,8 +1967,8 @@
                 </div>
                 
                 <h4>Launch Week Budget Allocation</h4>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2131,8 +2047,8 @@
                 <h2>PART V: FINANCIAL SUMMARY & KPIS</h2>
                 
                 <h3>3-Month Budget Summary ($20,000)</h3>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2190,8 +2106,8 @@
                 </div>
                 
                 <h3>Key Performance Indicators (Crypto Platform)</h3>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -2236,8 +2152,8 @@
                 </div>
                 
                 <h3>Revenue Projection (Performance Fee Model)</h3>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -2393,8 +2309,8 @@
                 </div>
                 
                 <h3>Immediate Next Steps (Next 7 Days)</h3>
-                <div class="table-responsive">
-                    <span class="scroll-hint">← Scroll →</span>
+                <div class="table-container">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2709,46 +2625,82 @@
         }
         
         // ====== TABLE SCROLL FUNCTIONALITY - FIXED ======
-        // Kiểm tra và thêm class scrollable cho table-responsive khi table có thể cuộn
-        function checkTableScroll() {
-            document.querySelectorAll('.table-responsive').forEach(tableContainer => {
-                const table = tableContainer.querySelector('table');
-                if (table && table.scrollWidth > tableContainer.clientWidth) {
-                    tableContainer.classList.add('scrollable');
-                } else {
-                    tableContainer.classList.remove('scrollable');
+        // Function to enable horizontal scrolling for tables on mobile
+        function enableTableHorizontalScroll() {
+            const tableContainers = document.querySelectorAll('.table-container');
+            
+            tableContainers.forEach(container => {
+                let isDragging = false;
+                let startX, startScrollLeft;
+                
+                // Mouse events for desktop
+                container.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.pageX - container.offsetLeft;
+                    startScrollLeft = container.scrollLeft;
+                    container.style.cursor = 'grabbing';
+                    container.style.userSelect = 'none';
+                });
+                
+                container.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2; // Multiply for faster scrolling
+                    container.scrollLeft = startScrollLeft - walk;
+                });
+                
+                container.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                container.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                // Touch events for mobile
+                container.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    startX = e.touches[0].pageX - container.offsetLeft;
+                    startScrollLeft = container.scrollLeft;
+                });
+                
+                container.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.touches[0].pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    container.scrollLeft = startScrollLeft - walk;
+                });
+                
+                container.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+                
+                // Add cursor style for desktop
+                if (window.innerWidth > 768) {
+                    container.style.cursor = 'grab';
                 }
             });
         }
         
-        // Kiểm tra table scroll khi trang load và khi resize
-        window.addEventListener('load', checkTableScroll);
-        window.addEventListener('resize', checkTableScroll);
-        
-        // Thêm touch event cho table scrolling trên mobile
-        document.querySelectorAll('.table-responsive').forEach(tableContainer => {
-            let startX;
-            let scrollLeft;
+        // Function to check if table needs horizontal scroll
+        function checkTableScrollNeeded() {
+            const tableContainers = document.querySelectorAll('.table-container');
             
-            tableContainer.addEventListener('touchstart', function(e) {
-                startX = e.touches[0].pageX - this.offsetLeft;
-                scrollLeft = this.scrollLeft;
-                this.style.cursor = 'grabbing';
+            tableContainers.forEach(container => {
+                const table = container.querySelector('table');
+                if (table && container.clientWidth < table.scrollWidth) {
+                    container.classList.add('scrollable');
+                } else {
+                    container.classList.remove('scrollable');
+                }
             });
-            
-            tableContainer.addEventListener('touchmove', function(e) {
-                if (!startX) return;
-                e.preventDefault();
-                const x = e.touches[0].pageX - this.offsetLeft;
-                const walk = (x - startX) * 2; // Tốc độ scroll
-                this.scrollLeft = scrollLeft - walk;
-            });
-            
-            tableContainer.addEventListener('touchend', function() {
-                this.style.cursor = 'grab';
-                startX = null;
-            });
-        });
+        }
         
         // ====== NAVIGATION FUNCTIONALITY ======
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -2938,8 +2890,27 @@
                 });
             }
             
-            // Initial check for table scrolling
-            setTimeout(checkTableScroll, 100);
+            // Initialize table scrolling functionality
+            enableTableHorizontalScroll();
+            checkTableScrollNeeded();
+            
+            // Re-check table scroll on window resize
+            window.addEventListener('resize', function() {
+                setTimeout(checkTableScrollNeeded, 100);
+            });
+            
+            // Hide scroll hint after user starts scrolling
+            document.querySelectorAll('.table-container').forEach(container => {
+                container.addEventListener('scroll', function() {
+                    const hint = this.querySelector('.table-scroll-hint');
+                    if (hint) {
+                        hint.style.opacity = '0';
+                        setTimeout(() => {
+                            hint.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
         });
         
         // ====== TOP NAV ACTIVE STATE ======
