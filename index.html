@@ -9,7 +9,7 @@
         :root {
             --primary: #1a365d;
             --primary-light: #2d3748;
-            --secondary: #805ad5; /* Màu tím đặc trưng crypto */
+            --secondary: #805ad5; 
             --accent: #9f7aea;
             --success: #38a169;
             --warning: #d69e2e;
@@ -21,8 +21,6 @@
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 8px;
             --transition: all 0.3s ease;
-            
-            /* New variables from index.html */
             --accent-purple: #8a2be2;
             --accent-green: #00ff88;
             --highlight-orange: #f59e0b;
@@ -42,10 +40,10 @@
             line-height: 1.7;
             font-size: 16px;
             min-height: 100vh;
-            overflow-x: hidden; /* Ngăn scroll ngang body */
+            overflow-x: hidden; 
         }
         
-        /* ====== TOP NAVIGATION - OPTIMIZED FOR MOBILE ====== */
+        /* ====== TOP NAVIGATION ====== */
         .top-nav {
             background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
@@ -89,7 +87,7 @@
             background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
         }
         
-        /* HAMBURGER MENU FOR MOBILE */
+        /* HAMBURGER MENU */
         .hamburger-menu {
             display: none;
             flex-direction: column;
@@ -131,7 +129,6 @@
             transition: var(--transition);
         }
         
-        /* Added from index.html for right navigation */
         .nav-right {
             display: flex;
             align-items: center;
@@ -153,14 +150,12 @@
             font-size: 0.9rem;
         }
         
-        /* Style for About and Contact links - smaller, lowercase, no icon */
         .nav-right .top-nav-link {
             font-size: 0.8rem;
             text-transform: lowercase;
             padding: 0.5rem 0.8rem;
         }
         
-        /* Remove icon from About and Contact links */
         .nav-right .top-nav-link i {
             display: none;
         }
@@ -175,7 +170,6 @@
             box-shadow: var(--shadow);
         }
         
-        /* User profile styles from index.html */
         .user-profile {
             display: flex;
             align-items: center;
@@ -229,7 +223,7 @@
             font-size: 1.1rem;
         }
         
-        /* ====== MAIN NAVIGATION - OPTIMIZED FOR MOBILE ====== */
+        /* ====== MAIN NAVIGATION ====== */
         .main-nav {
             background: var(--light);
             border-bottom: 1px solid var(--border);
@@ -252,7 +246,7 @@
             overflow-x: auto;
             scrollbar-width: thin;
             flex: 1;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            -webkit-overflow-scrolling: touch;
         }
         
         .nav-scroll-wrapper::-webkit-scrollbar {
@@ -302,7 +296,7 @@
             border-bottom: 3px solid transparent;
             transition: var(--transition);
             position: relative;
-            flex-shrink: 0; /* Prevent items from shrinking */
+            flex-shrink: 0;
         }
         
         .nav-item:hover {
@@ -549,12 +543,11 @@
             border-left-color: #9f7aea !important;
         }
         
-        /* ====== GTM PLAN INFO SECTION ====== */
         #gtm-plan-info {
             background: white;
             border: 2px solid var(--secondary);
             color: var(--primary-light);
-            text-align: center; /* Canh giữa toàn bộ nội dung */
+            text-align: center;
         }
         
         #gtm-plan-info h2 {
@@ -566,7 +559,6 @@
             margin-bottom: 1rem;
         }
         
-        /* Phiên bản thu gọn 70% */
         #gtm-plan-info .version {
             background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%);
             color: white;
@@ -574,8 +566,8 @@
             border-radius: var(--radius);
             padding: 1.5rem;
             margin: 1.5rem auto 0;
-            max-width: 70%; /* Giảm xuống 70% chiều rộng */
-            text-align: left; /* Giữ canh trái cho nội dung bên trong */
+            max-width: 70%;
+            text-align: left;
         }
         
         ul, ol {
@@ -588,21 +580,24 @@
             line-height: 1.6;
         }
         
-        /* ====== TABLES - FIXED FOR ALL TABLES ====== */
+        /* ====== TABLES - FIXED FOR MOBILE SCROLLING ====== */
         .table-responsive {
+            display: block;
             width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            overflow-x: auto; /* Quan trọng: Cho phép scroll ngang */
+            -webkit-overflow-scrolling: touch; /* Quan trọng: Scroll mượt trên iOS */
             margin: 1.5rem 0;
             border-radius: var(--radius);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
             position: relative;
+            background: #fff;
         }
         
-        /* Scrollbar styling for tables */
+        /* Scrollbar styling */
         .table-responsive::-webkit-scrollbar {
             height: 8px;
+            background-color: #f5f5f5;
         }
         
         .table-responsive::-webkit-scrollbar-track {
@@ -615,11 +610,7 @@
             border-radius: 4px;
         }
         
-        .table-responsive::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
-        
-        /* Scroll hint for mobile - chỉ hiển thị khi table cần scroll */
+        /* Hint animation */
         .table-scroll-hint {
             position: absolute;
             right: 10px;
@@ -642,105 +633,42 @@
             100% { opacity: 0.5; }
         }
         
-        /* Tất cả các table đều có min-width đủ lớn để scroll */
         .table-full {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1000px; /* Đảm bảo table đủ rộng để cuộn */
+            min-width: 1000px; /* Force width > screen to trigger scroll */
             table-layout: auto;
         }
         
-        /* Table trong PART II: PRE-LAUNCH PHASE */
-        .section#pre-launch .table-full {
-            min-width: 1200px; /* Table này có nhiều cột hơn */
-        }
-        
-        /* Table Launch Week Timeline và Launch Week Budget Allocation */
-        .section#launch-week .table-full {
-            min-width: 900px;
-        }
-        
-        /* Table 3-Month Budget Summary */
-        .section#financial-kpi .table-full:nth-of-type(1) {
-            min-width: 800px;
-        }
-        
-        /* Table Key Performance Indicators */
-        .section#financial-kpi .roi-table {
-            min-width: 800px;
-        }
-        
-        /* Table Revenue Projection */
-        .section#financial-kpi .table-full:nth-of-type(3) {
-            min-width: 900px;
-        }
-        
-        /* Table Immediate Next Steps */
-        .section#success-criteria .table-full {
-            min-width: 800px;
-        }
-        
-        .table-full th {
-            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-            position: sticky;
-            top: 0;
-            white-space: nowrap;
-        }
-        
-        .table-full td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-            min-width: 120px;
-        }
-        
-        .table-full tr:hover {
-            background: #f8fafc;
-        }
-        
-        .table-full tr:nth-child(even) {
-            background: #fafafa;
-        }
-        
-        /* Column widths cho table trong Pre-launch */
-        .col-activity { width: 18%; min-width: 180px; }
-        .col-purpose { width: 12%; min-width: 120px; }
-        .col-why { width: 15%; min-width: 150px; }
-        .col-achieve { width: 12%; min-width: 120px; }
-        .col-how { width: 15%; min-width: 150px; }
-        .col-cost { width: 8%; min-width: 80px; }
-        .col-kpi { width: 10%; min-width: 100px; }
-        .col-risk { width: 10%; min-width: 100px; }
-        
-        .risk-low { color: var(--success); font-weight: 600; }
-        .risk-medium { color: var(--warning); font-weight: 600; }
-        .risk-high { color: var(--danger); font-weight: 600; }
-        
-        /* ROI table */
         .roi-table {
             width: 100%;
             border-collapse: collapse;
             min-width: 800px;
         }
         
-        .roi-table th {
+        .table-full th, .roi-table th {
             background: linear-gradient(to bottom, #f7fafc, #edf2f7);
             color: var(--primary);
             font-weight: 600;
             padding: 1rem;
             text-align: left;
             border-bottom: 2px solid var(--border);
+            white-space: nowrap; /* Giữ tiêu đề trên 1 dòng */
         }
         
-        .roi-table td {
+        .table-full td, .roi-table td {
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             vertical-align: top;
+            min-width: 120px;
+        }
+        
+        .table-full tr:hover, .roi-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .table-full tr:nth-child(even), .roi-table tr:nth-child(even) {
+            background: #fafafa;
         }
         
         .roi-table tr.scenario-conservative {
@@ -755,6 +683,10 @@
         .roi-table tr.scenario-aggressive {
             background: rgba(246, 255, 237, 0.8);
         }
+        
+        .risk-low { color: var(--success); font-weight: 600; }
+        .risk-medium { color: var(--warning); font-weight: 600; }
+        .risk-high { color: var(--danger); font-weight: 600; }
         
         /* ====== CARDS & GRIDS ====== */
         .summary-grid {
@@ -959,13 +891,13 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         
-        /* ====== ABOUT & CONTACT SECTIONS (from index.html) - FIXED BACKGROUND ====== */
+        /* ====== ABOUT & CONTACT SECTIONS ====== */
         .about-section {
-            background-color: white; /* Changed from dark to white */
+            background-color: white; 
             border-radius: 20px;
             padding: 40px;
             margin-top: 20px;
-            border: 1px solid var(--border); /* Changed to match the theme */
+            border: 1px solid var(--border);
         }
         
         .about-content {
@@ -1009,7 +941,7 @@
         }
         
         .profile-desc {
-            color: #2d3748; /* Changed to dark color for better readability */
+            color: #2d3748;
             line-height: 1.7;
         }
         
@@ -1020,10 +952,10 @@
         }
         
         .skill-card {
-            background-color: white; /* Changed from dark to white */
+            background-color: white; 
             border-radius: 12px;
             padding: 20px;
-            border: 1px solid var(--border); /* Changed to match theme */
+            border: 1px solid var(--border); 
             transition: all 0.3s;
             box-shadow: var(--shadow);
         }
@@ -1088,9 +1020,9 @@
         .contact-item {
             text-align: center;
             padding: 20px;
-            background: white; /* Changed from dark to white */
+            background: white;
             border-radius: 12px;
-            border: 1px solid var(--border); /* Changed to match theme */
+            border: 1px solid var(--border);
             box-shadow: var(--shadow);
             transition: all 0.3s;
         }
@@ -1111,10 +1043,10 @@
             color: var(--primary);
         }
         
-        /* ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) ====== */
+        /* ====== FOOTER ====== */
         .footer-secondary {
             padding: 60px 0 30px;
-            background-color: #1a365d; /* Updated to match commandcenter.html */
+            background-color: #1a365d;
             border-top: 1px solid #2d2d4a;
         }
         
@@ -1170,7 +1102,6 @@
             font-size: 14px;
         }
         
-        /* ====== CTA BUTTON (from index.html) ====== */
         .cta-button {
             display: inline-block;
             background: linear-gradient(to right, var(--primary), var(--primary-light));
@@ -1190,7 +1121,7 @@
             box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
         
-        /* ====== RESPONSIVE DESIGN - OPTIMIZED FOR MOBILE ====== */
+        /* ====== RESPONSIVE DESIGN ====== */
         @media (max-width: 1024px) {
             .container {
                 margin: 1rem;
@@ -1228,11 +1159,10 @@
             }
             
             #gtm-plan-info .version {
-                max-width: 85%; /* Tăng lên một chút cho tablet */
+                max-width: 85%;
             }
         }
         
-        /* Tablet và Mobile lớn */
         @media (max-width: 900px) {
             .hamburger-menu {
                 display: flex;
@@ -1293,7 +1223,6 @@
                 margin-top: 0.5rem;
             }
             
-            /* Main navigation cho tablet */
             .nav-scroll-arrow {
                 display: flex;
             }
@@ -1306,14 +1235,11 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            /* Table fixes for tablet */
+            /* Responsive Table fix */
             .table-responsive {
-                margin-left: -1rem;
-                margin-right: -1rem;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
-                width: calc(100% + 2rem);
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
             }
             
             .table-scroll-hint {
@@ -1381,10 +1307,9 @@
             }
             
             #gtm-plan-info .version {
-                max-width: 95%; /* Tăng lên cho mobile */
+                max-width: 95%;
             }
             
-            /* Mobile navigation cho main nav */
             .nav-scroll-wrapper {
                 display: none;
             }
@@ -1422,57 +1347,15 @@
             .nav-container {
                 padding: 0;
             }
-            
-            /* Table fixes for mobile */
-            .table-responsive {
-                margin-left: -1.5rem;
-                margin-right: -1.5rem;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
-                width: calc(100% + 3rem);
-            }
-            
-            .table-full th,
-            .table-full td {
-                padding: 0.8rem;
-                font-size: 0.9rem;
-            }
-            
-            /* Điều chỉnh min-width cho các table cụ thể trên mobile */
-            .section#pre-launch .table-full {
-                min-width: 1100px;
-            }
-            
-            .section#launch-week .table-full {
-                min-width: 850px;
-            }
-            
-            .section#financial-kpi .table-full:nth-of-type(1) {
-                min-width: 750px;
-            }
-            
-            .section#financial-kpi .roi-table {
-                min-width: 750px;
-            }
-            
-            .section#financial-kpi .table-full:nth-of-type(3) {
-                min-width: 850px;
-            }
-            
-            .section#success-criteria .table-full {
-                min-width: 750px;
-            }
         }
         
-        /* Mobile nhỏ */
         @media (max-width: 480px) {
             .top-nav-container {
                 padding: 0.5rem;
             }
             
             .top-nav-brand span {
-                display: none; /* Ẩn tên trên mobile rất nhỏ */
+                display: none;
             }
             
             .user-info {
@@ -1506,10 +1389,6 @@
                 font-size: 1.5rem;
             }
             
-            .section h3 {
-                font-size: 1.2rem;
-            }
-            
             .timeline::before {
                 left: 15px;
             }
@@ -1531,7 +1410,7 @@
             }
             
             #gtm-plan-info .version {
-                max-width: 100%; /* Chiếm toàn bộ chiều rộng trên mobile nhỏ */
+                max-width: 100%;
                 padding: 1rem;
             }
             
@@ -1542,93 +1421,8 @@
             .footer-secondary-content {
                 padding: 0 1rem;
             }
-            
-            /* Table fixes for small mobile */
-            .table-responsive {
-                margin-left: -1rem;
-                margin-right: -1rem;
-                width: calc(100% + 2rem);
-            }
-            
-            .table-full th,
-            .table-full td {
-                padding: 0.6rem;
-                font-size: 0.85rem;
-            }
-            
-            /* Điều chỉnh min-width cho các table trên mobile nhỏ */
-            .section#pre-launch .table-full {
-                min-width: 1000px;
-            }
-            
-            .section#launch-week .table-full {
-                min-width: 800px;
-            }
-            
-            .section#financial-kpi .table-full:nth-of-type(1) {
-                min-width: 700px;
-            }
-            
-            .section#financial-kpi .roi-table {
-                min-width: 700px;
-            }
-            
-            .section#financial-kpi .table-full:nth-of-type(3) {
-                min-width: 800px;
-            }
-            
-            .section#success-criteria .table-full {
-                min-width: 700px;
-            }
         }
         
-        /* ====== PRINT STYLES ====== */
-        @media print {
-            .top-nav,
-            .main-nav,
-            .mobile-nav-btn,
-            .hamburger-menu,
-            .scroll-top {
-                display: none;
-            }
-            
-            .container {
-                box-shadow: none;
-                margin: 0;
-                border-radius: 0;
-            }
-            
-            .header,
-            .footer {
-                background: white !important;
-                color: black !important;
-            }
-            
-            .header h1,
-            .footer h2 {
-                color: black !important;
-                -webkit-text-fill-color: black !important;
-            }
-            
-            .section {
-                box-shadow: none;
-                border: 1px solid #ddd;
-                break-inside: avoid;
-            }
-            
-            .table-responsive {
-                overflow: visible;
-                box-shadow: none;
-                border: 1px solid #ddd;
-            }
-            
-            .table-full {
-                min-width: auto !important;
-                width: 100% !important;
-            }
-        }
-        
-        /* ====== ANIMATIONS ====== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -1638,7 +1432,6 @@
             animation: fadeIn 0.5s ease-out;
         }
         
-        /* ====== SCROLL TO TOP BUTTON ====== */
         .scroll-top {
             position: fixed;
             bottom: 30px;
@@ -1669,15 +1462,6 @@
             transform: translateY(-5px);
         }
         
-        /* ====== HIGHLIGHT EFFECT ====== */
-        .highlight {
-            background: linear-gradient(120deg, rgba(66, 153, 225, 0.2) 0%, rgba(66, 153, 225, 0) 100%);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            border-left: 3px solid var(--accent);
-        }
-        
-        /* ====== PROGRESS BAR ====== */
         .progress-bar {
             position: fixed;
             top: 0;
@@ -1689,7 +1473,6 @@
             transition: width 0.3s ease;
         }
     </style>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -1712,7 +1495,7 @@
         <a href="#contact" class="mobile-nav-item">Contact</a>
     </div>
     
-    <!-- TOP NAVIGATION - OPTIMIZED FOR MOBILE -->
+    <!-- TOP NAVIGATION -->
     <nav class="top-nav">
         <div class="top-nav-container">
             <div class="top-nav-brand">
@@ -1720,7 +1503,6 @@
                 <span>CryptoCopyPro</span>
             </div>
             
-            <!-- Hamburger menu for mobile -->
             <button class="hamburger-menu" id="hamburgerMenu">
                 <span></span>
                 <span></span>
@@ -1737,14 +1519,9 @@
                     Command Center
                 </a>
                 
-                <!-- Added navigation from index.html -->
                 <div class="nav-right">
-                    <a href="#about" class="top-nav-link">
-                        about
-                    </a>
-                    <a href="#contact" class="top-nav-link">
-                        contact
-                    </a>
+                    <a href="#about" class="top-nav-link">about</a>
+                    <a href="#contact" class="top-nav-link">contact</a>
                     <a href="https://h13digital.github.io/#portfolio" class="top-nav-link user-profile">
                         <div class="user-avatar">
                             <img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
@@ -1759,15 +1536,12 @@
         </div>
     </nav>
     
-    <!-- PROGRESS BAR -->
     <div class="progress-bar" id="progressBar"></div>
     
-    <!-- SCROLL TO TOP BUTTON -->
     <div class="scroll-top" id="scrollTop">
         <i class="fas fa-chevron-up"></i>
     </div>
     
-    <!-- MAIN CONTAINER -->
     <div class="container">
         <!-- HEADER -->
         <header class="header crypto-gradient">
@@ -1777,31 +1551,21 @@
                 <p>Social copy trading platform connecting crypto traders with followers, focusing on Binance and Bybit ecosystems</p>
                 
                 <div class="meta-info">
-                    <div class="meta-item">
-                        <strong>Timeline:</strong> 12 weeks
-                    </div>
-                    <div class="meta-item">
-                        <strong>Total Budget:</strong> $20,000
-                    </div>
-                    <div class="meta-item">
-                        <strong>3-Month Target:</strong> 250 traders, 1,000 followers
-                    </div>
-                    <div class="meta-item">
-                        <strong>Target CAC:</strong> $60
-                    </div>
+                    <div class="meta-item"><strong>Timeline:</strong> 12 weeks</div>
+                    <div class="meta-item"><strong>Total Budget:</strong> $20,000</div>
+                    <div class="meta-item"><strong>3-Month Target:</strong> 250 traders, 1,000 followers</div>
+                    <div class="meta-item"><strong>Target CAC:</strong> $60</div>
                 </div>
             </div>
         </header>
         
-        <!-- MAIN NAVIGATION - OPTIMIZED FOR MOBILE -->
+        <!-- MAIN NAVIGATION -->
         <nav class="main-nav">
             <div class="nav-container">
-                <!-- Mobile navigation button (visible only on small screens) -->
                 <button class="mobile-nav-btn" id="mobileNavBtn">
                     <i class="fas fa-bars"></i> Navigation Menu
                 </button>
                 
-                <!-- Desktop navigation with scroll arrows -->
                 <button class="nav-scroll-arrow left" id="navScrollLeft">
                     <i class="fas fa-chevron-left"></i>
                 </button>
@@ -1825,79 +1589,63 @@
         
         <!-- MAIN CONTENT -->
         <main class="content">
-            <!-- PART I: STRATEGY OVERVIEW -->
+            <!-- PART I -->
             <section id="executive-summary" class="section">
                 <h2>PART I: PRACTICAL STRATEGY OVERVIEW</h2>
-                
                 <div class="section-intro crypto-border" style="background: #f5f3ff;">
                     <p><strong>🎯 Core Philosophy:</strong> "Social trading ecosystem - Quality signals over quantity"</p>
                     <p><strong>Product:</strong> CryptoCopyPro - Social copy trading platform for Binance/Bybit traders</p>
                     <p><strong>Timeline:</strong> Pre-launch → Launch → Network Effects & Scale</p>
                     <p><strong>3-Month Target:</strong> 250 signal providers, 1,000 followers, $12,000 MRR</p>
                     <p><strong>Total Budget:</strong> $20,000 (focused on liquidity incentives)</p>
-                    <p><strong>Key Differentiator:</strong> Social features, transparent performance metrics, dual-sided marketplace</p>
                 </div>
                 
-                <h3>1. Target Market Focus (Crypto Trading Communities)</h3>
+                <h3>1. Target Market Focus</h3>
                 <ul>
                     <li><strong>Priority 1:</strong> Southeast Asia crypto traders (Vietnam, Philippines, Indonesia)</li>
                     <li><strong>Priority 2:</strong> Indian and Middle East crypto communities</li>
                     <li><strong>Platform Focus:</strong> Binance and Bybit API integration</li>
-                    <li><strong>Strategic Partners:</strong> Trading education platforms, crypto influencers, telegram signal groups</li>
                 </ul>
                 
-                <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
+                <h3>2. SWOT Analysis</h3>
                 <div class="table-responsive">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
-                        <tr>
-                            <th>Strengths</th>
-                            <th>Weaknesses</th>
-                        </tr>
+                        <tr><th>Strengths</th><th>Weaknesses</th></tr>
                         <tr>
                             <td>
                                 <ul>
-                                    <li>Social features (chat, leaderboards, transparency)</li>
-                                    <li>Easy API integration with Binance/Bybit</li>
+                                    <li>Social features (chat, leaderboards)</li>
+                                    <li>Easy API integration</li>
                                     <li>Performance-based fee model</li>
-                                    <li>Focus on crypto-native communities</li>
                                 </ul>
                             </td>
                             <td>
                                 <ul>
-                                    <li>Network effects required for success</li>
-                                    <li>Regulatory uncertainty in some markets</li>
-                                    <li>Competition from established platforms</li>
-                                    <li>Dependent on crypto market sentiment</li>
+                                    <li>Network effects required</li>
+                                    <li>Regulatory uncertainty</li>
+                                    <li>Competition from exchanges</li>
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
-                            <th>Opportunities</th>
-                            <th>Threats</th>
-                        </tr>
+                        <tr><th>Opportunities</th><th>Threats</th></tr>
                         <tr>
                             <td>
                                 <ul>
-                                    <li>Growing crypto adoption in emerging markets</li>
-                                    <li>Demand for transparent copy trading solutions</li>
-                                    <li>Partnerships with crypto influencers</li>
-                                    <li>Expansion to other exchanges (KuCoin, OKX)</li>
+                                    <li>Growing crypto adoption</li>
+                                    <li>Demand for transparency</li>
                                 </ul>
                             </td>
                             <td>
                                 <ul>
-                                    <li>Exchange API changes or restrictions</li>
-                                    <li>Regulatory crackdowns on copy trading</li>
-                                    <li>Security concerns (API key management)</li>
-                                    <li>Market downturns reducing trading activity</li>
+                                    <li>API changes</li>
+                                    <li>Regulatory crackdowns</li>
                                 </ul>
                             </td>
                         </tr>
                     </table>
                 </div>
                 
-                <h3>3. Summary Cards (Realistic Targets)</h3>
                 <div class="summary-grid">
                     <div class="summary-card">
                         <h3>3-MONTH TARGET</h3>
@@ -1909,22 +1657,12 @@
                         <div class="value">1,000</div>
                         <div class="unit">active copiers</div>
                     </div>
-                    <div class="summary-card">
-                        <h3>TARGET CAC</h3>
-                        <div class="value">$60</div>
-                        <div class="unit">(lower due to referrals)</div>
-                    </div>
-                    <div class="summary-card">
-                        <h3>OPTIMIZED BUDGET</h3>
-                        <div class="value">$20,000</div>
-                        <div class="unit">(focus on liquidity incentives)</div>
-                    </div>
                 </div>
             </section>
             
-            <!-- PART II: PRE-LAUNCH PHASE -->
+            <!-- PART II -->
             <section id="pre-launch" class="section">
-                <h2>PART II: PRE-LAUNCH PHASE (OPTIMIZED)</h2>
+                <h2>PART II: PRE-LAUNCH PHASE</h2>
                 <h3>PHASE 1: OPTIMIZED PRE-LAUNCH (6 WEEKS - $8,000)</h3>
                 
                 <h4>Week 1-2: Foundation Setup</h4>
@@ -1933,70 +1671,36 @@
                     <table class="table-full">
                         <thead>
                             <tr>
-                                <th class="col-activity">Activity</th>
-                                <th class="col-purpose">Purpose</th>
-                                <th class="col-why">Why?</th>
-                                <th class="col-achieve">Outcome</th>
-                                <th class="col-how">How?</th>
-                                <th class="col-cost">Cost</th>
-                                <th class="col-kpi">KPIs</th>
-                                <th class="col-risk">Risk & Solution</th>
+                                <th>Activity</th>
+                                <th>Purpose</th>
+                                <th>Outcome</th>
+                                <th>Cost</th>
+                                <th>Risk & Solution</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>1.1 Waitlist with Early Adopter Rewards</strong></td>
-                                <td>Build community, seed initial users</td>
-                                <td>Copy trading needs both sides (traders + followers). Early incentives create network effects.</td>
-                                <td>500+ waitlist, 100+ signal providers pre-committed</td>
-                                <td>- Landing page with referral rewards<br>- Offer: "First 100 signal providers get 0% fees for 3 months"<br>- Integration tutorials for Binance/Bybit</td>
+                                <td><strong>Waitlist & Rewards</strong></td>
+                                <td>Build community</td>
+                                <td>500+ waitlist</td>
                                 <td>$800</td>
-                                <td>- Waitlist conversion (>15%)<br>- Signal provider commitments</td>
-                                <td><span class="risk-low">R: Not enough signal providers</span><br><strong>S:</strong> Partner with existing telegram signal groups</td>
+                                <td><span class="risk-low">Low Risk</span></td>
                             </tr>
                             <tr>
-                                <td><strong>1.2 Influencer & Community Partnerships</strong></td>
-                                <td>Leverage existing crypto communities</td>
-                                <td>Crypto communities are tight-knit. Influencers can bring entire communities.</td>
-                                <td>3-5 crypto influencer partnerships, 10+ community ambassadors</td>
-                                <td>- Outreach to crypto YouTubers/Telegram admins<br>- Revenue sharing model (20% of follower fees)<br>- Co-branded educational content</td>
+                                <td><strong>Influencer Partnership</strong></td>
+                                <td>Leverage communities</td>
+                                <td>3-5 partners</td>
                                 <td>$1,500</td>
-                                <td>- Influencer conversion rate<br>- Community member signups</td>
-                                <td><span class="risk-medium">R: Influencers want upfront payment</span><br><strong>S:</strong> Revenue share model with minimum guarantee</td>
+                                <td><span class="risk-medium">Medium Risk</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                
-                <div class="kpi-grid">
-                    <div class="kpi-card">
-                        <div class="kpi-title">TOTAL PRE-LAUNCH BUDGET</div>
-                        <div class="kpi-value">$8,000</div>
-                        <div class="kpi-title">(focus on partnerships)</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-title">WAITLIST TARGET</div>
-                        <div class="kpi-value">500+</div>
-                        <div class="kpi-title">crypto traders</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-title">INFLUENCER PARTNERS</div>
-                        <div class="kpi-value">3-5</div>
-                        <div class="kpi-title">crypto content creators</div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-title">COMMUNITIES</div>
-                        <div class="kpi-value">10+</div>
-                        <div class="kpi-title">telegram/discord groups</div>
-                    </div>
-                </div>
             </section>
             
-            <!-- PART III: LAUNCH WEEK -->
+            <!-- PART III -->
             <section id="launch-week" class="section">
                 <h3>PHASE 2: LAUNCH WEEK (WEEK 7 - $5,000)</h3>
-                
-                <h4>Launch Week Timeline</h4>
                 <div class="table-responsive">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
@@ -2004,181 +1708,31 @@
                             <tr>
                                 <th>Day</th>
                                 <th>Activity</th>
-                                <th>Purpose</th>
-                                <th>Why this day?</th>
                                 <th>Owner</th>
                                 <th>KPIs</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Day 1 (Mon)</strong></td>
-                                <td>Platform Live + Partner Launch</td>
-                                <td>Activate influencer partnerships simultaneously</td>
-                                <td>Coordinated launch creates network effect immediately</td>
-                                <td>Founder + Partnerships</td>
-                                <td>100+ signal providers onboarded</td>
+                                <td><strong>Day 1</strong></td>
+                                <td>Platform Live</td>
+                                <td>Founder</td>
+                                <td>100+ providers</td>
                             </tr>
                             <tr>
-                                <td><strong>Day 2 (Tue)</strong></td>
-                                <td>Twitter Spaces + AMA Sessions</td>
-                                <td>Build trust, answer security questions</td>
-                                <td>Crypto community values transparency and direct access</td>
-                                <td>Founder + Influencers</td>
-                                <td>500+ attendees, 50+ followers</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Day 4 (Thu)</strong></td>
-                                <td>Trading Competition Launch</td>
-                                <td>Incentivize signal providers, generate activity</td>
-                                <td>Competitions drive engagement and attract followers</td>
-                                <td>Founder + Marketing</td>
-                                <td>50+ competition entries, $5k+ prize pool</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <h4>Launch Week Budget Allocation</h4>
-                <div class="table-responsive">
-                    <div class="table-scroll-hint">← Scroll →</div>
-                    <table class="table-full">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Cost</th>
-                                <th>Team</th>
-                                <th>Why Important?</th>
-                                <th>Expected Outcome</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Influencer Campaigns</strong></td>
-                                <td>$2,500</td>
-                                <td>Partnerships Manager</td>
-                                <td>Credibility and reach in crypto communities</td>
-                                <td>200+ signal providers, CAC ~$30-40</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Trading Competition Prizes</strong></td>
-                                <td>$1,500</td>
-                                <td>Marketing + Tech</td>
-                                <td>Drives platform activity and attracts followers</td>
-                                <td>50+ active traders, 300+ followers</td>
-                            </tr>
-                            <tr>
-                                <td><strong>TOTAL LAUNCH WEEK</strong></td>
-                                <td><strong>$5,000</strong></td>
-                                <td><strong>4-5 people</strong></td>
-                                <td></td>
-                                <td></td>
+                                <td><strong>Day 2</strong></td>
+                                <td>AMA Sessions</td>
+                                <td>Influencers</td>
+                                <td>500+ attendees</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
             
-            <!-- PART IV: POST-LAUNCH -->
-            <section id="post-launch" class="section">
-                <h3>PHASE 3: POST-LAUNCH - NETWORK EFFECTS & SCALE (WEEK 8-12 - $7,000)</h3>
-                
-                <h4>Post-launch Focus Areas</h4>
-                <div class="team-grid">
-                    <div class="team-card">
-                        <div class="team-role">Founder (CEO/Growth)</div>
-                        <div class="team-cost">$0 (Equity)</div>
-                        <p><strong>Why:</strong> Vision, partnerships, community building</p>
-                        <p><strong>Responsibility:</strong> Overall strategy, exchange partnerships, influencer relations</p>
-                        <p><strong>Time:</strong> Full-time</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-role">Full-stack Developer</div>
-                        <div class="team-cost">$2,500/month</div>
-                        <p><strong>Why:</strong> Platform stability, new features</p>
-                        <p><strong>Responsibility:</strong> API integrations, security, performance</p>
-                        <p><strong>Time:</strong> Full-time</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-role">Community Manager</div>
-                        <div class="team-cost">$1,200/month</div>
-                        <p><strong>Why:</strong> Engagement, retention, support</p>
-                        <p><strong>Responsibility:</strong> Telegram/Discord, content, user support</p>
-                        <p><strong>Time:</strong> Part-time (25h/week)</p>
-                    </div>
-                </div>
-                
-                <div class="summary-card" style="max-width: 400px; margin: 2rem auto; background: #f5f3ff;">
-                    <h3>TOTAL POST-LAUNCH BUDGET</h3>
-                    <div class="value">$7,000</div>
-                    <div class="unit">6 weeks (community focus)</div>
-                </div>
-            </section>
-            
-            <!-- PART V: FINANCIAL & KPIS -->
+            <!-- PART V: FINANCIAL -->
             <section id="financial-kpi" class="section">
                 <h2>PART V: FINANCIAL SUMMARY & KPIS</h2>
-                
-                <h3>3-Month Budget Summary ($20,000)</h3>
-                <div class="table-responsive">
-                    <div class="table-scroll-hint">← Scroll →</div>
-                    <table class="table-full">
-                        <thead>
-                            <tr>
-                                <th>Category</th>
-                                <th>Pre-launch</th>
-                                <th>Launch</th>
-                                <th>Post-launch</th>
-                                <th>Total</th>
-                                <th>%</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Team</strong></td>
-                                <td>$3,000</td>
-                                <td>$1,000</td>
-                                <td>$4,200</td>
-                                <td>$8,200</td>
-                                <td>41%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Partnerships & Marketing</strong></td>
-                                <td>$3,500</td>
-                                <td>$3,000</td>
-                                <td>$2,000</td>
-                                <td>$8,500</td>
-                                <td>42.5%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Platform & Security</strong></td>
-                                <td>$1,000</td>
-                                <td>$500</td>
-                                <td>$500</td>
-                                <td>$2,000</td>
-                                <td>10%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>TOTAL</strong></td>
-                                <td><strong>$7,500</strong></td>
-                                <td><strong>$4,500</strong></td>
-                                <td><strong>$6,700</strong></td>
-                                <td><strong>$18,700</strong></td>
-                                <td><strong>93.5%</strong></td>
-                            </tr>
-                            <tr style="background: #f6ffed;">
-                                <td><strong>CONTINGENCY (6.5%)</strong></td>
-                                <td>$500</td>
-                                <td>$500</td>
-                                <td>$300</td>
-                                <td><strong>$1,300</strong></td>
-                                <td><strong>6.5%</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <h3>Key Performance Indicators (Crypto Platform)</h3>
                 <div class="table-responsive">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="roi-table">
@@ -2188,7 +1742,6 @@
                                 <th>Month 1</th>
                                 <th>Month 2</th>
                                 <th>Month 3</th>
-                                <th>Why Important?</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -2197,404 +1750,115 @@
                                 <td>80</td>
                                 <td>150</td>
                                 <td>250</td>
-                                <td>Supply side of marketplace</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Active Followers</strong></td>
-                                <td>300</td>
-                                <td>650</td>
-                                <td>1,000</td>
-                                <td>Demand side of marketplace</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Monthly Volume</strong></td>
-                                <td>$500k</td>
-                                <td>$1.2M</td>
-                                <td>$2.5M</td>
-                                <td>Platform activity & fee potential</td>
                             </tr>
                             <tr>
                                 <td><strong>Net Revenue</strong></td>
                                 <td>$4,000</td>
                                 <td>$8,000</td>
                                 <td>$12,000</td>
-                                <td>Revenue growth (10-20% of profits)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <h3>Revenue Projection (Performance Fee Model)</h3>
-                <div class="table-responsive">
-                    <div class="table-scroll-hint">← Scroll →</div>
-                    <table class="table-full">
-                        <thead>
-                            <tr>
-                                <th>Scenario</th>
-                                <th>Signal Providers</th>
-                                <th>Followers</th>
-                                <th>Avg. Copy Size</th>
-                                <th>Platform Fee</th>
-                                <th>Monthly Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="scenario-conservative">
-                                <td><strong>Conservative</strong></td>
-                                <td>150</td>
-                                <td>600</td>
-                                <td>$500</td>
-                                <td>15% of profits</td>
-                                <td>$6,750</td>
-                            </tr>
-                            <tr class="scenario-expected">
-                                <td><strong>Expected (Target)</strong></td>
-                                <td>250</td>
-                                <td>1,000</td>
-                                <td>$800</td>
-                                <td>15% of profits</td>
-                                <td>$12,000</td>
-                            </tr>
-                            <tr class="scenario-aggressive">
-                                <td><strong>Aggressive</strong></td>
-                                <td>400</td>
-                                <td>2,000</td>
-                                <td>$1,000</td>
-                                <td>15% of profits</td>
-                                <td>$30,000</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
             
-            <!-- PART VI: RISK MANAGEMENT -->
+            <!-- RISK MANAGEMENT -->
             <section id="risk-management" class="section">
-                <h2>PART VI: RISK MANAGEMENT (CRYPTO SPECIFIC)</h2>
-                
-                <h3>Risk Assessment</h3>
+                <h2>PART VI: RISK MANAGEMENT</h2>
                 <div class="contingency-grid">
                     <div class="contingency-card cac">
-                        <h4>Scenario 1: Exchange API Restrictions</h4>
-                        <p><strong>Why:</strong> Binance/Bybit restrict copy trading APIs</p>
-                        <p><strong>Action Plan:</strong></p>
-                        <ul>
-                            <li>Diversify to KuCoin, OKX, Gate.io APIs</li>
-                            <li>Develop manual copy trading features</li>
-                            <li>Focus on educational content during transition</li>
-                        </ul>
+                        <h4>API Restrictions</h4>
+                        <p>Action: Diversify exchanges (KuCoin, OKX)</p>
                     </div>
-                    
                     <div class="contingency-card churn">
-                        <h4>Scenario 2: Bear Market Sentiment</h4>
-                        <p><strong>Why:</strong> Crypto downturn reduces trading activity</p>
-                        <p><strong>Action Plan:</strong></p>
-                        <ul>
-                            <li>Pivot to educational content and community building</li>
-                            <li>Introduce spot copy trading (lower risk)</li>
-                            <li>Focus on DCA and long-term strategies</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="contingency-card regulatory">
-                        <h4>Scenario 3: Regulatory Challenges</h4>
-                        <p><strong>Why:</strong> Country bans copy trading platforms</p>
-                        <p><strong>Action Plan:</strong></p>
-                        <ul>
-                            <li>Geo-block restricted regions</li>
-                            <li>Focus on crypto-friendly jurisdictions</li>
-                            <li>Legal structure in Singapore/Dubai</li>
-                        </ul>
+                        <h4>Bear Market</h4>
+                        <p>Action: Pivot to education & spot trading</p>
                     </div>
                 </div>
             </section>
             
-            <!-- PART VII: TEAM & TIMELINE -->
-            <section id="team-timeline" class="section">
-                <h2>PART VII: TEAM STRUCTURE & TIMELINE</h2>
-                
-                <h3>12-Week Timeline</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-date">WEEK 1-3</div>
-                        <div class="timeline-content">
-                            <p><strong>Focus:</strong> Platform MVP & Community</p>
-                            <p><strong>Activities:</strong> Binance API integration, waitlist building, influencer outreach</p>
-                            <p><strong>Milestone:</strong> 500+ waitlist, 3 influencer partners</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date">WEEK 4-6</div>
-                        <div class="timeline-content">
-                            <p><strong>Focus:</strong> Beta Testing & Security</p>
-                            <p><strong>Activities:</strong> Closed beta with 50 traders, security audit, compliance check</p>
-                            <p><strong>Milestone:</strong> 100+ beta testers, security certified</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date">WEEK 7</div>
-                        <div class="timeline-content">
-                            <p><strong>Focus:</strong> LAUNCH WEEK</p>
-                            <p><strong>Activities:</strong> Platform live, influencer campaigns, trading competition</p>
-                            <p><strong>Milestone:</strong> 150+ signal providers, 500+ followers</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date">WEEK 10-12</div>
-                        <div class="timeline-content">
-                            <p><strong>Focus:</strong> Network Effects & Monetization</p>
-                            <p><strong>Activities:</strong> Referral programs, advanced features, revenue optimization</p>
-                            <p><strong>Milestone:</strong> 250 signal providers, $12,000 MRR</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- PART VIII: SUCCESS CRITERIA -->
-            <section id="success-criteria" class="section">
-                <h2>PART VIII: SUCCESS CRITERIA & NEXT STEPS</h2>
-                
-                <h3>Success After 3 Months</h3>
-                <div class="section-intro" style="background: #f5f3ff; border-left: 4px solid #9f7aea;">
-                    <p><strong>✅ Platform Success:</strong></p>
-                    <ul>
-                        <li>250+ verified signal providers with transparent track records</li>
-                        <li>1,000+ active followers copying trades</li>
-                        <li>API uptime > 99.9%, security audit completed</li>
-                    </ul>
-                    
-                    <p><strong>✅ Financial Success:</strong></p>
-                    <ul>
-                        <li>$12,000+ MRR from performance fees</li>
-                        <li>CAC < $60, LTV > $300</li>
-                        <li>Positive unit economics, 9+ months runway</li>
-                    </ul>
-                    
-                    <p><strong>✅ Community Success:</strong></p>
-                    <ul>
-                        <li>Active Discord/Telegram community (2,000+ members)</li>
-                        <li>5+ key influencer partnerships</li>
-                        <li>10+ trading communities integrated</li>
-                    </ul>
-                </div>
-                
-                <h3>Immediate Next Steps (Next 7 Days)</h3>
-                <div class="table-responsive">
-                    <div class="table-scroll-hint">← Scroll →</div>
-                    <table class="table-full">
-                        <thead>
-                            <tr>
-                                <th>Action</th>
-                                <th>Why Urgent?</th>
-                                <th>Owner</th>
-                                <th>Deadline</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Finalize Binance API Integration</strong></td>
-                                <td>Core functionality dependency</td>
-                                <td>Tech Lead</td>
-                                <td>Day 3</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Secure 3 Crypto Influencer Partnerships</strong></td>
-                                <td>Critical for launch momentum</td>
-                                <td>Founder</td>
-                                <td>Day 5</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Setup Security & Compliance Framework</strong></td>
-                                <td>Trust is everything in crypto</td>
-                                <td>Founder + Legal</td>
-                                <td>Day 4</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="section-intro" style="background: #f0f9ff; border-left: 4px solid #1890ff;">
-                    <h4>🎯 Key Takeaways for Crypto Copy Trading:</h4>
-                    <ol>
-                        <li><strong>Network effects are critical</strong> - need both sides of marketplace simultaneously</li>
-                        <li><strong>Security and trust paramount</strong> - crypto users are security-conscious</li>
-                        <li><strong>Community-driven growth</strong> - leverage existing crypto communities</li>
-                        <li><strong>Performance-based monetization</strong> - align incentives with user success</li>
-                        <li><strong>Regulatory agility required</strong> - be prepared to pivot jurisdictions</li>
-                        <li><strong>Crypto-native marketing</strong> - Twitter, Telegram, Discord over traditional channels</li>
-                    </ol>
-                </div>
-            </section>
-            
-            <!-- ====== GTM PLAN INFO SECTION (MOVED BEFORE ABOUT) ====== -->
-            <section id="gtm-plan-info" class="section">
-                <h2><i class="fas fa-cube"></i> CryptoCopyPro - Practical Go-to-Market Plan</h2>
-                <p style="text-align: center;">Social copy trading platform for Binance/Bybit ecosystems with $20,000 bootstrap budget</p>
-                <p style="text-align: center;">Document Version: 3.0 (Crypto Edition) | Last Updated: December 9, 2025 | Owner: Founder</p>
-                
+             <!-- GTM PLAN INFO -->
+             <section id="gtm-plan-info" class="section">
+                <h2><i class="fas fa-cube"></i> CryptoCopyPro - GTM Plan</h2>
+                <p>Document Version: 3.0 (Crypto Edition)</p>
                 <div class="version">
-                    <p><strong>🎯 Crypto-Specific Philosophy:</strong></p>
-                    <ul>
-                        <li><strong>Network effects over features:</strong> Critical mass of traders/followers > advanced features</li>
-                        <li><strong>Security is non-negotiable:</strong> API key security, transparent performance, no custody</li>
-                        <li><strong>Community-driven:</strong> Crypto moves through communities, not traditional marketing</li>
-                        <li><strong>Aligned incentives:</strong> Performance-based fees ensure we only succeed when users do</li>
-                        <li><strong>Regulatory awareness:</strong> Stay agile, focus on crypto-friendly jurisdictions first</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-style: italic;">"In crypto copy trading, trust is built through transparency, security, and real results - not promises."</p>
+                    <p><strong>🎯 Philosophy:</strong> Network effects, Security, Community-driven.</p>
                 </div>
             </section>
-            
-            <!-- ====== ABOUT SECTION (from index.html) ====== -->
+
+            <!-- ABOUT -->
             <section id="about" class="section">
-                <h2><i class="fas fa-user"></i> About the Dashboard Architect</h2>
-                <p>Combining data science, marketing strategy, and Web3 expertise</p>
-                
+                <h2><i class="fas fa-user"></i> About the Architect</h2>
                 <div class="about-section">
                     <div class="about-content">
                         <div class="about-profile">
                             <div class="profile-image">
-                                <img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                                <img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN">
                             </div>
                             <div class="profile-name">HIEP NGUYEN</div>
-                            <div class="profile-title">Senior Performance Marketing Architect</div>
-                            <p class="profile-desc">
-                                With expertise in Esport × Web3 ecosystems, I architect data-driven marketing systems that deliver measurable business impact. My approach combines growth hacking, data analytics, and marketing automation to build scalable acquisition engines with positive unit economics.
-                            </p>
+                            <div class="profile-title">Marketing Architect</div>
                         </div>
-                        
                         <div class="skills-grid">
                             <div class="skill-card skill-analytics">
-                                <div class="skill-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <h4 class="skill-title">Data Analytics</h4>
-                                <p class="skill-desc">Advanced analytics & dashboard architecture, SQL/Python, predictive modeling, and data visualization for actionable insights.</p>
+                                <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+                                <h4>Analytics</h4>
                             </div>
-                            
-                            <div class="skill-card skill-growth">
-                                <div class="skill-icon">
-                                    <i class="fas fa-rocket"></i>
-                                </div>
-                                <h4 class="skill-title">Growth Marketing</h4>
-                                <p class="skill-desc">Scalable acquisition & retention strategies, funnel optimization, A/B testing, and marketing automation for sustainable growth.</p>
-                            </div>
-                            
                             <div class="skill-card skill-web3">
-                                <div class="skill-icon">
-                                    <i class="fas fa-coins"></i>
-                                </div>
-                                <h4 class="skill-title">Web3 Marketing</h4>
-                                <p class="skill-desc">Tokenomics design, NFT marketing strategies, community growth, and blockchain-based user acquisition for Web3 projects.</p>
-                            </div>
-                            
-                            <div class="skill-card skill-esports">
-                                <div class="skill-icon">
-                                    <i class="fas fa-gamepad"></i>
-                                </div>
-                                <h4 class="skill-title">Esports Ecosystems</h4>
-                                <p class="skill-desc">Tournament marketing, player engagement strategies, esports team partnerships, and gaming community development.</p>
+                                <div class="skill-icon"><i class="fas fa-coins"></i></div>
+                                <h4>Web3</h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            
-            <!-- ====== CONTACT SECTION (from index.html) ====== -->
-            <section id="contact" class="section">
-                <h2><i class="fas fa-envelope"></i> Contact Information</h2>
-                <p>Get in touch for collaborations, consulting, or project inquiries</p>
-                
+
+             <!-- CONTACT -->
+             <section id="contact" class="section">
+                <h2><i class="fas fa-envelope"></i> Contact</h2>
                 <div class="contact-grid">
                     <div class="contact-item">
                         <div class="contact-label">Email</div>
                         <div class="contact-value">hiep@example.com</div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-label">LinkedIn</div>
-                        <div class="contact-value">linkedin.com/in/hiepnguyen</div>
-                    </div>
-                    <div class="contact-item">
                         <div class="contact-label">Portfolio</div>
                         <div class="contact-value">h13digital.github.io</div>
                     </div>
                 </div>
-                
-                <p style="text-align: center; color: #2d3748; max-width: 600px; margin: 0 auto 30px;">
-                    Interested in building data-driven marketing systems for your Web3 or gaming project? Let's discuss how we can create measurable impact together.
-                </p>
-                
-                <div style="text-align: center;">
-                    <a href="mailto:hiep@example.com" class="cta-button">
-                        <i class="fas fa-envelope"></i> Contact Me
-                    </a>
-                </div>
             </section>
         </main>
         
-        <!-- ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) - UPDATED BACKGROUND ====== -->
+        <!-- FOOTER -->
         <div class="footer-secondary">
             <div class="footer-secondary-content">
                 <div>
                     <div class="footer-secondary-brand">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                            <div style="width: 30px; height: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white;">
-                                <i class="fas fa-cube"></i>
-                            </div>
-                            <div class="logo-text" style="font-size: 18px; color: white;">HIEP NGUYEN</div>
-                        </div>
+                        <div style="font-size: 18px; color: white; font-weight: bold;">HIEP NGUYEN</div>
                     </div>
-                    <p class="footer-secondary-desc">Data-driven marketing architect specializing in Web3 × Esports ecosystems. Building scalable acquisition engines with positive unit economics.</p>
+                    <p class="footer-secondary-desc">Data-driven marketing architect specializing in Web3.</p>
                 </div>
-                
                 <div>
-                    <h4 class="footer-secondary-title">Quick Links</h4>
+                    <h4 class="footer-secondary-title">Links</h4>
                     <ul class="footer-secondary-links">
-                        <li><a href="#executive-summary" class="footer-secondary-link">Executive Summary</a></li>
-                        <li><a href="#pre-launch" class="footer-secondary-link">Pre-launch</a></li>
-                        <li><a href="#launch-week" class="footer-secondary-link">Launch Week</a></li>
-                        <li><a href="#post-launch" class="footer-secondary-link">Post-launch</a></li>
+                        <li><a href="#executive-summary" class="footer-secondary-link">Overview</a></li>
                         <li><a href="#financial-kpi" class="footer-secondary-link">Budget & KPIs</a></li>
-                        <li><a href="#risk-management" class="footer-secondary-link">Risk Management</a></li>
-                        <li><a href="#team-timeline" class="footer-secondary-link">Team & Timeline</a></li>
-                        <li><a href="#success-criteria" class="footer-secondary-link">Success Criteria</a></li>
-                        <li><a href="#gtm-plan-info" class="footer-secondary-link">GTM Plan Info</a></li>
-                        <li><a href="#about" class="footer-secondary-link">About</a></li>
-                        <li><a href="#contact" class="footer-secondary-link">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="footer-secondary-title">Resources</h4>
-                    <ul class="footer-secondary-links">
-                        <li><a href="#" class="footer-secondary-link">Documentation</a></li>
-                        <li><a href="#" class="footer-secondary-link">Case Studies</a></li>
-                        <li><a href="#" class="footer-secondary-link">Blog</a></li>
-                        <li><a href="#" class="footer-secondary-link">GitHub Repository</a></li>
-                        <li><a href="#" class="footer-secondary-link">API Documentation</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-secondary-bottom">
-                <p>© 2025 HIEP NGUYEN | Marketing Dashboard Suite v2.0</p>
-                <p style="margin-top: 10px; font-size: 12px;">Built with ❤️ for Web3 gaming ecosystems</p>
+                <p>© 2025 HIEP NGUYEN</p>
             </div>
         </div>
     </div>
     
     <script>
-        // ====== MOBILE NAVIGATION FUNCTIONALITY ======
+        // ====== MOBILE NAVIGATION ======
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const topNavMenu = document.getElementById('topNavMenu');
         const mobileNavOverlay = document.getElementById('mobileNavOverlay');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
         const mobileNavBtn = document.getElementById('mobileNavBtn');
         
-        // Toggle top navigation menu (for tablets and mobile)
         if (hamburgerMenu) {
             hamburgerMenu.addEventListener('click', function() {
                 this.classList.toggle('active');
@@ -2603,7 +1867,6 @@
             });
         }
         
-        // Toggle mobile navigation menu (for small mobile)
         if (mobileNavBtn) {
             mobileNavBtn.addEventListener('click', function() {
                 mobileNavMenu.classList.add('active');
@@ -2612,14 +1875,11 @@
             });
         }
         
-        // Close mobile navigation when clicking overlay
         if (mobileNavOverlay) {
             mobileNavOverlay.addEventListener('click', function() {
                 this.classList.remove('active');
                 mobileNavMenu.classList.remove('active');
                 document.body.style.overflow = '';
-                
-                // Also close top nav if open
                 if (hamburgerMenu) {
                     hamburgerMenu.classList.remove('active');
                     topNavMenu.classList.remove('active');
@@ -2627,78 +1887,36 @@
             });
         }
         
-        // Close mobile navigation when clicking a link
         document.querySelectorAll('.mobile-nav-item').forEach(item => {
             item.addEventListener('click', function() {
                 mobileNavOverlay.classList.remove('active');
                 mobileNavMenu.classList.remove('active');
                 document.body.style.overflow = '';
-                
-                // Also close top nav if open
-                if (hamburgerMenu) {
-                    hamburgerMenu.classList.remove('active');
-                    topNavMenu.classList.remove('active');
-                }
-                
-                // Update active state in mobile nav
-                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
+                document.querySelectorAll('.mobile-nav-item').forEach(nav => nav.classList.remove('active'));
                 this.classList.add('active');
             });
         });
         
-        // Close menus when window is resized to desktop size
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 900) {
-                if (hamburgerMenu) {
-                    hamburgerMenu.classList.remove('active');
-                    topNavMenu.classList.remove('active');
-                }
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // ====== MAIN NAVIGATION SCROLL FUNCTIONALITY ======
+        // ====== MAIN NAV SCROLL ======
         const navScrollWrapper = document.getElementById('navScrollWrapper');
         const navScrollLeft = document.getElementById('navScrollLeft');
         const navScrollRight = document.getElementById('navScrollRight');
         
         if (navScrollWrapper && navScrollLeft && navScrollRight) {
-            // Show/hide scroll arrows based on scroll position
             function updateScrollArrows() {
                 const scrollLeft = navScrollWrapper.scrollLeft;
                 const maxScroll = navScrollWrapper.scrollWidth - navScrollWrapper.clientWidth;
-                
                 navScrollLeft.style.display = scrollLeft > 0 ? 'flex' : 'none';
                 navScrollRight.style.display = scrollLeft < maxScroll - 5 ? 'flex' : 'none';
             }
             
-            // Scroll left
-            navScrollLeft.addEventListener('click', function() {
-                navScrollWrapper.scrollBy({
-                    left: -200,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Scroll right
-            navScrollRight.addEventListener('click', function() {
-                navScrollWrapper.scrollBy({
-                    left: 200,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Update arrows on scroll
+            navScrollLeft.addEventListener('click', () => navScrollWrapper.scrollBy({ left: -200, behavior: 'smooth' }));
+            navScrollRight.addEventListener('click', () => navScrollWrapper.scrollBy({ left: 200, behavior: 'smooth' }));
             navScrollWrapper.addEventListener('scroll', updateScrollArrows);
-            
-            // Initial update
             updateScrollArrows();
         }
         
-        // ====== TABLE SCROLL FUNCTIONALITY - FIXED FOR ALL TABLES ======
-        // Function to enable horizontal scrolling for tables on mobile
+        // ====== FIXED TABLE SCROLLING (CHỈ DÙNG MOUSE EVENT CHO DESKTOP) ======
         function enableTableHorizontalScroll() {
             const tableContainers = document.querySelectorAll('.table-responsive');
             
@@ -2706,7 +1924,8 @@
                 let isDragging = false;
                 let startX, startScrollLeft;
                 
-                // Mouse events for desktop
+                // CHỈ giữ lại sự kiện Mouse cho Desktop "Drag to scroll"
+                // KHÔNG thêm sự kiện Touch ở đây để tránh xung đột với mobile native scroll
                 container.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     startX = e.pageX - container.offsetLeft;
@@ -2717,9 +1936,9 @@
                 
                 container.addEventListener('mousemove', (e) => {
                     if (!isDragging) return;
-                    e.preventDefault();
+                    e.preventDefault(); // Chỉ preventDefault với chuột trên desktop
                     const x = e.pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2; // Multiply for faster scrolling
+                    const walk = (x - startX) * 2;
                     container.scrollLeft = startScrollLeft - walk;
                 });
                 
@@ -2735,287 +1954,86 @@
                     container.style.userSelect = 'auto';
                 });
                 
-                // Touch events for mobile
-                container.addEventListener('touchstart', (e) => {
-                    isDragging = true;
-                    startX = e.touches[0].pageX - container.offsetLeft;
-                    startScrollLeft = container.scrollLeft;
-                });
-                
-                container.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
-                    e.preventDefault();
-                    const x = e.touches[0].pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    container.scrollLeft = startScrollLeft - walk;
-                });
-                
-                container.addEventListener('touchend', () => {
-                    isDragging = false;
-                });
-                
-                // Add cursor style for desktop
                 if (window.innerWidth > 768) {
                     container.style.cursor = 'grab';
                 }
             });
         }
         
-        // Function to check if table needs horizontal scroll và hiển thị hint
         function checkTableScrollNeeded() {
             const tableContainers = document.querySelectorAll('.table-responsive');
-            
             tableContainers.forEach(container => {
                 const table = container.querySelector('table');
                 if (table && container.clientWidth < table.scrollWidth) {
-                    container.classList.add('scrollable');
-                    // Hiển thị scroll hint nếu table cần scroll
                     const hint = container.querySelector('.table-scroll-hint');
-                    if (hint) {
-                        hint.style.display = 'block';
-                    }
+                    if (hint) hint.style.display = 'block';
                 } else {
-                    container.classList.remove('scrollable');
-                    // Ẩn scroll hint nếu table không cần scroll
                     const hint = container.querySelector('.table-scroll-hint');
-                    if (hint) {
-                        hint.style.display = 'none';
-                    }
+                    if (hint) hint.style.display = 'none';
                 }
             });
         }
         
-        // ====== NAVIGATION FUNCTIONALITY ======
+        // ====== OTHER UI LOGIC ======
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // Remove active class from all nav items
-                document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
-                
-                // Remove active class from all mobile nav items
-                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
-                
-                // Add active class to clicked nav item
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
                 this.classList.add('active');
-                
-                // Get target section
                 const targetId = this.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
-                
-                // Scroll to target section with smooth behavior
                 if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 120,
-                        behavior: 'smooth'
+                    window.scrollTo({ top: targetSection.offsetTop - 120, behavior: 'smooth' });
+                }
+            });
+        });
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 150;
+            document.querySelectorAll('.section').forEach(section => {
+                if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.clientHeight) {
+                    const id = '#' + section.getAttribute('id');
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.toggle('active', item.getAttribute('href') === id);
                     });
                 }
-                
-                // Update URL hash
-                history.pushState(null, null, targetId);
-                
-                // Update corresponding mobile nav item
-                const mobileNavItem = document.querySelector(`.mobile-nav-item[href="${targetId}"]`);
-                if (mobileNavItem) {
-                    mobileNavItem.classList.add('active');
-                }
-            });
-        });
-        
-        // ====== HIGHLIGHT ACTIVE SECTION ON SCROLL ======
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.section');
-            const navItems = document.querySelectorAll('.nav-item');
-            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
-            const scrollPosition = window.scrollY + 150;
-            
-            let currentSection = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    currentSection = '#' + section.getAttribute('id');
-                }
             });
             
-            // Update desktop nav items
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === currentSection) {
-                    item.classList.add('active');
-                }
-            });
-            
-            // Update mobile nav items
-            mobileNavItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === currentSection) {
-                    item.classList.add('active');
-                }
-            });
-            
-            // Update progress bar
-            updateProgressBar();
-            
-            // Show/hide scroll to top button
-            const scrollTopBtn = document.getElementById('scrollTop');
-            if (window.scrollY > 500) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
-        });
-        
-        // ====== PROGRESS BAR FUNCTIONALITY ======
-        function updateProgressBar() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             const progressBar = document.getElementById("progressBar");
-            if (progressBar) {
-                progressBar.style.width = scrolled + "%";
-            }
-        }
-        
-        // ====== SCROLL TO TOP FUNCTIONALITY ======
-        document.getElementById('scrollTop').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // ====== PRINT FUNCTIONALITY ======
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'p') {
-                e.preventDefault();
-                window.print();
+            if(progressBar) progressBar.style.width = scrolled + "%";
+            
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if(scrollTopBtn) {
+                if (window.scrollY > 500) scrollTopBtn.classList.add('show');
+                else scrollTopBtn.classList.remove('show');
             }
         });
         
-        // ====== SET CURRENT DATE ======
-        function setCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const dateElement = document.getElementById('currentDate');
-            if (dateElement) {
-                dateElement.textContent = now.toLocaleDateString('en-US', options);
-            }
-        }
+        document.getElementById('scrollTop')?.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
         
-        // ====== INITIALIZE EVERYTHING ON LOAD ======
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            setCurrentDate();
-            
-            // Initialize first nav item as active
-            const firstNavItem = document.querySelector('.nav-item');
-            if (firstNavItem) {
-                firstNavItem.classList.add('active');
-            }
-            
-            // Initialize first mobile nav item as active
-            const firstMobileNavItem = document.querySelector('.mobile-nav-item');
-            if (firstMobileNavItem) {
-                firstMobileNavItem.classList.add('active');
-            }
-            
-            // Smooth scroll for anchor links (including top-nav links)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href !== '#') {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(href);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 120,
-                                behavior: 'smooth'
-                            });
-                            
-                            // Update active nav items
-                            document.querySelectorAll('.nav-item').forEach(item => {
-                                item.classList.remove('active');
-                                if (item.getAttribute('href') === href) {
-                                    item.classList.add('active');
-                                }
-                            });
-                            
-                            // Update active mobile nav items
-                            document.querySelectorAll('.mobile-nav-item').forEach(item => {
-                                item.classList.remove('active');
-                                if (item.getAttribute('href') === href) {
-                                    item.classList.add('active');
-                                }
-                            });
-                        }
-                    }
-                });
-            });
-            
-            // Update scroll arrows on window resize
-            if (navScrollWrapper) {
-                window.addEventListener('resize', function() {
-                    setTimeout(() => {
-                        if (navScrollWrapper && navScrollLeft && navScrollRight) {
-                            const scrollLeft = navScrollWrapper.scrollLeft;
-                            const maxScroll = navScrollWrapper.scrollWidth - navScrollWrapper.clientWidth;
-                            
-                            navScrollLeft.style.display = scrollLeft > 0 ? 'flex' : 'none';
-                            navScrollRight.style.display = scrollLeft < maxScroll - 5 ? 'flex' : 'none';
-                        }
-                    }, 100);
-                });
-            }
-            
-            // Initialize table scrolling functionality
             enableTableHorizontalScroll();
             checkTableScrollNeeded();
             
-            // Re-check table scroll on window resize
             window.addEventListener('resize', function() {
                 setTimeout(checkTableScrollNeeded, 100);
             });
             
-            // Hide scroll hint after user starts scrolling
             document.querySelectorAll('.table-responsive').forEach(container => {
                 container.addEventListener('scroll', function() {
                     const hint = this.querySelector('.table-scroll-hint');
                     if (hint) {
                         hint.style.opacity = '0';
-                        setTimeout(() => {
-                            hint.style.display = 'none';
-                        }, 300);
+                        setTimeout(() => { hint.style.display = 'none'; }, 300);
                     }
                 });
             });
-        });
-        
-        // ====== TOP NAV ACTIVE STATE ======
-        const currentPage = window.location.pathname.split('/').pop();
-        const topNavLinks = document.querySelectorAll('.top-nav-link');
-        
-        topNavLinks.forEach(link => {
-            const linkHref = link.getAttribute('href');
-            if (linkHref === currentPage || (linkHref === 'crypto-gotomarketplan.html' && currentPage === '')) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-        
-        // ====== CONTACT FORM SIMULATION ======
-        document.querySelector('.cta-button[href^="mailto"]')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            const email = 'hiep@example.com';
-            const subject = 'Interest in CryptoCopyPro GTM Plan';
-            const body = 'Hello Hiep,\n\nI saw your CryptoCopyPro GTM Plan and would like to discuss...';
-            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
     </script>
 </body>
