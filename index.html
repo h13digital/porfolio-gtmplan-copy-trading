@@ -3,109 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Copy Trading | GTM Plan</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>CryptoCopyPro - Practical Go-to-Market Plan (Bootstrapped)</title>
     <style>
+        /* ====== ROOT VARIABLES ====== */
         :root {
-            --primary: #0ea5e9; /* Sky blue */
-            --primary-dark: #0284c7;
-            --secondary: #10b981; /* Emerald */
-            --dark: #0f172a; /* Dark blue slate */
-            --light: #f8fafc;
-            --gray: #cbd5e1;
-            --warning: #f59e0b; /* Orange color */
-            --danger: #ef4444;
+            --primary: #1a365d;
+            --primary-light: #2d3748;
+            --secondary: #805ad5; /* Màu tím đặc trưng crypto */
+            --accent: #9f7aea;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --gray: #718096;
+            --dark: #2d3748;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+            
+            /* New variables from index.html */
             --accent-purple: #8a2be2;
             --accent-green: #00ff88;
-            --highlight-orange: #f59e0b; /* Orange highlight color */
+            --highlight-orange: #f59e0b;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        /* ====== RESET & BASE STYLES ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
         body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            padding-bottom: 50px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #2d3748;
+            line-height: 1.7;
+            font-size: 16px;
+            min-height: 100vh;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        /* Header & Nav */
-        header {
-            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
-            padding: 1rem 0;
-            border-bottom: 1px solid #334155;
-            position: sticky; 
-            top: 0; 
-            z-index: 100;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+        
+        /* ====== TOP NAVIGATION - UPDATED WITH RIGHT NAV ====== */
+        .top-nav {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        .header-hidden {
-            transform: translateY(-100%);
-        }
-        .header-visible {
-            transform: translateY(0);
-        }
-        .header-container {
+        
+        .top-nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 2rem;
         }
         
-        /* Logo icon - Crypto cube */
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
+        .top-nav-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .top-nav-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            z-index: 101;
+            font-weight: bold;
         }
         
-        .logo-icon:hover {
-            transform: translateY(-3px) rotate(15deg);
-            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        .crypto-gradient {
+            background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
         }
         
-        /* Main Navigation Container */
-        .main-nav {
+        .top-nav-menu {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            margin-left: 20px;
-        }
-        
-        /* Left Navigation Items - Aligned to left */
-        .nav-left {
-            display: flex;
-            gap: 1.2rem;
+            gap: 1.5rem;
             align-items: center;
         }
         
-        /* Left nav links (Summary, Market, etc.) - Original style */
-        .nav-left a {
-            color: var(--gray);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 0.5rem 0.8rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            white-space: nowrap;
-        }
-        
-        .nav-left a:hover, .nav-left a.active { 
-            color: var(--primary); 
-            background-color: rgba(14, 165, 233, 0.1);
-        }
-        
-        /* Right Navigation Container - Aligned to right */
+        /* Added from index.html for right navigation */
         .nav-right {
             display: flex;
             align-items: center;
@@ -113,35 +101,42 @@
             margin-left: auto;
         }
         
-        /* Right nav links (About, Contact) - smaller font */
-        .nav-right a:not(.user-profile) {
-            color: var(--gray);
+        .top-nav-link {
+            color: white;
             text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
             font-weight: 500;
-            transition: all 0.3s;
-            padding: 0.5rem 0;
-            font-size: 0.85rem;
-            position: relative;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             white-space: nowrap;
         }
         
-        .nav-right a:not(.user-profile):hover, 
-        .nav-right a:not(.user-profile).active { 
-            color: var(--primary);
+        /* Style for About and Contact links - smaller, lowercase, no icon */
+        .nav-right .top-nav-link {
+            font-size: 0.75em;
+            text-transform: lowercase;
+            padding: 0.5rem 0.8rem;
         }
         
-        .nav-right a:not(.user-profile).active::after,
-        .nav-right a:not(.user-profile):hover::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background-color: var(--primary);
+        /* Remove icon from About and Contact links */
+        .nav-right .top-nav-link i {
+            display: none;
         }
         
-        /* User profile - positioned to the far right */
+        .top-nav-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .top-nav-link.active {
+            background: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
+        /* User profile styles from index.html */
         .user-profile {
             display: flex;
             align-items: center;
@@ -187,370 +182,602 @@
         
         .user-role {
             font-size: 12px;
-            color: var(--gray);
+            color: #cbd5e0;
         }
         
-        /* Mobile Hamburger Menu */
-        .hamburger-menu {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 101;
+        .top-nav-link i {
+            font-size: 1.1rem;
+        }
+        
+        /* ====== MAIN CONTAINER ====== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* ====== HEADER ====== */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header.crypto-gradient {
+            background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #a0c8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header.crypto-gradient h1 {
+            background: linear-gradient(to right, #fff, #d6bcfa);
+            -webkit-background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #cbd5e0;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #e2e8f0;
+        }
+        
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .meta-item {
+            text-align: center;
             padding: 0.5rem;
-            border-radius: 5px;
-            transition: all 0.3s;
         }
         
-        .hamburger-menu:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .meta-item strong {
+            display: block;
+            font-size: 0.95rem;
+            color: #cbd5e0;
+            margin-bottom: 0.3rem;
         }
         
-        /* Mobile Navigation Overlay - FIXED */
-        .mobile-nav-overlay {
-            position: fixed;
+        /* ====== MAIN NAVIGATION ====== */
+        .main-nav {
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 64px;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+            padding: 0 1rem;
+            scrollbar-width: thin;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .nav-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .nav-container::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        .nav-item {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+            background: rgba(49, 130, 206, 0.05);
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background: rgba(66, 153, 225, 0.08);
+        }
+        
+        .nav-item.active::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* ====== MAIN CONTENT ====== */
+        .content {
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .section:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+        
+        .section h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .section h3 {
+            color: var(--primary-light);
+            font-size: 1.4rem;
+            margin: 1.8rem 0 1rem;
+        }
+        
+        .section h4 {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+        
+        .section-intro {
+            background: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+        }
+        
+        .crypto-border {
+            border-left-color: #9f7aea !important;
+        }
+        
+        /* ====== GTM PLAN INFO SECTION ====== */
+        #gtm-plan-info {
+            background: white;
+            border: 2px solid var(--secondary);
+            color: var(--primary-light);
+            text-align: center; /* Canh giữa toàn bộ nội dung */
+        }
+        
+        #gtm-plan-info h2 {
+            color: var(--secondary);
+        }
+        
+        #gtm-plan-info p {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+        
+        /* Phiên bản thu gọn 70% */
+        #gtm-plan-info .version {
+            background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem auto 0;
+            max-width: 70%; /* Giảm xuống 70% chiều rộng */
+            text-align: left; /* Giữ canh trái cho nội dung bên trong */
+        }
+        
+        ul, ol {
+            padding-left: 1.8rem;
+            margin: 1rem 0;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        /* ====== TABLES ====== */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: var(--radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+        }
+        
+        .table-full {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+        
+        .table-full th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+        }
+        
+        .table-full td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .table-full tr:hover {
+            background: #f8fafc;
+        }
+        
+        .table-full tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .col-activity { width: 18%; }
+        .col-purpose { width: 12%; }
+        .col-why { width: 15%; }
+        .col-achieve { width: 12%; }
+        .col-how { width: 15%; }
+        .col-cost { width: 8%; }
+        .col-kpi { width: 10%; }
+        .col-risk { width: 10%; }
+        
+        .risk-low { color: var(--success); font-weight: 600; }
+        .risk-medium { color: var(--warning); font-weight: 600; }
+        .risk-high { color: var(--danger); font-weight: 600; }
+        
+        /* ====== CARDS & GRIDS ====== */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .summary-card {
+            background: linear-gradient(145deg, #ffffff, #f7fafc);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .summary-card::before {
+            content: "";
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(15, 23, 42, 0.98);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
         }
         
-        .mobile-nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .summary-card h3 {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
         }
         
-        .mobile-nav-container {
-            width: 90%;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid #334155;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
+        .summary-card .value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.5rem 0;
         }
         
-        .mobile-nav-overlay.active .mobile-nav-container {
-            transform: translateY(0);
+        .summary-card .unit {
+            font-size: 0.95rem;
+            color: var(--gray);
         }
         
-        .mobile-nav-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #334155;
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
         
-        .mobile-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .kpi-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
-        .mobile-logo-icon {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: white;
+        .kpi-title {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
         
-        .mobile-logo-text {
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-role {
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--primary);
+            margin-bottom: 0.5rem;
         }
         
-        .mobile-close-btn {
-            background: none;
-            border: none;
-            color: var(--gray);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 5px;
-            transition: all 0.3s;
+        .team-cost {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: 1rem;
         }
         
-        .mobile-close-btn:hover {
-            color: var(--primary);
-            background-color: rgba(255, 255, 255, 0.1);
+        .contingency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
         
-        .mobile-nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
+        .contingency-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
         
-        .mobile-nav-links a {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--light);
-            text-decoration: none;
-            padding: 1rem 1.2rem;
-            border-radius: 10px;
-            background-color: rgba(30, 41, 59, 0.7);
-            border-left: 4px solid transparent;
-            transition: all 0.3s;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        
-        .mobile-nav-links a i {
-            color: var(--primary);
-            font-size: 1rem;
-        }
-        
-        .mobile-nav-links a:hover, .mobile-nav-links a.active {
-            background-color: rgba(14, 165, 233, 0.15);
-            border-left-color: var(--primary);
-            color: var(--primary);
+        .contingency-card:hover {
             transform: translateX(5px);
         }
         
-        .mobile-user-profile {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(0, 255, 136, 0.1));
-            border-radius: 10px;
-            margin-top: 2rem;
-            text-decoration: none;
-            border: 1px solid rgba(138, 43, 226, 0.3);
-            color: inherit;
+        .contingency-card.cac { border-left-color: var(--danger); }
+        .contingency-card.churn { border-left-color: var(--warning); }
+        .contingency-card.technical { border-left-color: var(--secondary); }
+        .contingency-card.regulatory { border-left-color: var(--primary); }
+        
+        /* ====== TIMELINE ====== */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
         }
         
-        .mobile-user-avatar {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--secondary));
         }
         
-        .mobile-user-info {
+        .timeline-item {
             display: flex;
-            flex-direction: column;
-            flex-grow: 1;
+            margin-bottom: 2.5rem;
+            position: relative;
         }
         
-        .mobile-user-name {
-            font-size: 1rem;
+        .timeline-date {
+            flex: 0 0 140px;
             font-weight: 700;
-            color: var(--light);
-        }
-        
-        .mobile-user-role {
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-        
-        .mobile-portfolio-link {
-            display: inline-block;
-            margin-top: 1rem;
-            text-align: center;
-            width: 100%;
-            padding: 0.8rem;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        
-        .mobile-portfolio-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
-        }
-        
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 4rem 1rem;
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1640340434855-6084b1f4901c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 3rem;
-        }
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Sub sub headline box */
-        .sub-sub-headline {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 0.9rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
-            cursor: pointer;
-            margin: 0.5rem;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
-        }
-        .cta-button.secondary { background: linear-gradient(to right, var(--secondary), #0d966c); }
-        
-        /* Sections */
-        section {
-            background-color: rgba(30, 41, 59, 0.7);
-            margin: 2.5rem 0;
-            padding: 2.5rem;
-            border-radius: 15px;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-            scroll-margin-top: 80px;
-        }
-        section:hover { transform: translateY(-5px); }
-        h2 {
             color: var(--primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.7rem;
-            border-bottom: 2px solid #334155;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding-right: 1.5rem;
+            text-align: right;
+            position: relative;
         }
-        h2 i { font-size: 1.5rem; }
-        h3 { color: var(--secondary); margin: 1.8rem 0 0.8rem 0; }
-        p, li { color: #e2e8f0; }
-        ul, ol { padding-left: 1.5rem; margin: 1rem 0; }
-        li { margin-bottom: 0.7rem; }
-        .highlight { color: var(--primary); font-weight: 600; }
         
-        /* Cards & Data Display */
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+        .timeline-date::before {
+            content: "";
+            position: absolute;
+            right: -38px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--accent);
+            z-index: 2;
         }
-        .card {
-            background: rgba(15, 23, 42, 0.8);
-            padding: 1.8rem;
-            border-radius: 12px;
-            border-top: 4px solid var(--secondary);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        .card h4 { color: var(--light); margin-bottom: 1rem; font-size: 1.2rem; }
-        .metric { font-size: 2.2rem; font-weight: 700; color: var(--secondary); line-height: 1; }
-        .metric-label { color: var(--gray); font-size: 0.9rem; margin-top: 0.3rem; }
         
-        /* Toggleable Content - UPDATED WITH ORANGE COLOR */
-        .toggle-header {
-            background: none;
-            border: none;
-            color: var(--highlight-orange); /* Changed to orange color */
+        .timeline-content {
+            flex: 1;
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-left: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .timeline-content:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ====== RISK MATRIX ====== */
+        .risk-matrix {
             width: 100%;
-            text-align: left;
-            padding: 1rem;
-            font-size: 1.1rem;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .risk-matrix th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
             font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 8px;
-            background-color: rgba(51, 65, 85, 0.5);
-            margin-top: 1rem;
-            transition: all 0.3s;
-        }
-        .toggle-header:hover { 
-            background-color: rgba(51, 65, 85, 0.8); 
-            color: #ffb347; /* Lighter orange on hover */
-        }
-        
-        /* Orange color for toggle icons */
-        .toggle-header i {
-            color: var(--highlight-orange);
-            transition: all 0.3s;
-        }
-        
-        .toggle-header:hover i {
-            color: #ffb347;
-        }
-        
-        .toggle-content {
-            padding: 0 1rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.3s;
-            border-left: 2px solid transparent;
-        }
-        .toggle-content.active {
-            max-height: 1500px;
             padding: 1rem;
-            border-left: 2px solid var(--primary);
+            text-align: left;
+            border-bottom: 2px solid var(--border);
         }
         
-        /* About & Contact Sections */
+        .risk-matrix td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .risk-matrix tr:hover {
+            background: #f8fafc;
+        }
+        
+        /* ====== ROI TABLE ====== */
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .roi-table th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .roi-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .roi-table tr.scenario-conservative {
+            background: rgba(245, 245, 245, 0.8);
+        }
+        
+        .roi-table tr.scenario-expected {
+            background: rgba(230, 247, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .roi-table tr.scenario-aggressive {
+            background: rgba(246, 255, 237, 0.8);
+        }
+        
+        /* ====== ABOUT & CONTACT SECTIONS (from index.html) - FIXED BACKGROUND ====== */
         .about-section {
-            background-color: rgba(26, 26, 46, 0.7);
+            background-color: white; /* Changed from dark to white */
             border-radius: 20px;
             padding: 40px;
             margin-top: 20px;
-            border: 1px solid #2d2d4a;
+            border: 1px solid var(--border); /* Changed to match the theme */
         }
         
         .about-content {
@@ -582,7 +809,7 @@
             font-size: 24px;
             font-weight: 800;
             margin-bottom: 10px;
-            color: var(--light);
+            color: var(--primary);
         }
         
         .profile-title {
@@ -593,7 +820,7 @@
         }
         
         .profile-desc {
-            color: #e2e8f0;
+            color: #2d3748; /* Changed to dark color for better readability */
             line-height: 1.7;
         }
         
@@ -604,16 +831,18 @@
         }
         
         .skill-card {
-            background-color: rgba(15, 23, 42, 0.8);
+            background-color: white; /* Changed from dark to white */
             border-radius: 12px;
             padding: 20px;
-            border: 1px solid #334155;
+            border: 1px solid var(--border); /* Changed to match theme */
             transition: all 0.3s;
+            box-shadow: var(--shadow);
         }
         
         .skill-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         
         .skill-icon {
@@ -651,11 +880,11 @@
             font-size: 16px;
             font-weight: 700;
             margin-bottom: 10px;
-            color: var(--light);
+            color: var(--dark);
         }
         
         .skill-desc {
-            color: #cbd5e1;
+            color: var(--gray);
             line-height: 1.6;
             font-size: 14px;
         }
@@ -670,9 +899,16 @@
         .contact-item {
             text-align: center;
             padding: 20px;
-            background: rgba(15, 23, 42, 0.8);
+            background: white; /* Changed from dark to white */
             border-radius: 12px;
-            border: 1px solid #334155;
+            border: 1px solid var(--border); /* Changed to match theme */
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         
         .contact-label {
@@ -686,56 +922,58 @@
             color: var(--primary);
         }
         
-        /* Footer */
-        .footer {
+        /* ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) ====== */
+        .footer-secondary {
             padding: 60px 0 30px;
-            background-color: rgba(10, 10, 21, 0.8);
+            background-color: #1a365d; /* Updated to match commandcenter.html */
             border-top: 1px solid #2d2d4a;
-            margin-top: 60px;
         }
         
-        .footer-content {
+        .footer-secondary-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 50px;
             margin-bottom: 50px;
+            padding: 0 2rem;
         }
         
-        .footer-brand {
+        .footer-secondary-brand {
             margin-bottom: 20px;
         }
         
-        .footer-desc {
-            color: var(--gray);
+        .footer-secondary-desc {
+            color: #cbd5e1;
             margin-bottom: 30px;
             max-width: 300px;
         }
         
-        .footer-title {
+        .footer-secondary-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 20px;
-            color: var(--light);
+            color: white;
         }
         
-        .footer-links {
+        .footer-secondary-links {
             list-style: none;
         }
         
-        .footer-link {
-            color: var(--gray);
+        .footer-secondary-link {
+            color: #cbd5e1;
             text-decoration: none;
             margin-bottom: 12px;
             display: block;
             transition: all 0.3s;
         }
         
-        .footer-link:hover {
-            color: var(--primary);
+        .footer-secondary-link:hover {
+            color: var(--accent);
             transform: translateX(5px);
         }
         
-        .footer-bottom {
+        .footer-secondary-bottom {
             text-align: center;
             padding-top: 30px;
             border-top: 1px solid #334155;
@@ -743,50 +981,46 @@
             font-size: 14px;
         }
         
-        /* Responsive - Mobile First Approach */
-        @media (max-width: 1200px) {
-            .nav-left {
-                gap: 1rem;
-            }
-            .nav-right {
-                gap: 1rem;
-            }
+        /* ====== CTA BUTTON (from index.html) ====== */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
         }
         
-        @media (max-width: 1100px) {
-            .nav-left a {
-                font-size: 0.9rem;
-                padding: 0.5rem 0.7rem;
-            }
-            
-            .nav-right a:not(.user-profile) {
-                font-size: 0.8rem;
-            }
-            
-            .user-info {
-                display: none;
-            }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
         
-        /* Tablet Breakpoint */
-        @media (max-width: 992px) {
-            .main-nav {
-                display: none; /* Hide desktop nav on tablet */
+        /* ====== RESPONSIVE DESIGN ====== */
+        @media (max-width: 1024px) {
+            .container {
+                margin: 1rem;
+                border-radius: 8px;
             }
             
-            .hamburger-menu {
-                display: block; /* Show hamburger menu */
+            .top-nav-container,
+            .nav-container,
+            .header,
+            .content,
+            .footer-secondary {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
             
-            .header-container {
-                justify-content: space-between;
+            .header h1 {
+                font-size: 2.2rem;
             }
             
-            .logo-icon {
-                margin-right: auto;
-            }
-            
-            /* Adjust sections for tablet */
             .about-content {
                 grid-template-columns: 1fr;
             }
@@ -798,208 +1032,298 @@
             .contact-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-        }
-        
-        /* Mobile Breakpoint */
-        @media (max-width: 768px) {
-            .hero h1 { 
-                font-size: 2.2rem; 
-                line-height: 1.2;
-            }
             
-            .sub-sub-headline {
-                font-size: 1rem;
-                padding: 0.5rem 1.2rem;
-                margin-bottom: 1rem;
-            }
-            
-            .tagline {
-                font-size: 1.1rem;
-                margin-bottom: 1.5rem;
-            }
-            
-            section { 
-                padding: 1.8rem; 
-                margin: 1.5rem 0;
-            }
-            
-            .cards-container { 
-                grid-template-columns: 1fr; 
-                gap: 1rem;
-            }
-            
-            .card {
-                padding: 1.5rem;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .footer-content {
+            .footer-secondary-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
             
-            .cta-button {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-                margin: 0.3rem;
-            }
-            
-            .about-section {
-                padding: 1.5rem;
-            }
-            
-            .profile-image {
-                width: 120px;
-                height: 120px;
-                font-size: 50px;
-            }
-            
-            .profile-name {
-                font-size: 1.5rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .metric {
-                font-size: 1.8rem;
+            #gtm-plan-info .version {
+                max-width: 85%; /* Tăng lên một chút cho tablet */
             }
         }
         
-        /* Small Mobile */
-        @media (max-width: 576px) {
-            .logo-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
-            }
-            
-            .hero {
-                padding: 3rem 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .sub-sub-headline {
-                font-size: 0.9rem;
-                padding: 0.4rem 1rem;
-            }
-            
-            .tagline {
-                font-size: 1rem;
-            }
-            
-            section {
-                padding: 1.5rem;
-            }
-            
-            .mobile-nav-container {
-                padding: 1.5rem;
-            }
-            
-            .mobile-nav-links a {
-                padding: 0.8rem 1rem;
-                font-size: 0.95rem;
-            }
-            
-            .mobile-user-profile {
+        @media (max-width: 768px) {
+            .top-nav-container {
+                flex-direction: column;
+                gap: 1rem;
                 padding: 1rem;
             }
             
-            .mobile-user-avatar {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+            .top-nav-menu {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
             }
             
-            .mobile-user-name {
+            .nav-right {
+                margin-left: 0;
+                justify-content: center;
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .main-nav {
+                top: 120px;
+            }
+            
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .meta-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .summary-grid,
+            .kpi-grid,
+            .team-grid,
+            .contingency-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-date {
+                flex: 0 0 100px;
                 font-size: 0.9rem;
             }
             
-            .mobile-user-role {
-                font-size: 0.8rem;
+            .timeline-date::before {
+                right: -28px;
             }
             
-            .mobile-portfolio-link {
-                padding: 0.7rem;
-                font-size: 0.85rem;
+            .timeline-content {
+                margin-left: 2rem;
             }
             
-            .footer {
-                padding: 3rem 0 1.5rem;
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
             
-            .footer-bottom {
-                font-size: 0.8rem;
-            }
-            
-            .toggle-header {
-                font-size: 1rem;
-                padding: 0.8rem;
+            #gtm-plan-info .version {
+                max-width: 95%; /* Tăng lên cho mobile */
             }
         }
         
-        /* Large Mobile */
-        @media (max-width: 400px) {
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-            
-            .sub-sub-headline {
-                font-size: 0.85rem;
-            }
-            
-            .cta-button {
-                display: block;
+        @media (max-width: 480px) {
+            .top-nav-menu {
+                flex-direction: column;
+                gap: 0.5rem;
                 width: 100%;
-                margin: 0.5rem 0;
             }
             
-            .mobile-nav-links a {
+            .nav-right {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .top-nav-link {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .main-nav {
+                top: 160px;
+            }
+            
+            .nav-container {
+                justify-content: flex-start;
+            }
+            
+            .nav-item {
+                padding: 0.8rem 1rem;
                 font-size: 0.9rem;
             }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-date {
+                flex: 0 0 80px;
+                font-size: 0.8rem;
+            }
+            
+            .timeline-date::before {
+                right: -23px;
+                width: 12px;
+                height: 12px;
+            }
+            
+            .timeline-content {
+                margin-left: 1.5rem;
+                padding: 1rem;
+            }
+            
+            #gtm-plan-info .version {
+                max-width: 100%; /* Chiếm toàn bộ chiều rộng trên mobile nhỏ */
+                padding: 1rem;
+            }
+        }
+        
+        /* ====== PRINT STYLES ====== */
+        @media print {
+            .top-nav,
+            .main-nav {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .header,
+            .footer {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .header h1,
+            .footer h2 {
+                color: black !important;
+                -webkit-text-fill-color: black !important;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+            
+            .table-responsive {
+                overflow: visible;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+        
+        /* ====== ANIMATIONS ====== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* ====== SCROLL TO TOP BUTTON ====== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+            transition: var(--transition);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* ====== HIGHLIGHT EFFECT ====== */
+        .highlight {
+            background: linear-gradient(120deg, rgba(66, 153, 225, 0.2) 0%, rgba(66, 153, 225, 0) 100%);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        /* ====== PROGRESS BAR ====== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            z-index: 1001;
+            transition: width 0.3s ease;
         }
     </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header id="main-header">
-        <div class="container header-container">
-            <!-- Logo icon - Crypto cube -->
-            <a href="#hero" class="logo-icon" id="logo-icon">
-                <i class="fas fa-cube"></i>
-            </a>
-            
-            <!-- Hamburger Menu Button (Mobile) -->
-            <button class="hamburger-menu" id="hamburger-menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <!-- Desktop Navigation -->
-            <div class="main-nav">
-                <!-- Left Navigation - Aligned to left -->
-                <div class="nav-left">
-                    <a href="#executive-summary" class="active">Summary</a>
-                    <a href="#market-analysis">Market</a>
-                    <a href="#gtm-strategy">GTM Strategy</a>
-                    <a href="#execution-plan">Execution</a>
-                    <a href="#metrics">KPIs</a>
-                    <a href="#risk">Risk</a>
-                </div>
+    <!-- TOP NAVIGATION - UPDATED WITH ABOUT & CONTACT -->
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <div class="top-nav-brand">
+                <div class="top-nav-logo crypto-gradient">CC</div>
+                <span>CryptoCopyPro</span>
+            </div>
+            <div class="top-nav-menu">
+                <a href="crypto-gotomarketplan.html" class="top-nav-link active">
+                    <i class="fas fa-map-marked-alt"></i>
+                    GTM Plan
+                </a>
+                <a href="crypto-commandcenter.html" class="top-nav-link" target="_self">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Command Center
+                </a>
                 
-                <!-- Right Navigation - Aligned to right -->
+                <!-- Added navigation from index.html -->
                 <div class="nav-right">
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                    
-                    <!-- User Profile at far right -->
-                    <a href="https://h13digital.github.io/#portfolio" class="user-profile">
+                    <a href="#about" class="top-nav-link">
+                        about
+                    </a>
+                    <a href="#contact" class="top-nav-link">
+                        contact
+                    </a>
+                    <a href="https://h13digital.github.io/#portfolio" class="top-nav-link user-profile">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>
                         </div>
@@ -1011,601 +1335,964 @@
                 </div>
             </div>
         </div>
+    </nav>
+    
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- SCROLL TO TOP BUTTON -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header crypto-gradient">
+            <div class="header-content">
+                <h1>CryptoCopyPro</h1>
+                <p class="subtitle">PRACTICAL GO-TO-MARKET PLAN - CRYPTO COPY TRADING PLATFORM</p>
+                <p>Social copy trading platform connecting crypto traders with followers, focusing on Binance and Bybit ecosystems</p>
+                
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <strong>Timeline:</strong> 12 weeks
+                    </div>
+                    <div class="meta-item">
+                        <strong>Total Budget:</strong> $20,000
+                    </div>
+                    <div class="meta-item">
+                        <strong>3-Month Target:</strong> 250 traders, 1,000 followers
+                    </div>
+                    <div class="meta-item">
+                        <strong>Target CAC:</strong> $60
+                    </div>
+                </div>
+            </div>
+        </header>
         
-        <!-- Mobile Navigation Overlay -->
-        <div class="mobile-nav-overlay" id="mobile-nav-overlay">
-            <div class="mobile-nav-container">
-                <div class="mobile-nav-header">
-                    <div class="mobile-logo">
-                        <div class="mobile-logo-icon">
-                            <i class="fas fa-cube"></i>
-                        </div>
-                        <div class="mobile-logo-text">Crypto Copy Trading</div>
-                    </div>
-                    <button class="mobile-close-btn" id="mobile-close-btn">
-                        <i class="fas fa-times"></i>
-                    </button>
+        <!-- MAIN NAVIGATION -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <a href="#executive-summary" class="nav-item active">Overview</a>
+                <a href="#pre-launch" class="nav-item">Pre-launch</a>
+                <a href="#launch-week" class="nav-item">Launch Week</a>
+                <a href="#post-launch" class="nav-item">Post-launch</a>
+                <a href="#financial-kpi" class="nav-item">Budget & KPIs</a>
+                <a href="#risk-management" class="nav-item">Risk Management</a>
+                <a href="#team-timeline" class="nav-item">Team & Timeline</a>
+                <a href="#success-criteria" class="nav-item">Success Criteria</a>
+            </div>
+        </nav>
+        
+        <!-- MAIN CONTENT -->
+        <main class="content">
+            <!-- PART I: STRATEGY OVERVIEW -->
+            <section id="executive-summary" class="section">
+                <h2>PART I: PRACTICAL STRATEGY OVERVIEW</h2>
+                
+                <div class="section-intro crypto-border" style="background: #f5f3ff;">
+                    <p><strong>🎯 Core Philosophy:</strong> "Social trading ecosystem - Quality signals over quantity"</p>
+                    <p><strong>Product:</strong> CryptoCopyPro - Social copy trading platform for Binance/Bybit traders</p>
+                    <p><strong>Timeline:</strong> Pre-launch → Launch → Network Effects & Scale</p>
+                    <p><strong>3-Month Target:</strong> 250 signal providers, 1,000 followers, $12,000 MRR</p>
+                    <p><strong>Total Budget:</strong> $20,000 (focused on liquidity incentives)</p>
+                    <p><strong>Key Differentiator:</strong> Social features, transparent performance metrics, dual-sided marketplace</p>
                 </div>
                 
-                <div class="mobile-nav-links">
-                    <a href="#executive-summary" class="mobile-nav-link">
-                        <span><i class="fas fa-file-alt"></i> Summary</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <a href="#market-analysis" class="mobile-nav-link">
-                        <span><i class="fas fa-bullseye"></i> Market</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <a href="#gtm-strategy" class="mobile-nav-link">
-                        <span><i class="fas fa-chess-board"></i> GTM Strategy</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <a href="#execution-plan" class="mobile-nav-link">
-                        <span><i class="fas fa-tasks"></i> Execution</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <a href="#metrics" class="mobile-nav-link">
-                        <span><i class="fas fa-chart-line"></i> KPIs</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <a href="#risk" class="mobile-nav-link">
-                        <span><i class="fas fa-shield-alt"></i> Risk</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <a href="#about" class="mobile-nav-link">
-                        <span><i class="fas fa-user"></i> About</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <a href="#contact" class="mobile-nav-link">
-                        <span><i class="fas fa-envelope"></i> Contact</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
+                <h3>1. Target Market Focus (Crypto Trading Communities)</h3>
+                <ul>
+                    <li><strong>Priority 1:</strong> Southeast Asia crypto traders (Vietnam, Philippines, Indonesia)</li>
+                    <li><strong>Priority 2:</strong> Indian and Middle East crypto communities</li>
+                    <li><strong>Platform Focus:</strong> Binance and Bybit API integration</li>
+                    <li><strong>Strategic Partners:</strong> Trading education platforms, crypto influencers, telegram signal groups</li>
+                </ul>
+                
+                <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
+                <div class="table-responsive">
+                    <table class="table-full">
+                        <tr>
+                            <th>Strengths</th>
+                            <th>Weaknesses</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li>Social features (chat, leaderboards, transparency)</li>
+                                    <li>Easy API integration with Binance/Bybit</li>
+                                    <li>Performance-based fee model</li>
+                                    <li>Focus on crypto-native communities</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Network effects required for success</li>
+                                    <li>Regulatory uncertainty in some markets</li>
+                                    <li>Competition from established platforms</li>
+                                    <li>Dependent on crypto market sentiment</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Opportunities</th>
+                            <th>Threats</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li>Growing crypto adoption in emerging markets</li>
+                                    <li>Demand for transparent copy trading solutions</li>
+                                    <li>Partnerships with crypto influencers</li>
+                                    <li>Expansion to other exchanges (KuCoin, OKX)</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Exchange API changes or restrictions</li>
+                                    <li>Regulatory crackdowns on copy trading</li>
+                                    <li>Security concerns (API key management)</li>
+                                    <li>Market downturns reducing trading activity</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 
-                <a href="https://h13digital.github.io/#portfolio" class="mobile-user-profile">
-                    <div class="mobile-user-avatar">
-                        <i class="fas fa-user"></i>
+                <h3>3. Summary Cards (Realistic Targets)</h3>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h3>3-MONTH TARGET</h3>
+                        <div class="value">250</div>
+                        <div class="unit">signal providers</div>
                     </div>
-                    <div class="mobile-user-info">
-                        <span class="mobile-user-name">HIEP NGUYEN</span>
-                        <span class="mobile-user-role">Marketing Architect</span>
+                    <div class="summary-card">
+                        <h3>FOLLOWERS</h3>
+                        <div class="value">1,000</div>
+                        <div class="unit">active copiers</div>
                     </div>
-                    <i class="fas fa-external-link-alt" style="color: var(--accent-purple);"></i>
-                </a>
-                
-                <a href="https://h13digital.github.io/#portfolio" class="mobile-portfolio-link">
-                    <i class="fas fa-external-link-alt"></i> View Full Portfolio
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <main class="container">
-        <section class="hero" id="hero">
-            <h1>Go-To-Market Strategy</h1>
-            <div class="sub-sub-headline">Crypto Copy Trading Platform</div>
-            <p class="tagline"><strong>"Learn-to-Earn Social Trading Hub"</strong> – A next-generation Crypto Copy Trading Platform designed to build trust through transparency, education, and community.</p>
-            <a href="#gtm-strategy" class="cta-button"><i class="fas fa-rocket"></i> View Core Strategy</a>
-            <button class="cta-button secondary" onclick="toggleAllDetails()"><i class="fas fa-eye"></i> Toggle All Details</button>
-        </section>
-
-        <!-- EXECUTIVE SUMMARY -->
-        <section id="executive-summary">
-            <h2><i class="fas fa-file-alt"></i> 1. Executive Summary</h2>
-            <p>This plan outlines the launch of <span class="highlight">AlphaCopy</span>, a platform that solves the core issues of existing copy trading: <strong>opaque strategies, uncontrolled risk, and zero learning</strong> for followers[citation:8][citation:9].</p>
-            <p><strong>Our Unique Value:</strong> We are not just a copy-paste tool. We are a <span class="highlight">"Learn-to-Earn Social Trading Hub"</span> where Followers learn the "why" behind trades and Masters build their personal brand and community.</p>
-            <button class="toggle-header" onclick="toggleDetail('detail-summary')">
-                <span>Core Objectives & Success Metrics</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="toggle-content" id="detail-summary">
-                <h3>6-Month Launch Objectives:</h3>
-                <div class="cards-container">
-                    <div class="card">
-                        <div class="metric">20+</div>
-                        <div class="metric-label">Elite "Founder Masters"</div>
-                        <p>Onboarded with verified track records.</p>
+                    <div class="summary-card">
+                        <h3>TARGET CAC</h3>
+                        <div class="value">$60</div>
+                        <div class="unit">(lower due to referrals)</div>
                     </div>
-                    <div class="card">
-                        <div class="metric">5,000+</div>
-                        <div class="metric-label">Registered Followers</div>
-                        <p>Acquired through targeted channels.</p>
-                    </div>
-                    <div class="card">
-                        <div class="metric">$500K</div>
-                        <div class="metric-label">Assets Under Management (AUM)</div>
-                        <p>Total capital copied on the platform.</p>
+                    <div class="summary-card">
+                        <h3>OPTIMIZED BUDGET</h3>
+                        <div class="value">$20,000</div>
+                        <div class="unit">(focus on liquidity incentives)</div>
                     </div>
                 </div>
-                <h3>Our Promise:</h3>
-                <p><strong>To Followers:</strong> "Invest with insight, not just instinct. Automate your portfolio with strategies you can learn from."</p>
-                <p><strong>To Masters (Traders):</strong> "Transform your strategy into an asset and your expertise into a brand."</p>
-            </div>
-        </section>
-
-        <!-- TARGET MARKET & COMPETITION -->
-        <section id="market-analysis">
-            <h2><i class="fas fa-bullseye"></i> 2. Target Market & Competitive Edge</h2>
-            <p>A successful GTM strategy starts with a deep understanding of the target customer and the competitive landscape[citation:1][citation:7].</p>
-            <div class="cards-container">
-                <div class="card">
-                    <h4><i class="fas fa-user-graduate"></i> Primary Follower (B2C)</h4>
-                    <p><strong>The "Eager Learner":</strong> New to crypto, lacks time/confidence to trade alone, suffers from FOMO and past losses. <em>Seeks safe, guided entry.</em></p>
-                </div>
-                <div class="card">
-                    <h4><i class="fas fa-crown"></i> Primary Master (B2B2C)</h4>
-                    <p><strong>The "Strategic Guru":</strong> Experienced trader with a proven record. <em>Seeks monetization, audience growth, and professional tools.</em></p>
-                </div>
-                <div class="card">
-                    <h4><i class="fas fa-chess-knight"></i> Competitive Position</h4>
-                    <p>We avoid direct feature wars with giants like Binance. Instead, we <span class="highlight">own the niche</span> of <strong>Educative & Social Copy Trading</strong>, focusing on trust and community[citation:5].</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CORE GTM STRATEGY -->
-        <section id="gtm-strategy">
-            <h2><i class="fas fa-chess-board"></i> 3. Core Go-to-Market Strategy</h2>
-            <p>Our launch is a phased, evidence-based campaign centered on acquiring and activating the most critical asset first: <span class="highlight">high-quality Masters</span>[citation:10].</p>
-
-            <button class="toggle-header" onclick="toggleDetail('detail-usp')">
-                <span>Our Unbeatable USP & Model</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="toggle-content" id="detail-usp">
-                <h3>The "Learn-to-Earn" Hub Difference:</h3>
-                <ul>
-                    <li><strong>Post-Trade Analysis:</strong> Every copied trade comes with the Master's notes on the "why" (strategy, market context).</li>
-                    <li><strong>Virtual Portfolio Sandbox:</strong> Followers test-copy strategies with fake money before committing real capital.</li>
-                    <li><strong>Master Tier System:</strong> A transparent ladder (Standard → Verified → Elite → Founder) with clear benefits and risk-based requirements.</li>
-                </ul>
-                <h3>Hybrid Pricing & Monetization:</h3>
-                <ul>
-                    <li><strong>For Masters:</strong> Performance fee (share of follower profits). Founder Masters get a 90/10 split for the first year.</li>
-                    <li><strong>For Followers:</strong> Freemium model. Basic copy trading is free. <strong>"Pro Learn" subscription</strong> ($5-7/month) unlocks deep analytics, real-time signals, and advanced educational content.</li>
-                </ul>
-            </div>
-
-            <button class="toggle-header" onclick="toggleDetail('detail-phases')">
-                <span>Phased Launch Timeline (90 Days)</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="toggle-content active" id="detail-phases">
-                <!-- Timeline visualized with description -->
-                <h3>Phase 1: Master Foundation (T-8 to T-4 Weeks) <i class="fas fa-hard-hat" style="color: var(--warning);"></i></h3>
-                <p><strong>Goal:</strong> Recruit & onboard 10-20 "Founder Masters."</p>
-                <ul>
-                    <li><strong>Action:</strong> Secret outreach via LinkedIn/Discord to top traders. Offer exceptional terms (90/10 split, seed capital).</li>
-                    <li><strong>KPI:</strong> Signed contracts and completed KYC/verification.</li>
-                </ul>
-
-                <h3>Phase 2: Content & Community Build (T-4 to T-1 Weeks) <i class="fas fa-users" style="color: var(--secondary);"></i></h3>
-                <p><strong>Goal:</strong> Generate social proof and pre-launch buzz.</p>
-                <ul>
-                    <li><strong>Action:</strong> "Founder Master Bootcamp" to train on platform and content creation. Teaser campaigns on crypto forums.</li>
-                    <li><strong>KPI:</strong> 2,000+ waitlist sign-ups for followers.</li>
-                </ul>
-
-                <h3>Phase 3: Official Launch & Blitz (D-Day to D+14) <i class="fas fa-bullhorn" style="color: var(--danger);"></i></h3>
-                <p><strong>Goal:</strong> Maximize awareness and initial user activation.</p>
-                <ul>
-                    <li><strong>Action:</strong> Coordinated launch: Press Release, CEO/KOL Livestream, Founder Master AMAs, targeted social ads.</li>
-                    <li><strong>KPI:</strong> 500 Masters, 5,000 Followers registered.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- EXECUTION & METRICS -->
-        <section id="execution-plan">
-            <h2><i class="fas fa-tasks"></i> 4. Execution & Channel Strategy</h2>
-            <p>How we will reach our target audiences effectively[citation:1][citation:5].</p>
-            <div class="cards-container">
-                <div class="card">
-                    <h4><i class="fas fa-bullseye"></i> Acquisition Channels</h4>
-                    <ul>
-                        <li><strong>Masters:</strong> Direct LinkedIn outreach, partnerships with trading educators, referral bonuses.</li>
-                        <li><strong>Followers:</strong> Content marketing (explainer videos, blog posts on "Crypto for Beginners"), strategic partnerships with crypto news sites, targeted Google/Facebook ads.</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4><i class="fas fa-toolbox"></i> Sales & Onboarding</h4>
-                    <p><strong>Product-Led Growth (PLG) Model:</strong> The intuitive, self-serve platform is our main salesperson[citation:5].</p>
-                    <ul>
-                        <li><strong>Frictionless Sign-up:</strong> Under 3-minute registration.</li>
-                        <li><strong>Interactive Tutorials:</strong> Guided first copy trade.</li>
-                        <li><strong>Dedicated Support:</strong> Live chat for high-intent users.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="metrics">
-            <h2><i class="fas fa-chart-line"></i> 5. KPIs & Measurement</h2>
-            <p>Tracking the right metrics is critical to evaluate success and optimize the strategy post-launch[citation:10].</p>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="metric">CAC</div>
-                    <div class="metric-label">Customer Acquisition Cost</div>
-                    <p>Must be <strong>significantly lower</strong> than LTV. Target: Follower CAC < $50.</p>
-                </div>
-                <div class="card">
-                    <div class="metric">LTV</div>
-                    <div class="metric-label">Lifetime Value</div>
-                    <p>Driven by subscription fees and platform profit share. Target LTV:CAC ratio > 3:1.</p>
-                </div>
-                <div class="card">
-                    <div class="metric">AUM Growth</div>
-                    <div class="metric-label">Assets Under Management</div>
-                    <p>The primary health metric of the platform. Target: $500K in 6 months.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- RISK MANAGEMENT -->
-        <section id="risk">
-            <h2><i class="fas fa-shield-alt"></i> 6. Risk Management & Compliance</h2>
-            <p>Proactive mitigation is non-negotiable in fintech and crypto[citation:8].</p>
-            <button class="toggle-header" onclick="toggleDetail('detail-risk')">
-                <span>Key Mitigation Strategies</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="toggle-content" id="detail-risk">
-                <ul>
-                    <li><strong>Regulatory First:</strong> Entity registered in a crypto-friendly jurisdiction (e.g., Singapore). Clear Terms of Service positioning us as a technology platform, not a fund manager.</li>
-                    <li><strong>Built-in Risk Controls:</strong> Mandatory stop-loss settings for followers, "Risk Shield" tools for Masters, transparent performance metrics (Sharpe Ratio, Max Drawdown).</li>
-                    <li><strong>Security & Trust:</strong> 95%+ cold storage for custodial assets, published SAFU (Secure Asset Fund for Users) fund, regular third-party security audits.</li>
-                    <li><strong>FUD (Fear, Uncertainty, Doubt) Plan:</strong> Pre-prepared communication templates for potential crises (e.g., a Master's major loss, market crash).</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- ABOUT THE DASHBOARD ARCHITECT -->
-        <section id="about">
-            <h2><i class="fas fa-user"></i> About the Dashboard Architect</h2>
-            <p>Combining data science, marketing strategy, and Web3 expertise</p>
+            </section>
             
-            <div class="about-section">
-                <div class="about-content">
-                    <div class="about-profile">
-                        <div class="profile-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="profile-name">HIEP NGUYEN</div>
-                        <div class="profile-title">Senior Performance Marketing Architect</div>
-                        <p class="profile-desc">
-                            With expertise in Esport × Web3 ecosystems, I architect data-driven marketing systems that deliver measurable business impact. My approach combines growth hacking, data analytics, and marketing automation to build scalable acquisition engines with positive unit economics.
-                        </p>
+            <!-- PART II: PRE-LAUNCH PHASE -->
+            <section id="pre-launch" class="section">
+                <h2>PART II: PRE-LAUNCH PHASE (OPTIMIZED)</h2>
+                <h3>PHASE 1: OPTIMIZED PRE-LAUNCH (6 WEEKS - $8,000)</h3>
+                
+                <h4>Week 1-2: Foundation Setup</h4>
+                <div class="table-responsive">
+                    <table class="table-full">
+                        <thead>
+                            <tr>
+                                <th class="col-activity">Activity</th>
+                                <th class="col-purpose">Purpose</th>
+                                <th class="col-why">Why?</th>
+                                <th class="col-achieve">Outcome</th>
+                                <th class="col-how">How?</th>
+                                <th class="col-cost">Cost</th>
+                                <th class="col-kpi">KPIs</th>
+                                <th class="col-risk">Risk & Solution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1.1 Waitlist with Early Adopter Rewards</strong></td>
+                                <td>Build community, seed initial users</td>
+                                <td>Copy trading needs both sides (traders + followers). Early incentives create network effects.</td>
+                                <td>500+ waitlist, 100+ signal providers pre-committed</td>
+                                <td>- Landing page with referral rewards<br>- Offer: "First 100 signal providers get 0% fees for 3 months"<br>- Integration tutorials for Binance/Bybit</td>
+                                <td>$800</td>
+                                <td>- Waitlist conversion (>15%)<br>- Signal provider commitments</td>
+                                <td><span class="risk-low">R: Not enough signal providers</span><br><strong>S:</strong> Partner with existing telegram signal groups</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1.2 Influencer & Community Partnerships</strong></td>
+                                <td>Leverage existing crypto communities</td>
+                                <td>Crypto communities are tight-knit. Influencers can bring entire communities.</td>
+                                <td>3-5 crypto influencer partnerships, 10+ community ambassadors</td>
+                                <td>- Outreach to crypto YouTubers/Telegram admins<br>- Revenue sharing model (20% of follower fees)<br>- Co-branded educational content</td>
+                                <td>$1,500</td>
+                                <td>- Influencer conversion rate<br>- Community member signups</td>
+                                <td><span class="risk-medium">R: Influencers want upfront payment</span><br><strong>S:</strong> Revenue share model with minimum guarantee</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-title">TOTAL PRE-LAUNCH BUDGET</div>
+                        <div class="kpi-value">$8,000</div>
+                        <div class="kpi-title">(focus on partnerships)</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">WAITLIST TARGET</div>
+                        <div class="kpi-value">500+</div>
+                        <div class="kpi-title">crypto traders</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">INFLUENCER PARTNERS</div>
+                        <div class="kpi-value">3-5</div>
+                        <div class="kpi-title">crypto content creators</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">COMMUNITIES</div>
+                        <div class="kpi-value">10+</div>
+                        <div class="kpi-title">telegram/discord groups</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- PART III: LAUNCH WEEK -->
+            <section id="launch-week" class="section">
+                <h3>PHASE 2: LAUNCH WEEK (WEEK 7 - $5,000)</h3>
+                
+                <h4>Launch Week Timeline</h4>
+                <div class="table-responsive">
+                    <table class="table-full">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Activity</th>
+                                <th>Purpose</th>
+                                <th>Why this day?</th>
+                                <th>Owner</th>
+                                <th>KPIs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Day 1 (Mon)</strong></td>
+                                <td>Platform Live + Partner Launch</td>
+                                <td>Activate influencer partnerships simultaneously</td>
+                                <td>Coordinated launch creates network effect immediately</td>
+                                <td>Founder + Partnerships</td>
+                                <td>100+ signal providers onboarded</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 2 (Tue)</strong></td>
+                                <td>Twitter Spaces + AMA Sessions</td>
+                                <td>Build trust, answer security questions</td>
+                                <td>Crypto community values transparency and direct access</td>
+                                <td>Founder + Influencers</td>
+                                <td>500+ attendees, 50+ followers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 4 (Thu)</strong></td>
+                                <td>Trading Competition Launch</td>
+                                <td>Incentivize signal providers, generate activity</td>
+                                <td>Competitions drive engagement and attract followers</td>
+                                <td>Founder + Marketing</td>
+                                <td>50+ competition entries, $5k+ prize pool</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4>Launch Week Budget Allocation</h4>
+                <div class="table-responsive">
+                    <table class="table-full">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Cost</th>
+                                <th>Team</th>
+                                <th>Why Important?</th>
+                                <th>Expected Outcome</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Influencer Campaigns</strong></td>
+                                <td>$2,500</td>
+                                <td>Partnerships Manager</td>
+                                <td>Credibility and reach in crypto communities</td>
+                                <td>200+ signal providers, CAC ~$30-40</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trading Competition Prizes</strong></td>
+                                <td>$1,500</td>
+                                <td>Marketing + Tech</td>
+                                <td>Drives platform activity and attracts followers</td>
+                                <td>50+ active traders, 300+ followers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL LAUNCH WEEK</strong></td>
+                                <td><strong>$5,000</strong></td>
+                                <td><strong>4-5 people</strong></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- PART IV: POST-LAUNCH -->
+            <section id="post-launch" class="section">
+                <h3>PHASE 3: POST-LAUNCH - NETWORK EFFECTS & SCALE (WEEK 8-12 - $7,000)</h3>
+                
+                <h4>Post-launch Focus Areas</h4>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-role">Founder (CEO/Growth)</div>
+                        <div class="team-cost">$0 (Equity)</div>
+                        <p><strong>Why:</strong> Vision, partnerships, community building</p>
+                        <p><strong>Responsibility:</strong> Overall strategy, exchange partnerships, influencer relations</p>
+                        <p><strong>Time:</strong> Full-time</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-role">Full-stack Developer</div>
+                        <div class="team-cost">$2,500/month</div>
+                        <p><strong>Why:</strong> Platform stability, new features</p>
+                        <p><strong>Responsibility:</strong> API integrations, security, performance</p>
+                        <p><strong>Time:</strong> Full-time</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-role">Community Manager</div>
+                        <div class="team-cost">$1,200/month</div>
+                        <p><strong>Why:</strong> Engagement, retention, support</p>
+                        <p><strong>Responsibility:</strong> Telegram/Discord, content, user support</p>
+                        <p><strong>Time:</strong> Part-time (25h/week)</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card" style="max-width: 400px; margin: 2rem auto; background: #f5f3ff;">
+                    <h3>TOTAL POST-LAUNCH BUDGET</h3>
+                    <div class="value">$7,000</div>
+                    <div class="unit">6 weeks (community focus)</div>
+                </div>
+            </section>
+            
+            <!-- PART V: FINANCIAL & KPIS -->
+            <section id="financial-kpi" class="section">
+                <h2>PART V: FINANCIAL SUMMARY & KPIS</h2>
+                
+                <h3>3-Month Budget Summary ($20,000)</h3>
+                <div class="table-responsive">
+                    <table class="table-full">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Pre-launch</th>
+                                <th>Launch</th>
+                                <th>Post-launch</th>
+                                <th>Total</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Team</strong></td>
+                                <td>$3,000</td>
+                                <td>$1,000</td>
+                                <td>$4,200</td>
+                                <td>$8,200</td>
+                                <td>41%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Partnerships & Marketing</strong></td>
+                                <td>$3,500</td>
+                                <td>$3,000</td>
+                                <td>$2,000</td>
+                                <td>$8,500</td>
+                                <td>42.5%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Platform & Security</strong></td>
+                                <td>$1,000</td>
+                                <td>$500</td>
+                                <td>$500</td>
+                                <td>$2,000</td>
+                                <td>10%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL</strong></td>
+                                <td><strong>$7,500</strong></td>
+                                <td><strong>$4,500</strong></td>
+                                <td><strong>$6,700</strong></td>
+                                <td><strong>$18,700</strong></td>
+                                <td><strong>93.5%</strong></td>
+                            </tr>
+                            <tr style="background: #f6ffed;">
+                                <td><strong>CONTINGENCY (6.5%)</strong></td>
+                                <td>$500</td>
+                                <td>$500</td>
+                                <td>$300</td>
+                                <td><strong>$1,300</strong></td>
+                                <td><strong>6.5%</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>Key Performance Indicators (Crypto Platform)</h3>
+                <div class="table-responsive">
+                    <table class="roi-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Month 1</th>
+                                <th>Month 2</th>
+                                <th>Month 3</th>
+                                <th>Why Important?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Signal Providers</strong></td>
+                                <td>80</td>
+                                <td>150</td>
+                                <td>250</td>
+                                <td>Supply side of marketplace</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Active Followers</strong></td>
+                                <td>300</td>
+                                <td>650</td>
+                                <td>1,000</td>
+                                <td>Demand side of marketplace</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Monthly Volume</strong></td>
+                                <td>$500k</td>
+                                <td>$1.2M</td>
+                                <td>$2.5M</td>
+                                <td>Platform activity & fee potential</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Net Revenue</strong></td>
+                                <td>$4,000</td>
+                                <td>$8,000</td>
+                                <td>$12,000</td>
+                                <td>Revenue growth (10-20% of profits)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>Revenue Projection (Performance Fee Model)</h3>
+                <div class="table-responsive">
+                    <table class="roi-table">
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Signal Providers</th>
+                                <th>Followers</th>
+                                <th>Avg. Copy Size</th>
+                                <th>Platform Fee</th>
+                                <th>Monthly Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="scenario-conservative">
+                                <td><strong>Conservative</strong></td>
+                                <td>150</td>
+                                <td>600</td>
+                                <td>$500</td>
+                                <td>15% of profits</td>
+                                <td>$6,750</td>
+                            </tr>
+                            <tr class="scenario-expected">
+                                <td><strong>Expected (Target)</strong></td>
+                                <td>250</td>
+                                <td>1,000</td>
+                                <td>$800</td>
+                                <td>15% of profits</td>
+                                <td>$12,000</td>
+                            </tr>
+                            <tr class="scenario-aggressive">
+                                <td><strong>Aggressive</strong></td>
+                                <td>400</td>
+                                <td>2,000</td>
+                                <td>$1,000</td>
+                                <td>15% of profits</td>
+                                <td>$30,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- PART VI: RISK MANAGEMENT -->
+            <section id="risk-management" class="section">
+                <h2>PART VI: RISK MANAGEMENT (CRYPTO SPECIFIC)</h2>
+                
+                <h3>Risk Assessment</h3>
+                <div class="contingency-grid">
+                    <div class="contingency-card cac">
+                        <h4>Scenario 1: Exchange API Restrictions</h4>
+                        <p><strong>Why:</strong> Binance/Bybit restrict copy trading APIs</p>
+                        <p><strong>Action Plan:</strong></p>
+                        <ul>
+                            <li>Diversify to KuCoin, OKX, Gate.io APIs</li>
+                            <li>Develop manual copy trading features</li>
+                            <li>Focus on educational content during transition</li>
+                        </ul>
                     </div>
                     
-                    <div class="skills-grid">
-                        <div class="skill-card skill-analytics">
-                            <div class="skill-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h4 class="skill-title">Data Analytics</h4>
-                            <p class="skill-desc">Advanced analytics & dashboard architecture, SQL/Python, predictive modeling, and data visualization for actionable insights.</p>
+                    <div class="contingency-card churn">
+                        <h4>Scenario 2: Bear Market Sentiment</h4>
+                        <p><strong>Why:</strong> Crypto downturn reduces trading activity</p>
+                        <p><strong>Action Plan:</strong></p>
+                        <ul>
+                            <li>Pivot to educational content and community building</li>
+                            <li>Introduce spot copy trading (lower risk)</li>
+                            <li>Focus on DCA and long-term strategies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="contingency-card regulatory">
+                        <h4>Scenario 3: Regulatory Challenges</h4>
+                        <p><strong>Why:</strong> Country bans copy trading platforms</p>
+                        <p><strong>Action Plan:</strong></p>
+                        <ul>
+                            <li>Geo-block restricted regions</li>
+                            <li>Focus on crypto-friendly jurisdictions</li>
+                            <li>Legal structure in Singapore/Dubai</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- PART VII: TEAM & TIMELINE -->
+            <section id="team-timeline" class="section">
+                <h2>PART VII: TEAM STRUCTURE & TIMELINE</h2>
+                
+                <h3>12-Week Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 1-3</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> Platform MVP & Community</p>
+                            <p><strong>Activities:</strong> Binance API integration, waitlist building, influencer outreach</p>
+                            <p><strong>Milestone:</strong> 500+ waitlist, 3 influencer partners</p>
                         </div>
-                        
-                        <div class="skill-card skill-growth">
-                            <div class="skill-icon">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <h4 class="skill-title">Growth Marketing</h4>
-                            <p class="skill-desc">Scalable acquisition & retention strategies, funnel optimization, A/B testing, and marketing automation for sustainable growth.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 4-6</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> Beta Testing & Security</p>
+                            <p><strong>Activities:</strong> Closed beta with 50 traders, security audit, compliance check</p>
+                            <p><strong>Milestone:</strong> 100+ beta testers, security certified</p>
                         </div>
-                        
-                        <div class="skill-card skill-web3">
-                            <div class="skill-icon">
-                                <i class="fas fa-coins"></i>
-                            </div>
-                            <h4 class="skill-title">Web3 Marketing</h4>
-                            <p class="skill-desc">Tokenomics design, NFT marketing strategies, community growth, and blockchain-based user acquisition for Web3 projects.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 7</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> LAUNCH WEEK</p>
+                            <p><strong>Activities:</strong> Platform live, influencer campaigns, trading competition</p>
+                            <p><strong>Milestone:</strong> 150+ signal providers, 500+ followers</p>
                         </div>
-                        
-                        <div class="skill-card skill-esports">
-                            <div class="skill-icon">
-                                <i class="fas fa-gamepad"></i>
-                            </div>
-                            <h4 class="skill-title">Esports Ecosystems</h4>
-                            <p class="skill-desc">Tournament marketing, player engagement strategies, esports team partnerships, and gaming community development.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 10-12</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> Network Effects & Monetization</p>
+                            <p><strong>Activities:</strong> Referral programs, advanced features, revenue optimization</p>
+                            <p><strong>Milestone:</strong> 250 signal providers, $12,000 MRR</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- CONTACT INFORMATION -->
-        <section id="contact">
-            <h2><i class="fas fa-envelope"></i> Contact Information</h2>
-            <p>Get in touch for collaborations, consulting, or project inquiries</p>
+            </section>
             
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <div class="contact-label">Email</div>
-                    <div class="contact-value">hiep@example.com</div>
+            <!-- PART VIII: SUCCESS CRITERIA -->
+            <section id="success-criteria" class="section">
+                <h2>PART VIII: SUCCESS CRITERIA & NEXT STEPS</h2>
+                
+                <h3>Success After 3 Months</h3>
+                <div class="section-intro" style="background: #f5f3ff; border-left: 4px solid #9f7aea;">
+                    <p><strong>✅ Platform Success:</strong></p>
+                    <ul>
+                        <li>250+ verified signal providers with transparent track records</li>
+                        <li>1,000+ active followers copying trades</li>
+                        <li>API uptime > 99.9%, security audit completed</li>
+                    </ul>
+                    
+                    <p><strong>✅ Financial Success:</strong></p>
+                    <ul>
+                        <li>$12,000+ MRR from performance fees</li>
+                        <li>CAC < $60, LTV > $300</li>
+                        <li>Positive unit economics, 9+ months runway</li>
+                    </ul>
+                    
+                    <p><strong>✅ Community Success:</strong></p>
+                    <ul>
+                        <li>Active Discord/Telegram community (2,000+ members)</li>
+                        <li>5+ key influencer partnerships</li>
+                        <li>10+ trading communities integrated</li>
+                    </ul>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-label">LinkedIn</div>
-                    <div class="contact-value">linkedin.com/in/hiepnguyen</div>
+                
+                <h3>Immediate Next Steps (Next 7 Days)</h3>
+                <div class="table-responsive">
+                    <table class="table-full">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Why Urgent?</th>
+                                <th>Owner</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Finalize Binance API Integration</strong></td>
+                                <td>Core functionality dependency</td>
+                                <td>Tech Lead</td>
+                                <td>Day 3</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Secure 3 Crypto Influencer Partnerships</strong></td>
+                                <td>Critical for launch momentum</td>
+                                <td>Founder</td>
+                                <td>Day 5</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Setup Security & Compliance Framework</strong></td>
+                                <td>Trust is everything in crypto</td>
+                                <td>Founder + Legal</td>
+                                <td>Day 4</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-label">Portfolio</div>
-                    <div class="contact-value">h13digital.github.io</div>
+                
+                <div class="section-intro" style="background: #f0f9ff; border-left: 4px solid #1890ff;">
+                    <h4>🎯 Key Takeaways for Crypto Copy Trading:</h4>
+                    <ol>
+                        <li><strong>Network effects are critical</strong> - need both sides of marketplace simultaneously</li>
+                        <li><strong>Security and trust paramount</strong> - crypto users are security-conscious</li>
+                        <li><strong>Community-driven growth</strong> - leverage existing crypto communities</li>
+                        <li><strong>Performance-based monetization</strong> - align incentives with user success</li>
+                        <li><strong>Regulatory agility required</strong> - be prepared to pivot jurisdictions</li>
+                        <li><strong>Crypto-native marketing</strong> - Twitter, Telegram, Discord over traditional channels</li>
+                    </ol>
                 </div>
-            </div>
+            </section>
             
-            <p style="text-align: center; color: #e2e8f0; max-width: 600px; margin: 0 auto 30px;">
-                Interested in building data-driven marketing systems for your Web3 or gaming project? Let's discuss how we can create measurable impact together.
-            </p>
+            <!-- ====== GTM PLAN INFO SECTION (MOVED BEFORE ABOUT) ====== -->
+            <section id="gtm-plan-info" class="section">
+                <h2><i class="fas fa-cube"></i> CryptoCopyPro - Practical Go-to-Market Plan</h2>
+                <p style="text-align: center;">Social copy trading platform for Binance/Bybit ecosystems with $20,000 bootstrap budget</p>
+                <p style="text-align: center;">Document Version: 3.0 (Crypto Edition) | Last Updated: December 9, 2025 | Owner: Founder</p>
+                
+                <div class="version">
+                    <p><strong>🎯 Crypto-Specific Philosophy:</strong></p>
+                    <ul>
+                        <li><strong>Network effects over features:</strong> Critical mass of traders/followers > advanced features</li>
+                        <li><strong>Security is non-negotiable:</strong> API key security, transparent performance, no custody</li>
+                        <li><strong>Community-driven:</strong> Crypto moves through communities, not traditional marketing</li>
+                        <li><strong>Aligned incentives:</strong> Performance-based fees ensure we only succeed when users do</li>
+                        <li><strong>Regulatory awareness:</strong> Stay agile, focus on crypto-friendly jurisdictions first</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-style: italic;">"In crypto copy trading, trust is built through transparency, security, and real results - not promises."</p>
+                </div>
+            </section>
             
-            <div style="text-align: center;">
-                <a href="mailto:hiep@example.com" class="cta-button">
-                    <i class="fas fa-envelope"></i> Contact Me
-                </a>
-            </div>
-        </section>
-
-        <!-- FINAL CTA -->
-        <section style="text-align: center; border-left-color: var(--secondary);">
-            <h2 style="border:none; justify-content: center;"><i class="fas fa-flag-checkered"></i> Ready for Launch</h2>
-            <p>This GTM plan provides a clear, phased roadmap to launch the "Learn-to-Earn Social Trading Hub," transforming a complex product into a trusted community brand.</p>
-            <p><strong>Next Steps:</strong> Finalize "Founder Master" contracts, begin MVP development of the Post-Trade Analysis feature, and initiate pre-launch content calendar.</p>
-            <a href="#hero" class="cta-button"><i class="fas fa-arrow-up"></i> Back to Top</a>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
+            <!-- ====== ABOUT SECTION (from index.html) ====== -->
+            <section id="about" class="section">
+                <h2><i class="fas fa-user"></i> About the Dashboard Architect</h2>
+                <p>Combining data science, marketing strategy, and Web3 expertise</p>
+                
+                <div class="about-section">
+                    <div class="about-content">
+                        <div class="about-profile">
+                            <div class="profile-image">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-name">HIEP NGUYEN</div>
+                            <div class="profile-title">Senior Performance Marketing Architect</div>
+                            <p class="profile-desc">
+                                With expertise in Esport × Web3 ecosystems, I architect data-driven marketing systems that deliver measurable business impact. My approach combines growth hacking, data analytics, and marketing automation to build scalable acquisition engines with positive unit economics.
+                            </p>
+                        </div>
+                        
+                        <div class="skills-grid">
+                            <div class="skill-card skill-analytics">
+                                <div class="skill-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4 class="skill-title">Data Analytics</h4>
+                                <p class="skill-desc">Advanced analytics & dashboard architecture, SQL/Python, predictive modeling, and data visualization for actionable insights.</p>
+                            </div>
+                            
+                            <div class="skill-card skill-growth">
+                                <div class="skill-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h4 class="skill-title">Growth Marketing</h4>
+                                <p class="skill-desc">Scalable acquisition & retention strategies, funnel optimization, A/B testing, and marketing automation for sustainable growth.</p>
+                            </div>
+                            
+                            <div class="skill-card skill-web3">
+                                <div class="skill-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <h4 class="skill-title">Web3 Marketing</h4>
+                                <p class="skill-desc">Tokenomics design, NFT marketing strategies, community growth, and blockchain-based user acquisition for Web3 projects.</p>
+                            </div>
+                            
+                            <div class="skill-card skill-esports">
+                                <div class="skill-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <h4 class="skill-title">Esports Ecosystems</h4>
+                                <p class="skill-desc">Tournament marketing, player engagement strategies, esports team partnerships, and gaming community development.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ====== CONTACT SECTION (from index.html) ====== -->
+            <section id="contact" class="section">
+                <h2><i class="fas fa-envelope"></i> Contact Information</h2>
+                <p>Get in touch for collaborations, consulting, or project inquiries</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">hiep@example.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value">linkedin.com/in/hiepnguyen</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Portfolio</div>
+                        <div class="contact-value">h13digital.github.io</div>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; color: #2d3748; max-width: 600px; margin: 0 auto 30px;">
+                    Interested in building data-driven marketing systems for your Web3 or gaming project? Let's discuss how we can create measurable impact together.
+                </p>
+                
+                <div style="text-align: center;">
+                    <a href="mailto:hiep@example.com" class="cta-button">
+                        <i class="fas fa-envelope"></i> Contact Me
+                    </a>
+                </div>
+            </section>
+        </main>
+        
+        <!-- ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) - UPDATED BACKGROUND ====== -->
+        <div class="footer-secondary">
+            <div class="footer-secondary-content">
                 <div>
-                    <div class="footer-brand">
+                    <div class="footer-secondary-brand">
                         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
                             <div style="width: 30px; height: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white;">
                                 <i class="fas fa-cube"></i>
                             </div>
-                            <div class="logo-text" style="font-size: 18px;">HIEP NGUYEN</div>
+                            <div class="logo-text" style="font-size: 18px; color: white;">HIEP NGUYEN</div>
                         </div>
                     </div>
-                    <p class="footer-desc">Data-driven marketing architect specializing in Web3 × Esports ecosystems. Building scalable acquisition engines with positive unit economics.</p>
+                    <p class="footer-secondary-desc">Data-driven marketing architect specializing in Web3 × Esports ecosystems. Building scalable acquisition engines with positive unit economics.</p>
                 </div>
                 
                 <div>
-                    <h4 class="footer-title">Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="#hero" class="footer-link">Home</a></li>
-                        <li><a href="#executive-summary" class="footer-link">Executive Summary</a></li>
-                        <li><a href="#gtm-strategy" class="footer-link">GTM Strategy</a></li>
-                        <li><a href="#about" class="footer-link">About Me</a></li>
-                        <li><a href="#contact" class="footer-link">Contact</a></li>
+                    <h4 class="footer-secondary-title">Quick Links</h4>
+                    <ul class="footer-secondary-links">
+                        <li><a href="#executive-summary" class="footer-secondary-link">Executive Summary</a></li>
+                        <li><a href="#pre-launch" class="footer-secondary-link">Pre-launch</a></li>
+                        <li><a href="#launch-week" class="footer-secondary-link">Launch Week</a></li>
+                        <li><a href="#post-launch" class="footer-secondary-link">Post-launch</a></li>
+                        <li><a href="#financial-kpi" class="footer-secondary-link">Budget & KPIs</a></li>
+                        <li><a href="#risk-management" class="footer-secondary-link">Risk Management</a></li>
+                        <li><a href="#team-timeline" class="footer-secondary-link">Team & Timeline</a></li>
+                        <li><a href="#success-criteria" class="footer-secondary-link">Success Criteria</a></li>
+                        <li><a href="#gtm-plan-info" class="footer-secondary-link">GTM Plan Info</a></li>
+                        <li><a href="#about" class="footer-secondary-link">About</a></li>
+                        <li><a href="#contact" class="footer-secondary-link">Contact</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="footer-title">Resources</h4>
-                    <ul class="footer-links">
-                        <li><a href="#" class="footer-link">Documentation</a></li>
-                        <li><a href="#" class="footer-link">Case Studies</a></li>
-                        <li><a href="#" class="footer-link">Blog</a></li>
-                        <li><a href="#" class="footer-link">GitHub Repository</a></li>
-                        <li><a href="#" class="footer-link">API Documentation</a></li>
+                    <h4 class="footer-secondary-title">Resources</h4>
+                    <ul class="footer-secondary-links">
+                        <li><a href="#" class="footer-secondary-link">Documentation</a></li>
+                        <li><a href="#" class="footer-secondary-link">Case Studies</a></li>
+                        <li><a href="#" class="footer-secondary-link">Blog</a></li>
+                        <li><a href="#" class="footer-secondary-link">GitHub Repository</a></li>
+                        <li><a href="#" class="footer-secondary-link">API Documentation</a></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="footer-bottom">
+            <div class="footer-secondary-bottom">
                 <p>© 2025 HIEP NGUYEN | Marketing Dashboard Suite v2.0</p>
                 <p style="margin-top: 10px; font-size: 12px;">Built with ❤️ for Web3 gaming ecosystems</p>
             </div>
         </div>
-    </footer>
-
+    </div>
+    
     <script>
-        // Mobile Navigation - FIXED VERSION
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get elements
-            const hamburgerMenu = document.getElementById('hamburger-menu');
-            const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-            const mobileCloseBtn = document.getElementById('mobile-close-btn');
-            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-            const mainHeader = document.getElementById('main-header');
-            
-            // Toggle mobile menu - SIMPLE VERSION
-            if (hamburgerMenu) {
-                hamburgerMenu.addEventListener('click', function() {
-                    mobileNavOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            }
-            
-            // Close mobile menu
-            if (mobileCloseBtn) {
-                mobileCloseBtn.addEventListener('click', function() {
-                    mobileNavOverlay.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                });
-            }
-            
-            // Close mobile menu when clicking on a link
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Only for internal links
-                    const href = this.getAttribute('href');
-                    if (href.startsWith('#')) {
-                        e.preventDefault();
-                        
-                        // Close mobile menu
-                        mobileNavOverlay.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                        
-                        // Get target section
-                        const targetSection = document.querySelector(href);
-                        if (targetSection) {
-                            // Update active nav link
-                            updateActiveNavLink(href);
-                            
-                            // Scroll to section after a short delay
-                            setTimeout(() => {
-                                window.scrollTo({
-                                    top: targetSection.offsetTop - 80,
-                                    behavior: 'smooth'
-                                });
-                            }, 300);
-                        }
-                    }
-                    // External links will open normally
-                });
-            });
-            
-            // Close mobile menu when clicking outside
-            mobileNavOverlay.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Mobile header hide/show on scroll
-            let lastScrollTop = 0;
-            const mobileBreakpoint = 992;
-            
-            window.addEventListener('scroll', function() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        // ====== NAVIGATION FUNCTIONALITY ======
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                // Only apply on mobile screens
-                if (window.innerWidth < mobileBreakpoint) {
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        // Scrolling down
-                        mainHeader.classList.add('header-hidden');
-                        mainHeader.classList.remove('header-visible');
-                    } else {
-                        // Scrolling up
-                        mainHeader.classList.remove('header-hidden');
-                        mainHeader.classList.add('header-visible');
-                    }
-                } else {
-                    // On desktop, ensure header is always visible
-                    mainHeader.classList.remove('header-hidden');
-                    mainHeader.classList.add('header-visible');
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Add active class to clicked nav item
+                this.classList.add('active');
+                
+                // Get target section
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                // Scroll to target section with smooth behavior
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
                 }
                 
-                lastScrollTop = scrollTop;
-                
-                // Update active section on scroll
-                updateActiveSectionOnScroll();
+                // Update URL hash
+                history.pushState(null, null, targetId);
             });
-            
-            // Initialize header as visible
-            mainHeader.classList.add('header-visible');
-            
-            // Highlight current section in navigation on page load
-            const currentHash = window.location.hash;
-            if (currentHash) {
-                updateActiveNavLink(currentHash);
-            }
-            
-            // Smooth scrolling for desktop navigation
-            document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Update active nav link
-                        updateActiveNavLink(targetId);
-                    }
-                });
-            });
-            
-            // Logo icon click handler
-            const logoIcon = document.getElementById('logo-icon');
-            if (logoIcon) {
-                logoIcon.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const heroSection = document.querySelector('#hero');
-                    if (heroSection) {
-                        window.scrollTo({
-                            top: heroSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Update active states
-                        updateActiveNavLink('#hero');
-                    }
-                });
-            }
         });
         
-        // Toggle detail sections
-        function toggleDetail(id) {
-            const content = document.getElementById(id);
-            const icon = content.previousElementSibling.querySelector('i');
-            content.classList.toggle('active');
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
-        }
-
-        // Expand/Collapse All Details
-        function toggleAllDetails() {
-            const allDetails = document.querySelectorAll('.toggle-content');
-            const allIcons = document.querySelectorAll('.toggle-header i');
-            const isAnyOpen = Array.from(allDetails).some(d => d.classList.contains('active'));
-
-            allDetails.forEach(detail => {
-                detail.classList.toggle('active', !isAnyOpen);
-            });
-            allIcons.forEach(icon => {
-                icon.classList.toggle('fa-chevron-down', isAnyOpen);
-                icon.classList.toggle('fa-chevron-up', !isAnyOpen);
-            });
-        }
-        
-        // Function to update active navigation links
-        function updateActiveNavLink(targetId) {
-            // Update desktop nav links
-            document.querySelectorAll('.nav-left a, .nav-right a:not(.user-profile)').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === targetId) {
-                    link.classList.add('active');
-                }
-            });
+        // ====== HIGHLIGHT ACTIVE SECTION ON SCROLL ======
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navItems = document.querySelectorAll('.nav-item');
+            const scrollPosition = window.scrollY + 150;
             
-            // Update mobile nav links
-            document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === targetId) {
-                    link.classList.add('active');
-                }
-            });
-        }
-        
-        // Function to update active section on scroll
-        function updateActiveSectionOnScroll() {
-            let current = '';
-            const sections = document.querySelectorAll('section[id]');
-            const scrollPos = window.scrollY + 100;
-
+            let currentSection = '';
+            
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
                 }
             });
-
-            updateActiveNavLink(`#${current}`);
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Update progress bar
+            updateProgressBar();
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // ====== PROGRESS BAR FUNCTIONALITY ====== */
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
         }
         
-        // Contact form simulation
+        // ====== SCROLL TO TOP FUNCTIONALITY ======
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // ====== PRINT FUNCTIONALITY ======
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+        
+        // ====== SET CURRENT DATE ======
+        function setCurrentDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+        }
+        
+        // ====== INITIALIZE EVERYTHING ON LOAD ======
+        document.addEventListener('DOMContentLoaded', function() {
+            setCurrentDate();
+            
+            // Initialize first nav item as active
+            const firstNavItem = document.querySelector('.nav-item');
+            if (firstNavItem) {
+                firstNavItem.classList.add('active');
+            }
+            
+            // Smooth scroll for anchor links (including top-nav links)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 120,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Update active nav items
+                            document.querySelectorAll('.nav-item').forEach(item => {
+                                item.classList.remove('active');
+                                if (item.getAttribute('href') === href) {
+                                    item.classList.add('active');
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        
+        // ====== TOP NAV ACTIVE STATE ======
+        const currentPage = window.location.pathname.split('/').pop();
+        const topNavLinks = document.querySelectorAll('.top-nav-link');
+        
+        topNavLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (linkHref === 'crypto-gotomarketplan.html' && currentPage === '')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // ====== CONTACT FORM SIMULATION ======
         document.querySelector('.cta-button[href^="mailto"]')?.addEventListener('click', function(e) {
             e.preventDefault();
             const email = 'hiep@example.com';
-            const subject = 'Interest in AlphaCopy GTM Plan';
-            const body = 'Hello Hiep,\n\nI saw your AlphaCopy GTM Plan and would like to discuss...';
+            const subject = 'Interest in CryptoCopyPro GTM Plan';
+            const body = 'Hello Hiep,\n\nI saw your CryptoCopyPro GTM Plan and would like to discuss...';
             window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
     </script>
