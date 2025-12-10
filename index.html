@@ -588,14 +588,16 @@
             line-height: 1.6;
         }
         
-        /* ====== TABLES - RESTORED FROM ORIGINAL INDEX.HTML ====== */
+        /* ====== TABLES - FIXED FOR ALL TABLES ====== */
         .table-responsive {
+            width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
             margin: 1.5rem 0;
             border-radius: var(--radius);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            position: relative;
         }
         
         /* Scrollbar styling for tables */
@@ -617,11 +619,65 @@
             background: var(--accent);
         }
         
+        /* Scroll hint for mobile - chỉ hiển thị khi table cần scroll */
+        .table-scroll-hint {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: none;
+            z-index: 10;
+            pointer-events: none;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        /* Tất cả các table đều có min-width đủ lớn để scroll */
         .table-full {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1000px;
+            min-width: 1000px; /* Đảm bảo table đủ rộng để cuộn */
             table-layout: auto;
+        }
+        
+        /* Table trong PART II: PRE-LAUNCH PHASE */
+        .section#pre-launch .table-full {
+            min-width: 1200px; /* Table này có nhiều cột hơn */
+        }
+        
+        /* Table Launch Week Timeline và Launch Week Budget Allocation */
+        .section#launch-week .table-full {
+            min-width: 900px;
+        }
+        
+        /* Table 3-Month Budget Summary */
+        .section#financial-kpi .table-full:nth-of-type(1) {
+            min-width: 800px;
+        }
+        
+        /* Table Key Performance Indicators */
+        .section#financial-kpi .roi-table {
+            min-width: 800px;
+        }
+        
+        /* Table Revenue Projection */
+        .section#financial-kpi .table-full:nth-of-type(3) {
+            min-width: 900px;
+        }
+        
+        /* Table Immediate Next Steps */
+        .section#success-criteria .table-full {
+            min-width: 800px;
         }
         
         .table-full th {
@@ -651,6 +707,7 @@
             background: #fafafa;
         }
         
+        /* Column widths cho table trong Pre-launch */
         .col-activity { width: 18%; min-width: 180px; }
         .col-purpose { width: 12%; min-width: 120px; }
         .col-why { width: 15%; min-width: 150px; }
@@ -1258,6 +1315,10 @@
                 border-right: none;
                 width: calc(100% + 2rem);
             }
+            
+            .table-scroll-hint {
+                display: block;
+            }
         }
         
         @media (max-width: 768px) {
@@ -1378,8 +1439,29 @@
                 font-size: 0.9rem;
             }
             
-            .roi-table {
-                min-width: 700px;
+            /* Điều chỉnh min-width cho các table cụ thể trên mobile */
+            .section#pre-launch .table-full {
+                min-width: 1100px;
+            }
+            
+            .section#launch-week .table-full {
+                min-width: 850px;
+            }
+            
+            .section#financial-kpi .table-full:nth-of-type(1) {
+                min-width: 750px;
+            }
+            
+            .section#financial-kpi .roi-table {
+                min-width: 750px;
+            }
+            
+            .section#financial-kpi .table-full:nth-of-type(3) {
+                min-width: 850px;
+            }
+            
+            .section#success-criteria .table-full {
+                min-width: 750px;
             }
         }
         
@@ -1474,8 +1556,29 @@
                 font-size: 0.85rem;
             }
             
-            .roi-table {
-                min-width: 650px;
+            /* Điều chỉnh min-width cho các table trên mobile nhỏ */
+            .section#pre-launch .table-full {
+                min-width: 1000px;
+            }
+            
+            .section#launch-week .table-full {
+                min-width: 800px;
+            }
+            
+            .section#financial-kpi .table-full:nth-of-type(1) {
+                min-width: 700px;
+            }
+            
+            .section#financial-kpi .roi-table {
+                min-width: 700px;
+            }
+            
+            .section#financial-kpi .table-full:nth-of-type(3) {
+                min-width: 800px;
+            }
+            
+            .section#success-criteria .table-full {
+                min-width: 700px;
             }
         }
         
@@ -1745,6 +1848,7 @@
                 
                 <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
                 <div class="table-responsive">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <tr>
                             <th>Strengths</th>
@@ -1825,6 +1929,7 @@
                 
                 <h4>Week 1-2: Foundation Setup</h4>
                 <div class="table-responsive">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1893,6 +1998,7 @@
                 
                 <h4>Launch Week Timeline</h4>
                 <div class="table-responsive">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -1935,6 +2041,7 @@
                 
                 <h4>Launch Week Budget Allocation</h4>
                 <div class="table-responsive">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2014,6 +2121,7 @@
                 
                 <h3>3-Month Budget Summary ($20,000)</h3>
                 <div class="table-responsive">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2072,6 +2180,7 @@
                 
                 <h3>Key Performance Indicators (Crypto Platform)</h3>
                 <div class="table-responsive">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="roi-table">
                         <thead>
                             <tr>
@@ -2117,7 +2226,8 @@
                 
                 <h3>Revenue Projection (Performance Fee Model)</h3>
                 <div class="table-responsive">
-                    <table class="roi-table">
+                    <div class="table-scroll-hint">← Scroll →</div>
+                    <table class="table-full">
                         <thead>
                             <tr>
                                 <th>Scenario</th>
@@ -2273,6 +2383,7 @@
                 
                 <h3>Immediate Next Steps (Next 7 Days)</h3>
                 <div class="table-responsive">
+                    <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
                         <thead>
                             <tr>
@@ -2586,7 +2697,7 @@
             updateScrollArrows();
         }
         
-        // ====== TABLE SCROLL FUNCTIONALITY - FIXED ======
+        // ====== TABLE SCROLL FUNCTIONALITY - FIXED FOR ALL TABLES ======
         // Function to enable horizontal scrolling for tables on mobile
         function enableTableHorizontalScroll() {
             const tableContainers = document.querySelectorAll('.table-responsive');
@@ -2646,6 +2757,30 @@
                 // Add cursor style for desktop
                 if (window.innerWidth > 768) {
                     container.style.cursor = 'grab';
+                }
+            });
+        }
+        
+        // Function to check if table needs horizontal scroll và hiển thị hint
+        function checkTableScrollNeeded() {
+            const tableContainers = document.querySelectorAll('.table-responsive');
+            
+            tableContainers.forEach(container => {
+                const table = container.querySelector('table');
+                if (table && container.clientWidth < table.scrollWidth) {
+                    container.classList.add('scrollable');
+                    // Hiển thị scroll hint nếu table cần scroll
+                    const hint = container.querySelector('.table-scroll-hint');
+                    if (hint) {
+                        hint.style.display = 'block';
+                    }
+                } else {
+                    container.classList.remove('scrollable');
+                    // Ẩn scroll hint nếu table không cần scroll
+                    const hint = container.querySelector('.table-scroll-hint');
+                    if (hint) {
+                        hint.style.display = 'none';
+                    }
                 }
             });
         }
@@ -2840,6 +2975,12 @@
             
             // Initialize table scrolling functionality
             enableTableHorizontalScroll();
+            checkTableScrollNeeded();
+            
+            // Re-check table scroll on window resize
+            window.addEventListener('resize', function() {
+                setTimeout(checkTableScrollNeeded, 100);
+            });
             
             // Hide scroll hint after user starts scrolling
             document.querySelectorAll('.table-responsive').forEach(container => {
