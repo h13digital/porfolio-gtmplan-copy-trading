@@ -126,6 +126,7 @@
         /* Style for About and Contact links - smaller, lowercase, no icon */
         .nav-right .top-nav-link {
             font-size: 0.75em;
+            text-transform: lowercase;
             padding: 0.5rem 0.8rem;
         }
         
@@ -196,6 +197,17 @@
         
         .top-nav-link i {
             font-size: 1.1rem;
+        }
+        
+        /* ====== MOBILE MENU STYLES ====== */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
         }
         
         /* ====== MAIN CONTAINER ====== */
@@ -894,7 +906,7 @@
             box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
         
-        /* ====== RESPONSIVE DESIGN ====== */
+        /* ====== RESPONSIVE DESIGN - MOBILE OPTIMIZATION ====== */
         @media (max-width: 1024px) {
             .container {
                 margin: 1rem;
@@ -931,74 +943,248 @@
         }
         
         @media (max-width: 768px) {
+            /* Mobile Menu Optimization */
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
             .top-nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .top-nav-brand {
+                font-size: 1.2rem;
+                flex: 1;
             }
             
             .top-nav-menu {
+                display: none;
                 width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .top-nav-menu.mobile-open {
+                display: flex;
+            }
+            
+            .top-nav-link {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+                justify-content: flex-start;
+                border-radius: 6px;
             }
             
             .nav-right {
                 margin-left: 0;
-                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                gap: 0.5rem;
+            }
+            
+            .nav-right .top-nav-link {
+                font-size: 0.85rem;
+                padding: 0.7rem 1rem;
+            }
+            
+            .user-profile {
+                margin-left: 0;
+                padding: 0.7rem 1rem;
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .user-avatar {
+                width: 32px;
+                height: 32px;
             }
             
             .user-info {
-                display: none;
+                display: flex;
             }
             
+            /* Header Optimization */
             .header {
                 padding: 2rem 1rem;
             }
             
             .header h1 {
                 font-size: 1.8rem;
+                line-height: 1.2;
             }
             
             .subtitle {
                 font-size: 1.1rem;
+                line-height: 1.3;
+            }
+            
+            .header p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            
+            /* Content Optimization */
+            .content {
+                padding: 1.2rem;
             }
             
             .section {
                 padding: 1.5rem;
+                margin-bottom: 2rem;
             }
             
-            .kpi-grid,
-            .contingency-grid,
-            .impact-matrix,
-            .summary-grid {
+            .section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1.2rem;
+                padding-bottom: 0.7rem;
+            }
+            
+            .section h3 {
+                font-size: 1.2rem;
+                margin: 1.2rem 0 0.8rem;
+            }
+            
+            .section h4 {
+                font-size: 1rem;
+                margin: 1rem 0 0.6rem;
+            }
+            
+            .section-intro {
+                padding: 1.2rem;
+                margin: 1.2rem 0;
+            }
+            
+            /* KPI Optimization */
+            .kpi-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
             }
             
+            .kpi-card {
+                padding: 1.2rem;
+            }
+            
+            .kpi-value {
+                font-size: 2rem;
+            }
+            
+            /* Table Optimization */
             .table-responsive {
                 font-size: 0.9rem;
+                margin: 1rem 0;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.7rem;
+            }
+            
+            /* Emergency Cards */
+            .contingency-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            
+            .contingency-card {
+                padding: 1.2rem;
+            }
+            
+            /* Impact Matrix */
+            .impact-matrix {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .matrix-card {
+                padding: 1.2rem;
+            }
+            
+            /* About & Contact Mobile Optimization */
+            .about-section {
+                padding: 1.5rem;
+            }
+            
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 48px;
+            }
+            
+            .profile-name {
+                font-size: 1.4rem;
+            }
+            
+            .profile-title {
+                font-size: 0.95rem;
+            }
+            
+            .skill-card {
+                padding: 1.2rem;
             }
             
             .contact-grid {
                 grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .contact-item {
+                padding: 1.2rem;
+            }
+            
+            /* Footer Optimization */
+            .footer-secondary {
+                padding: 2rem 0 1.5rem;
+            }
+            
+            .footer-secondary-content {
+                padding: 0 1rem;
+                gap: 1.5rem;
+            }
+            
+            .footer-secondary-bottom {
+                padding-top: 1.5rem;
+            }
+            
+            /* Button Optimization */
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
             }
         }
         
         @media (max-width: 480px) {
-            .top-nav-menu {
-                flex-direction: column;
-                gap: 0.5rem;
-                width: 100%;
+            /* Extra Small Mobile Optimization */
+            .top-nav-brand {
+                font-size: 1rem;
             }
             
-            .nav-right {
-                flex-direction: column;
-                width: 100%;
+            .top-nav-logo {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
             }
             
-            .top-nav-link {
-                width: 100%;
-                justify-content: center;
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
             }
             
             .content {
@@ -1006,19 +1192,110 @@
             }
             
             .section {
-                padding: 1rem;
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
             }
             
             .section h2 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             .section h3 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+            }
+            
+            .section h4 {
+                font-size: 0.95rem;
             }
             
             .kpi-value {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .kpi-title {
+                font-size: 0.85rem;
+            }
+            
+            .table-responsive {
+                font-size: 0.85rem;
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.6rem;
+            }
+            
+            /* Mobile Typography Adjustments */
+            body {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            
+            p, li, td, th {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            
+            /* Adjust padding for better touch targets */
+            .top-nav-link,
+            .nav-right .top-nav-link,
+            .user-profile {
+                min-height: 44px; /* Apple's recommended minimum touch target size */
+                display: flex;
+                align-items: center;
+            }
+            
+            /* Reduce icon sizes on mobile */
+            .top-nav-link i,
+            .section h2 i {
+                font-size: 0.9rem;
+            }
+            
+            /* Adjust font sizes in cards */
+            .contingency-card h4,
+            .matrix-card h4 {
+                font-size: 1rem;
+            }
+            
+            /* Optimize golden rules */
+            .golden-rules {
+                padding: 1.2rem;
+            }
+            
+            .golden-rules li {
+                padding-left: 2.2rem;
+                margin-bottom: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .golden-rules li::before {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+            
+            /* Optimize profile section */
+            .profile-image {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+            
+            .profile-name {
+                font-size: 1.2rem;
+            }
+            
+            .profile-title {
+                font-size: 0.9rem;
+            }
+            
+            /* Optimize scroll button */
+            .scroll-top {
+                width: 44px;
+                height: 44px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1rem;
             }
         }
         
@@ -1070,12 +1347,17 @@
                 <div class="top-nav-logo crypto-gradient">CC</div>
                 <span>CryptoCopyPro - Command Center</span>
             </div>
-            <div class="top-nav-menu">
-                <a href="index.html" class="top-nav-link">
+            
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="top-nav-menu" id="topNavMenu">
+                <a href="crypto-gotomarketplan.html" class="top-nav-link">
                     <i class="fas fa-map-marked-alt"></i>
                     GTM Plan
                 </a>
-                <a href="command-center.html" class="top-nav-link active">
+                <a href="crypto-commandcenter.html" class="top-nav-link active">
                     <i class="fas fa-tachometer-alt"></i>
                     Command Center
                 </a>
@@ -1694,6 +1976,36 @@
     </div>
     
     <script>
+        // ====== MOBILE MENU FUNCTIONALITY ======
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const topNavMenu = document.getElementById('topNavMenu');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            topNavMenu.classList.toggle('mobile-open');
+            
+            // Change icon based on menu state
+            const icon = this.querySelector('i');
+            if (topNavMenu.classList.contains('mobile-open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.top-nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    topNavMenu.classList.remove('mobile-open');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        
         // ====== SET CURRENT DATE ======
         function setCurrentDate() {
             const now = new Date();
@@ -1882,6 +2194,29 @@
             
             // Auto-refresh BTC price every 30 seconds
             setInterval(updateBtcPrice, 30000);
+            
+            // Check if on mobile and adjust menu accordingly
+            function checkMobileMenu() {
+                if (window.innerWidth <= 768) {
+                    // Mobile view
+                    if (!topNavMenu.classList.contains('mobile-open')) {
+                        topNavMenu.style.display = 'none';
+                    }
+                } else {
+                    // Desktop view
+                    topNavMenu.style.display = 'flex';
+                    topNavMenu.classList.remove('mobile-open');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+            
+            // Initial check
+            checkMobileMenu();
+            
+            // Check on resize
+            window.addEventListener('resize', checkMobileMenu);
         });
     </script>
 </body>
