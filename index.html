@@ -9,7 +9,7 @@
         :root {
             --primary: #1a365d;
             --primary-light: #2d3748;
-            --secondary: #805ad5;
+            --secondary: #805ad5; /* Màu tím đặc trưng crypto */
             --accent: #9f7aea;
             --success: #38a169;
             --warning: #d69e2e;
@@ -21,121 +21,663 @@
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 8px;
             --transition: all 0.3s ease;
+            
+            /* New variables from index.html */
             --accent-purple: #8a2be2;
             --accent-green: #00ff88;
             --highlight-orange: #f59e0b;
         }
         
         /* ====== RESET & BASE STYLES ====== */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
-        body { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); color: #2d3748; line-height: 1.7; font-size: 16px; min-height: 100vh; overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
         
-        /* ====== TOP NAVIGATION ====== */
-        .top-nav { background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 0.8rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-        .top-nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 1.5rem; }
-        .top-nav-brand { font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; z-index: 1002; }
-        .top-nav-logo { width: 32px; height: 32px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .crypto-gradient { background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important; }
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #2d3748;
+            line-height: 1.7;
+            font-size: 16px;
+            min-height: 100vh;
+            overflow-x: hidden; /* Ngăn scroll ngang body */
+        }
         
-        /* HAMBURGER MENU */
-        .hamburger-menu { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 24px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 1002; }
-        .hamburger-menu span { display: block; width: 100%; height: 3px; background: white; border-radius: 2px; transition: var(--transition); }
-        .hamburger-menu.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-        .hamburger-menu.active span:nth-child(2) { opacity: 0; }
-        .hamburger-menu.active span:nth-child(3) { transform: rotate(-45deg) translate(8px, -8px); }
+        /* ====== TOP NAVIGATION - OPTIMIZED FOR MOBILE ====== */
+        .top-nav {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
         
-        .top-nav-menu { display: flex; gap: 1rem; align-items: center; transition: var(--transition); }
-        .nav-right { display: flex; align-items: center; gap: 1rem; margin-left: auto; }
+        .top-nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
         
-        .top-nav-link { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: var(--radius); font-weight: 500; transition: var(--transition); display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; font-size: 0.9rem; }
-        .nav-right .top-nav-link { font-size: 0.8rem; text-transform: lowercase; padding: 0.5rem 0.8rem; }
-        .nav-right .top-nav-link i { display: none; }
-        .top-nav-link:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-        .top-nav-link.active { background: var(--accent); box-shadow: var(--shadow); }
+        .top-nav-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1002;
+        }
         
-        .user-profile { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s; text-decoration: none; white-space: nowrap; margin-left: 0.5rem; color: inherit; border: none; background: transparent; }
-        .user-profile:hover { background-color: rgba(138, 43, 226, 0.1); }
-        .user-avatar { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent-purple), var(--accent-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; overflow: hidden; }
-        .user-info { display: flex; flex-direction: column; }
-        .user-name { font-size: 14px; font-weight: 600; color: var(--light); }
-        .user-role { font-size: 12px; color: #cbd5e0; }
+        .top-nav-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
         
-        /* ====== MAIN NAV ====== */
-        .main-nav { background: var(--light); border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 999; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
-        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; padding: 0 1rem; position: relative; }
-        .nav-scroll-wrapper { display: flex; overflow-x: auto; scrollbar-width: thin; flex: 1; -webkit-overflow-scrolling: touch; }
-        .nav-scroll-wrapper::-webkit-scrollbar { height: 4px; }
-        .nav-scroll-wrapper::-webkit-scrollbar-track { background: #f1f1f1; }
-        .nav-scroll-wrapper::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 4px; }
-        .nav-scroll-arrow { display: none; align-items: center; justify-content: center; width: 40px; background: var(--light); color: var(--primary); border: none; cursor: pointer; z-index: 1; font-size: 1.2rem; }
-        .nav-scroll-arrow:hover { background: #edf2f7; }
+        .crypto-gradient {
+            background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
+        }
         
-        .nav-item { padding: 1rem 1.2rem; text-decoration: none; color: var(--gray); font-weight: 500; white-space: nowrap; border-bottom: 3px solid transparent; transition: var(--transition); position: relative; flex-shrink: 0; }
-        .nav-item:hover { color: var(--primary); background: rgba(49, 130, 206, 0.05); }
-        .nav-item.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(66, 153, 225, 0.08); }
-        .nav-item.active::after { content: ""; position: absolute; bottom: -3px; left: 0; right: 0; height: 3px; background: var(--accent); border-radius: 3px 3px 0 0; }
+        /* HAMBURGER MENU FOR MOBILE */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1002;
+        }
         
-        /* ====== MOBILE DROPDOWN ====== */
-        .mobile-nav-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 999; opacity: 0; transition: opacity 0.3s ease; }
-        .mobile-nav-overlay.active { opacity: 1; }
-        .mobile-nav-menu { display: none; position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); z-index: 1000; padding: 80px 20px 20px; overflow-y: auto; transition: right 0.3s ease; }
-        .mobile-nav-menu.active { right: 0; }
-        .mobile-nav-item { display: block; padding: 1rem 1.5rem; text-decoration: none; color: var(--dark); border-bottom: 1px solid var(--border); transition: var(--transition); }
-        .mobile-nav-item:hover, .mobile-nav-item.active { color: var(--accent); background: rgba(66, 153, 225, 0.05); }
-        .mobile-nav-header { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+        .hamburger-menu span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
         
-        /* ====== CONTAINER & HEADER ====== */
-        .container { max-width: 1400px; margin: 0 auto; background: white; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); position: relative; border-radius: 12px; overflow: hidden; margin-top: 1.5rem; margin-bottom: 2rem; }
-        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 3rem 2rem; text-align: center; position: relative; overflow: hidden; }
-        .header.crypto-gradient { background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important; }
-        .header::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>'); background-size: cover; }
-        .header-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
-        .header h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(to right, #fff, #a0c8f0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
-        .header.crypto-gradient h1 { background: linear-gradient(to right, #fff, #d6bcfa); -webkit-background-clip: text; }
-        .subtitle { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: #cbd5e0; }
-        .meta-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: var(--radius); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .meta-item { text-align: center; padding: 0.5rem; }
-        .meta-item strong { display: block; font-size: 0.95rem; color: #cbd5e0; margin-bottom: 0.3rem; }
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
         
-        /* ====== CONTENT ====== */
-        .content { padding: 2rem; }
-        .section { margin-bottom: 3rem; padding: 2rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow); border-left: 4px solid transparent; transition: var(--transition); }
-        .section:hover { box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); transform: translateY(-2px); }
-        .section h2 { color: var(--primary); font-size: 1.8rem; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--border); position: relative; }
-        .section h2::after { content: ""; position: absolute; bottom: -2px; left: 0; width: 80px; height: 2px; background: var(--accent); }
-        .section h3 { color: var(--primary-light); font-size: 1.4rem; margin: 1.8rem 0 1rem; }
-        .section h4 { color: var(--gray); font-size: 1.1rem; margin: 1.5rem 0 0.8rem; }
-        .section-intro { background: #e6f7ff; border-left: 4px solid #1890ff; padding: 1.5rem; border-radius: var(--radius); margin: 1.5rem 0; }
-        .crypto-border { border-left-color: #9f7aea !important; }
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
         
-        #gtm-plan-info { background: white; border: 2px solid var(--secondary); color: var(--primary-light); text-align: center; }
-        #gtm-plan-info h2 { color: var(--secondary); }
-        #gtm-plan-info .version { background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%); color: white; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: var(--radius); padding: 1.5rem; margin: 1.5rem auto 0; max-width: 70%; text-align: left; }
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
         
-        ul, ol { padding-left: 1.8rem; margin: 1rem 0; }
-        li { margin-bottom: 0.5rem; line-height: 1.6; }
+        .top-nav-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            transition: var(--transition);
+        }
         
-        /* ====== TABLES - FIXED FOR ALL TABLES ====== */
-        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border: 1px solid var(--border); position: relative; touch-action: pan-x; }
-        .table-responsive::-webkit-scrollbar { height: 8px; }
-        .table-responsive::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-        .table-responsive::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 4px; }
-        .table-scroll-hint { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.7); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; display: none; z-index: 10; pointer-events: none; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        /* Added from index.html for right navigation */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+        }
         
-        .table-full { width: 100%; border-collapse: collapse; min-width: 1000px; table-layout: auto; }
-        .section#pre-launch .table-full { min-width: 1200px; }
-        .section#launch-week .table-full { min-width: 900px; }
-        .section#financial-kpi .table-full:nth-of-type(1) { min-width: 800px; }
-        .section#financial-kpi .roi-table { min-width: 800px; }
-        .section#financial-kpi .table-full:nth-of-type(3) { min-width: 900px; }
-        .section#success-criteria .table-full { min-width: 800px; }
+        .top-nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
         
-        .table-full th { background: linear-gradient(to bottom, #f7fafc, #edf2f7); color: var(--primary); font-weight: 600; padding: 1rem; text-align: left; border-bottom: 2px solid var(--border); position: sticky; top: 0; white-space: nowrap; }
-        .table-full td { padding: 1rem; border-bottom: 1px solid var(--border); vertical-align: top; min-width: 120px; }
-        .table-full tr:hover { background: #f8fafc; }
-        .table-full tr:nth-child(even) { background: #fafafa; }
+        /* Style for About and Contact links - smaller, lowercase, no icon */
+        .nav-right .top-nav-link {
+            font-size: 0.8rem;
+            text-transform: lowercase;
+            padding: 0.5rem 0.8rem;
+        }
         
+        /* Remove icon from About and Contact links */
+        .nav-right .top-nav-link i {
+            display: none;
+        }
+        
+        .top-nav-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .top-nav-link.active {
+            background: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
+        /* User profile styles from index.html */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+            margin-left: 0.5rem;
+            color: inherit;
+            border: none;
+            background: transparent;
+        }
+        
+        .user-profile:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: #cbd5e0;
+        }
+        
+        .top-nav-link i {
+            font-size: 1.1rem;
+        }
+        
+        /* ====== MAIN NAVIGATION - OPTIMIZED FOR MOBILE ====== */
+        .main-nav {
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 64px;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 1rem;
+            position: relative;
+        }
+        
+        .nav-scroll-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            flex: 1;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+        
+        .nav-scroll-wrapper::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .nav-scroll-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .nav-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        .nav-scroll-arrow {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            background: var(--light);
+            color: var(--primary);
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+            font-size: 1.2rem;
+        }
+        
+        .nav-scroll-arrow:hover {
+            background: #edf2f7;
+        }
+        
+        .nav-scroll-arrow.left {
+            border-right: 1px solid var(--border);
+        }
+        
+        .nav-scroll-arrow.right {
+            border-left: 1px solid var(--border);
+        }
+        
+        .nav-item {
+            padding: 1rem 1.2rem;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+            flex-shrink: 0; /* Prevent items from shrinking */
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+            background: rgba(49, 130, 206, 0.05);
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background: rgba(66, 153, 225, 0.08);
+        }
+        
+        .nav-item.active::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* ====== MOBILE DROPDOWN NAVIGATION ====== */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-nav-overlay.active {
+            opacity: 1;
+        }
+        
+        .mobile-nav-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+        }
+        
+        .mobile-nav-menu.active {
+            right: 0;
+        }
+        
+        .mobile-nav-item {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .mobile-nav-item:hover,
+        .mobile-nav-item.active {
+            color: var(--accent);
+            background: rgba(66, 153, 225, 0.05);
+        }
+        
+        .mobile-nav-header {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        /* ====== MAIN CONTAINER ====== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* ====== HEADER ====== */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header.crypto-gradient {
+            background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #a0c8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header.crypto-gradient h1 {
+            background: linear-gradient(to right, #fff, #d6bcfa);
+            -webkit-background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #cbd5e0;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #e2e8f0;
+        }
+        
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .meta-item {
+            text-align: center;
+            padding: 0.5rem;
+        }
+        
+        .meta-item strong {
+            display: block;
+            font-size: 0.95rem;
+            color: #cbd5e0;
+            margin-bottom: 0.3rem;
+        }
+        
+        /* ====== MAIN CONTENT ====== */
+        .content {
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .section:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+        
+        .section h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .section h3 {
+            color: var(--primary-light);
+            font-size: 1.4rem;
+            margin: 1.8rem 0 1rem;
+        }
+        
+        .section h4 {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+        
+        .section-intro {
+            background: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+        }
+        
+        .crypto-border {
+            border-left-color: #9f7aea !important;
+        }
+        
+        /* ====== GTM PLAN INFO SECTION ====== */
+        #gtm-plan-info {
+            background: white;
+            border: 2px solid var(--secondary);
+            color: var(--primary-light);
+            text-align: center; /* Canh giữa toàn bộ nội dung */
+        }
+        
+        #gtm-plan-info h2 {
+            color: var(--secondary);
+        }
+        
+        #gtm-plan-info p {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+        
+        /* Phiên bản thu gọn 70% */
+        #gtm-plan-info .version {
+            background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem auto 0;
+            max-width: 70%; /* Giảm xuống 70% chiều rộng */
+            text-align: left; /* Giữ canh trái cho nội dung bên trong */
+        }
+        
+        ul, ol {
+            padding-left: 1.8rem;
+            margin: 1rem 0;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        /* ====== TABLES - FIXED FOR MOBILE SCROLLING ====== */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            margin: 1.5rem 0;
+            border-radius: var(--radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            position: relative;
+            touch-action: pan-x; /* Quan trọng: cho phép cuộn ngang trên mobile */
+        }
+        
+        /* Scrollbar styling for tables */
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        /* Scroll hint for mobile */
+        .table-scroll-hint {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: none;
+            z-index: 10;
+            pointer-events: none;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        .table-full {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px; /* Đảm bảo table đủ rộng để cuộn */
+            table-layout: auto;
+        }
+        
+        /* REMOVED position: sticky from table headers for better mobile scrolling */
+        .table-full th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            /* REMOVED: position: sticky */
+            white-space: nowrap;
+        }
+        
+        .table-full td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            min-width: 120px;
+        }
+        
+        .table-full tr:hover {
+            background: #f8fafc;
+        }
+        
+        .table-full tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        /* Column widths */
         .col-activity { width: 18%; min-width: 180px; }
         .col-purpose { width: 12%; min-width: 120px; }
         .col-why { width: 15%; min-width: 150px; }
@@ -149,193 +691,941 @@
         .risk-medium { color: var(--warning); font-weight: 600; }
         .risk-high { color: var(--danger); font-weight: 600; }
         
-        .roi-table { width: 100%; border-collapse: collapse; min-width: 800px; }
-        .roi-table th { background: linear-gradient(to bottom, #f7fafc, #edf2f7); color: var(--primary); font-weight: 600; padding: 1rem; text-align: left; border-bottom: 2px solid var(--border); }
-        .roi-table td { padding: 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-        .roi-table tr.scenario-conservative { background: rgba(245, 245, 245, 0.8); }
-        .roi-table tr.scenario-expected { background: rgba(230, 247, 255, 0.8); font-weight: 600; }
-        .roi-table tr.scenario-aggressive { background: rgba(246, 255, 237, 0.8); }
+        /* ROI table */
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
         
-        /* ====== GRIDS ====== */
-        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .summary-card { background: linear-gradient(145deg, #ffffff, #f7fafc); border-radius: var(--radius); padding: 1.8rem; text-align: center; box-shadow: var(--shadow); border: 1px solid var(--border); transition: var(--transition); position: relative; overflow: hidden; }
-        .summary-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); }
-        .summary-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--accent), var(--secondary)); }
-        .summary-card h3 { font-size: 1rem; color: var(--gray); margin-bottom: 1rem; }
-        .summary-card .value { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0; }
-        .summary-card .unit { font-size: 0.95rem; color: var(--gray); }
+        .roi-table th {
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            /* REMOVED: position: sticky */
+        }
         
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .kpi-card { background: white; border-radius: var(--radius); padding: 1.5rem; text-align: center; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
-        .kpi-title { font-size: 0.9rem; color: var(--gray); margin-bottom: 0.5rem; font-weight: 600; }
-        .kpi-value { font-size: 2rem; font-weight: 800; color: var(--primary); }
+        .roi-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
         
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .team-card { background: white; border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--border); box-shadow: var(--shadow); transition: var(--transition); }
-        .team-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); }
-        .team-role { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
-        .team-cost { font-size: 1.1rem; font-weight: 600; color: var(--success); margin-bottom: 1rem; }
+        .roi-table tr.scenario-conservative {
+            background: rgba(245, 245, 245, 0.8);
+        }
         
-        .contingency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .contingency-card { background: white; border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--accent); box-shadow: var(--shadow); transition: var(--transition); }
-        .contingency-card:hover { transform: translateX(5px); }
+        .roi-table tr.scenario-expected {
+            background: rgba(230, 247, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .roi-table tr.scenario-aggressive {
+            background: rgba(246, 255, 237, 0.8);
+        }
+        
+        /* ====== CARDS & GRIDS ====== */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .summary-card {
+            background: linear-gradient(145deg, #ffffff, #f7fafc);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .summary-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+        }
+        
+        .summary-card h3 {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .summary-card .value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+        
+        .summary-card .unit {
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .kpi-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .kpi-title {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-role {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-cost {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        
+        .contingency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .contingency-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .contingency-card:hover {
+            transform: translateX(5px);
+        }
+        
         .contingency-card.cac { border-left-color: var(--danger); }
         .contingency-card.churn { border-left-color: var(--warning); }
         .contingency-card.technical { border-left-color: var(--secondary); }
         .contingency-card.regulatory { border-left-color: var(--primary); }
         
         /* ====== TIMELINE ====== */
-        .timeline { position: relative; max-width: 1000px; margin: 3rem auto; }
-        .timeline::before { content: ""; position: absolute; left: 30px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--accent), var(--secondary)); }
-        .timeline-item { display: flex; margin-bottom: 2.5rem; position: relative; }
-        .timeline-date { flex: 0 0 140px; font-weight: 700; color: var(--primary); padding-right: 1.5rem; text-align: right; position: relative; }
-        .timeline-date::before { content: ""; position: absolute; right: -38px; top: 5px; width: 15px; height: 15px; border-radius: 50%; background: var(--accent); border: 3px solid white; box-shadow: 0 0 0 3px var(--accent); z-index: 2; }
-        .timeline-content { flex: 1; background: #f8fafc; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); margin-left: 3rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: var(--transition); }
-        .timeline-content:hover { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); }
-        
-        /* ====== ABOUT & CONTACT ====== */
-        .about-section { background-color: white; border-radius: 20px; padding: 40px; margin-top: 20px; border: 1px solid var(--border); }
-        .about-content { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; }
-        .about-profile { text-align: center; }
-        .profile-image { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 60px; color: white; box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3); overflow: hidden; }
-        .profile-name { font-size: 24px; font-weight: 800; margin-bottom: 10px; color: var(--primary); }
-        .profile-title { font-size: 16px; color: var(--secondary); margin-bottom: 20px; font-weight: 600; }
-        .profile-desc { color: #2d3748; line-height: 1.7; }
-        
-        .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .skill-card { background-color: white; border-radius: 12px; padding: 20px; border: 1px solid var(--border); transition: all 0.3s; box-shadow: var(--shadow); }
-        .skill-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); }
-        .skill-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 15px; }
-        .skill-analytics .skill-icon { background-color: rgba(14, 165, 233, 0.1); color: var(--primary); }
-        .skill-growth .skill-icon { background-color: rgba(16, 185, 129, 0.1); color: var(--secondary); }
-        .skill-web3 .skill-icon { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .skill-esports .skill-icon { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-        .skill-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--dark); }
-        .skill-desc { color: var(--gray); line-height: 1.6; font-size: 14px; }
-        
-        .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        .contact-item { text-align: center; padding: 20px; background: white; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: all 0.3s; }
-        .contact-item:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); }
-        .contact-label { font-size: 14px; color: var(--gray); margin-bottom: 5px; }
-        .contact-value { font-weight: 600; color: var(--primary); }
-        
-        .footer-secondary { padding: 60px 0 30px; background-color: #1a365d; border-top: 1px solid #2d2d4a; }
-        .footer-secondary-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 50px; padding: 0 2rem; }
-        .footer-secondary-brand { margin-bottom: 20px; }
-        .footer-secondary-desc { color: #cbd5e1; margin-bottom: 30px; max-width: 300px; }
-        .footer-secondary-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: white; }
-        .footer-secondary-links { list-style: none; }
-        .footer-secondary-link { color: #cbd5e1; text-decoration: none; margin-bottom: 12px; display: block; transition: all 0.3s; }
-        .footer-secondary-link:hover { color: var(--accent); transform: translateX(5px); }
-        .footer-secondary-bottom { text-align: center; padding-top: 30px; border-top: 1px solid #334155; color: #6a6a8a; font-size: 14px; }
-        
-        .cta-button { display: inline-block; background: linear-gradient(to right, var(--primary), var(--primary-light)); color: white; padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s, box-shadow 0.3s; border: none; cursor: pointer; margin: 0.5rem; }
-        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); }
-        
-        /* ====== RESPONSIVE ====== */
-        @media (max-width: 1024px) {
-            .container { margin: 1rem; border-radius: 8px; }
-            .top-nav-container, .nav-container, .header, .content, .footer-secondary { padding-left: 1rem; padding-right: 1rem; }
-            .header h1 { font-size: 2.2rem; }
-            .about-content, .skills-grid { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-secondary-content { grid-template-columns: 1fr; gap: 2rem; }
-            #gtm-plan-info .version { max-width: 85%; }
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
         }
         
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--secondary));
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        .timeline-date {
+            flex: 0 0 140px;
+            font-weight: 700;
+            color: var(--primary);
+            padding-right: 1.5rem;
+            text-align: right;
+            position: relative;
+        }
+        
+        .timeline-date::before {
+            content: "";
+            position: absolute;
+            right: -38px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--accent);
+            z-index: 2;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-left: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .timeline-content:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ====== ABOUT & CONTACT SECTIONS (from index.html) - FIXED BACKGROUND ====== */
+        .about-section {
+            background-color: white; /* Changed from dark to white */
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 20px;
+            border: 1px solid var(--border); /* Changed to match the theme */
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .about-profile {
+            text-align: center;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3);
+            overflow: hidden;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .profile-title {
+            font-size: 16px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .profile-desc {
+            color: #2d3748; /* Changed to dark color for better readability */
+            line-height: 1.7;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .skill-card {
+            background-color: white; /* Changed from dark to white */
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border); /* Changed to match theme */
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .skill-analytics .skill-icon {
+            background-color: rgba(14, 165, 233, 0.1);
+            color: var(--primary);
+        }
+        
+        .skill-growth .skill-icon {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+        }
+        
+        .skill-web3 .skill-icon {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        
+        .skill-esports .skill-icon {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .skill-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .skill-desc {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            text-align: center;
+            padding: 20px;
+            background: white; /* Changed from dark to white */
+            border-radius: 12px;
+            border: 1px solid var(--border); /* Changed to match theme */
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .contact-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) ====== */
+        .footer-secondary {
+            padding: 60px 0 30px;
+            background-color: #1a365d; /* Updated to match commandcenter.html */
+            border-top: 1px solid #2d2d4a;
+        }
+        
+        .footer-secondary-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+            padding: 0 2rem;
+        }
+        
+        .footer-secondary-brand {
+            margin-bottom: 20px;
+        }
+        
+        .footer-secondary-desc {
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            max-width: 300px;
+        }
+        
+        .footer-secondary-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-secondary-links {
+            list-style: none;
+        }
+        
+        .footer-secondary-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-bottom: 12px;
+            display: block;
+            transition: all 0.3s;
+        }
+        
+        .footer-secondary-link:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-secondary-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #6a6a8a;
+            font-size: 14px;
+        }
+        
+        /* ====== CTA BUTTON (from index.html) ====== */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+        
+        /* ====== RESPONSIVE DESIGN - OPTIMIZED FOR MOBILE ====== */
+        @media (max-width: 1024px) {
+            .container {
+                margin: 1rem;
+                border-radius: 8px;
+            }
+            
+            .top-nav-container,
+            .nav-container,
+            .header,
+            .content,
+            .footer-secondary {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-secondary-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            #gtm-plan-info .version {
+                max-width: 85%; /* Tăng lên một chút cho tablet */
+            }
+        }
+        
+        /* Tablet và Mobile lớn */
         @media (max-width: 900px) {
-            .hamburger-menu { display: flex; }
-            .top-nav-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100%; background: white; flex-direction: column; align-items: flex-start; padding: 80px 20px 20px; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); transition: right 0.3s ease; z-index: 1001; }
-            .top-nav-menu.active { right: 0; }
-            .top-nav-link { color: var(--dark); width: 100%; padding: 1rem 1.5rem; border-radius: var(--radius); margin-bottom: 0.5rem; justify-content: flex-start; }
-            .top-nav-link:hover, .top-nav-link.active { background: rgba(66, 153, 225, 0.1); color: var(--accent); }
-            .nav-right { flex-direction: column; width: 100%; margin-left: 0; gap: 0.5rem; }
-            .nav-right .top-nav-link { font-size: 0.9rem; text-transform: none; }
-            .user-profile { margin-left: 0; width: 100%; justify-content: flex-start; border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 0.5rem; }
-            .nav-scroll-arrow { display: flex; }
-            .main-nav { top: 64px; }
-            .meta-info { grid-template-columns: repeat(2, 1fr); }
-            .table-responsive { margin-left: 0; margin-right: 0; border-radius: 0; width: 100%; }
-            .table-scroll-hint { display: block; }
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .top-nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 20px 20px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+                z-index: 1001;
+            }
+            
+            .top-nav-menu.active {
+                right: 0;
+            }
+            
+            .top-nav-link {
+                color: var(--dark);
+                width: 100%;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius);
+                margin-bottom: 0.5rem;
+                justify-content: flex-start;
+            }
+            
+            .top-nav-link:hover,
+            .top-nav-link.active {
+                background: rgba(66, 153, 225, 0.1);
+                color: var(--accent);
+            }
+            
+            .nav-right {
+                flex-direction: column;
+                width: 100%;
+                margin-left: 0;
+                gap: 0.5rem;
+            }
+            
+            .nav-right .top-nav-link {
+                font-size: 0.9rem;
+                text-transform: none;
+            }
+            
+            .user-profile {
+                margin-left: 0;
+                width: 100%;
+                justify-content: flex-start;
+                border-top: 1px solid var(--border);
+                padding-top: 1rem;
+                margin-top: 0.5rem;
+            }
+            
+            /* Main navigation cho tablet */
+            .nav-scroll-arrow {
+                display: flex;
+            }
+            
+            .main-nav {
+                top: 64px;
+            }
+            
+            .meta-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Table fixes for tablet */
+            .table-container {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                width: calc(100% + 2rem);
+            }
+            
+            .table-scroll-hint {
+                display: block;
+            }
         }
         
         @media (max-width: 768px) {
-            .top-nav-container { padding: 0.5rem 1rem; }
-            .top-nav-brand { font-size: 1.1rem; }
-            .top-nav-logo { width: 28px; height: 28px; font-size: 0.9rem; }
-            .header { padding: 2rem 1rem; }
-            .header h1 { font-size: 1.8rem; }
-            .subtitle { font-size: 1.1rem; }
-            .section { padding: 1.5rem; }
-            .summary-grid, .kpi-grid, .team-grid, .contingency-grid, .contact-grid { grid-template-columns: 1fr; }
-            .timeline::before { left: 20px; }
-            .timeline-date { flex: 0 0 100px; font-size: 0.9rem; }
-            .timeline-date::before { right: -28px; }
-            .timeline-content { margin-left: 2rem; }
-            #gtm-plan-info .version { max-width: 95%; }
-            .nav-scroll-wrapper, .nav-scroll-arrow { display: none; }
-            .mobile-nav-btn { display: block; width: 100%; padding: 1rem; background: var(--light); border: none; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--primary); cursor: pointer; text-align: center; }
-            .mobile-nav-btn i { margin-right: 0.5rem; }
-            .mobile-nav-overlay, .mobile-nav-menu { display: block; }
-            .main-nav, .nav-container { padding: 0; }
-            .table-responsive { margin-left: -1.5rem; margin-right: -1.5rem; border-radius: 0; width: calc(100% + 3rem); }
-            .table-full th, .table-full td { padding: 0.8rem; font-size: 0.9rem; }
-            .section#pre-launch .table-full { min-width: 1100px; }
-            .section#launch-week .table-full { min-width: 850px; }
-            .section#financial-kpi .table-full:nth-of-type(1) { min-width: 750px; }
-            .section#financial-kpi .roi-table { min-width: 750px; }
-            .section#financial-kpi .table-full:nth-of-type(3) { min-width: 850px; }
-            .section#success-criteria .table-full { min-width: 750px; }
+            .top-nav-container {
+                padding: 0.5rem 1rem;
+            }
+            
+            .top-nav-brand {
+                font-size: 1.1rem;
+            }
+            
+            .top-nav-logo {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .summary-grid,
+            .kpi-grid,
+            .team-grid,
+            .contingency-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-date {
+                flex: 0 0 100px;
+                font-size: 0.9rem;
+            }
+            
+            .timeline-date::before {
+                right: -28px;
+            }
+            
+            .timeline-content {
+                margin-left: 2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            #gtm-plan-info .version {
+                max-width: 95%; /* Tăng lên cho mobile */
+            }
+            
+            /* Mobile navigation cho main nav */
+            .nav-scroll-wrapper {
+                display: none;
+            }
+            
+            .nav-scroll-arrow {
+                display: none;
+            }
+            
+            .mobile-nav-btn {
+                display: block;
+                width: 100%;
+                padding: 1rem;
+                background: var(--light);
+                border: none;
+                border-bottom: 1px solid var(--border);
+                font-weight: 600;
+                color: var(--primary);
+                cursor: pointer;
+                text-align: center;
+            }
+            
+            .mobile-nav-btn i {
+                margin-right: 0.5rem;
+            }
+            
+            .mobile-nav-overlay,
+            .mobile-nav-menu {
+                display: block;
+            }
+            
+            .main-nav {
+                padding: 0;
+            }
+            
+            .nav-container {
+                padding: 0;
+            }
+            
+            /* Table fixes for mobile */
+            .table-container {
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                width: calc(100% + 3rem);
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .roi-table {
+                min-width: 700px;
+            }
         }
         
+        /* Mobile nhỏ */
         @media (max-width: 480px) {
-            .top-nav-container { padding: 0.5rem; }
-            .top-nav-brand span, .user-info { display: none; }
-            .header h1 { font-size: 1.6rem; }
-            .subtitle { font-size: 1rem; }
-            .meta-info { grid-template-columns: 1fr; gap: 1rem; padding: 1rem; }
-            .content { padding: 1rem; }
-            .section { padding: 1rem; margin-bottom: 2rem; }
-            .section h2 { font-size: 1.5rem; }
-            .section h3 { font-size: 1.2rem; }
-            .timeline::before { left: 15px; }
-            .timeline-date { flex: 0 0 80px; font-size: 0.8rem; }
-            .timeline-date::before { right: -23px; width: 12px; height: 12px; }
-            .timeline-content { margin-left: 1.5rem; padding: 1rem; }
-            #gtm-plan-info .version { max-width: 100%; padding: 1rem; }
-            .footer-secondary { padding: 40px 0 20px; }
-            .footer-secondary-content { padding: 0 1rem; }
-            .table-responsive { margin-left: -1rem; margin-right: -1rem; width: calc(100% + 2rem); }
-            .table-full th, .table-full td { padding: 0.6rem; font-size: 0.85rem; }
-            .section#pre-launch .table-full { min-width: 1000px; }
-            .section#launch-week .table-full { min-width: 800px; }
-            .section#financial-kpi .table-full:nth-of-type(1), .section#financial-kpi .roi-table, .section#success-criteria .table-full { min-width: 700px; }
-            .section#financial-kpi .table-full:nth-of-type(3) { min-width: 800px; }
+            .top-nav-container {
+                padding: 0.5rem;
+            }
+            
+            .top-nav-brand span {
+                display: none; /* Ẩn tên trên mobile rất nhỏ */
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .meta-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-date {
+                flex: 0 0 80px;
+                font-size: 0.8rem;
+            }
+            
+            .timeline-date::before {
+                right: -23px;
+                width: 12px;
+                height: 12px;
+            }
+            
+            .timeline-content {
+                margin-left: 1.5rem;
+                padding: 1rem;
+            }
+            
+            #gtm-plan-info .version {
+                max-width: 100%; /* Chiếm toàn bộ chiều rộng trên mobile nhỏ */
+                padding: 1rem;
+            }
+            
+            .footer-secondary {
+                padding: 40px 0 20px;
+            }
+            
+            .footer-secondary-content {
+                padding: 0 1rem;
+            }
+            
+            /* Table fixes for small mobile */
+            .table-container {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                width: calc(100% + 2rem);
+            }
+            
+            .table-full th,
+            .table-full td {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+            
+            .roi-table {
+                min-width: 650px;
+            }
         }
         
+        /* ====== PRINT STYLES ====== */
         @media print {
-            .top-nav, .main-nav, .mobile-nav-btn, .hamburger-menu, .scroll-top { display: none; }
-            .container { box-shadow: none; margin: 0; border-radius: 0; }
-            .header, .footer { background: white !important; color: black !important; }
-            .header h1, .footer h2 { color: black !important; -webkit-text-fill-color: black !important; }
-            .section { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
-            .table-responsive { overflow: visible; box-shadow: none; border: 1px solid #ddd; }
-            .table-full { min-width: auto !important; width: 100% !important; }
+            .top-nav,
+            .main-nav,
+            .mobile-nav-btn,
+            .hamburger-menu,
+            .scroll-top {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .header,
+            .footer {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .header h1,
+            .footer h2 {
+                color: black !important;
+                -webkit-text-fill-color: black !important;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+            
+            .table-container {
+                overflow: visible;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .table-full {
+                min-width: auto !important;
+                width: 100% !important;
+            }
         }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .section { animation: fadeIn 0.5s ease-out; }
+        /* ====== ANIMATIONS ====== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
-        .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4); transition: var(--transition); z-index: 100; opacity: 0; visibility: hidden; }
-        .scroll-top.show { opacity: 1; visibility: visible; }
-        .scroll-top:hover { background: var(--secondary); transform: translateY(-5px); }
+        .section {
+            animation: fadeIn 0.5s ease-out;
+        }
         
-        .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--accent), var(--secondary)); z-index: 1001; transition: width 0.3s ease; }
+        /* ====== SCROLL TO TOP BUTTON ====== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+            transition: var(--transition);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* ====== HIGHLIGHT EFFECT ====== */
+        .highlight {
+            background: linear-gradient(120deg, rgba(66, 153, 225, 0.2) 0%, rgba(66, 153, 225, 0) 100%);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        /* ====== PROGRESS BAR ====== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
     </style>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- MOBILE NAVIGATION OVERLAY -->
     <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    
+    <!-- MOBILE NAVIGATION MENU -->
     <div class="mobile-nav-menu" id="mobileNavMenu">
         <div class="mobile-nav-header">Navigation</div>
         <a href="#executive-summary" class="mobile-nav-item active">Overview</a>
@@ -351,50 +1641,100 @@
         <a href="#contact" class="mobile-nav-item">Contact</a>
     </div>
     
+    <!-- TOP NAVIGATION - OPTIMIZED FOR MOBILE -->
     <nav class="top-nav">
         <div class="top-nav-container">
             <div class="top-nav-brand">
                 <div class="top-nav-logo crypto-gradient">CC</div>
                 <span>CryptoCopyPro</span>
             </div>
-            <button class="hamburger-menu" id="hamburgerMenu"><span></span><span></span><span></span></button>
+            
+            <!-- Hamburger menu for mobile -->
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
             <div class="top-nav-menu" id="topNavMenu">
-                <a href="crypto-gotomarketplan.html" class="top-nav-link active"><i class="fas fa-map-marked-alt"></i> GTM Plan</a>
-                <a href="crypto-commandcenter.html" class="top-nav-link" target="_self"><i class="fas fa-tachometer-alt"></i> Command Center</a>
+                <a href="crypto-gotomarketplan.html" class="top-nav-link active">
+                    <i class="fas fa-map-marked-alt"></i>
+                    GTM Plan
+                </a>
+                <a href="crypto-commandcenter.html" class="top-nav-link" target="_self">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Command Center
+                </a>
+                
+                <!-- Added navigation from index.html -->
                 <div class="nav-right">
-                    <a href="#about" class="top-nav-link">about</a>
-                    <a href="#contact" class="top-nav-link">contact</a>
+                    <a href="#about" class="top-nav-link">
+                        about
+                    </a>
+                    <a href="#contact" class="top-nav-link">
+                        contact
+                    </a>
                     <a href="https://h13digital.github.io/#portfolio" class="top-nav-link user-profile">
-                        <div class="user-avatar"><img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></div>
-                        <div class="user-info"><span class="user-name">HIEP NGUYEN</span><span class="user-role">Marketing Architect</span></div>
+                        <div class="user-avatar">
+                            <img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">HIEP NGUYEN</span>
+                            <span class="user-role">Marketing Architect</span>
+                        </div>
                     </a>
                 </div>
             </div>
         </div>
     </nav>
     
+    <!-- PROGRESS BAR -->
     <div class="progress-bar" id="progressBar"></div>
-    <div class="scroll-top" id="scrollTop"><i class="fas fa-chevron-up"></i></div>
     
+    <!-- SCROLL TO TOP BUTTON -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <!-- MAIN CONTAINER -->
     <div class="container">
+        <!-- HEADER -->
         <header class="header crypto-gradient">
             <div class="header-content">
                 <h1>CryptoCopyPro</h1>
                 <p class="subtitle">PRACTICAL GO-TO-MARKET PLAN - CRYPTO COPY TRADING PLATFORM</p>
                 <p>Social copy trading platform connecting crypto traders with followers, focusing on Binance and Bybit ecosystems</p>
+                
                 <div class="meta-info">
-                    <div class="meta-item"><strong>Timeline:</strong> 12 weeks</div>
-                    <div class="meta-item"><strong>Total Budget:</strong> $20,000</div>
-                    <div class="meta-item"><strong>3-Month Target:</strong> 250 traders, 1,000 followers</div>
-                    <div class="meta-item"><strong>Target CAC:</strong> $60</div>
+                    <div class="meta-item">
+                        <strong>Timeline:</strong> 12 weeks
+                    </div>
+                    <div class="meta-item">
+                        <strong>Total Budget:</strong> $20,000
+                    </div>
+                    <div class="meta-item">
+                        <strong>3-Month Target:</strong> 250 traders, 1,000 followers
+                    </div>
+                    <div class="meta-item">
+                        <strong>Target CAC:</strong> $60
+                    </div>
                 </div>
             </div>
         </header>
         
+        <!-- MAIN NAVIGATION - OPTIMIZED FOR MOBILE -->
         <nav class="main-nav">
             <div class="nav-container">
-                <button class="mobile-nav-btn" id="mobileNavBtn"><i class="fas fa-bars"></i> Navigation Menu</button>
-                <button class="nav-scroll-arrow left" id="navScrollLeft"><i class="fas fa-chevron-left"></i></button>
+                <!-- Mobile navigation button (visible only on small screens) -->
+                <button class="mobile-nav-btn" id="mobileNavBtn">
+                    <i class="fas fa-bars"></i> Navigation Menu
+                </button>
+                
+                <!-- Desktop navigation with scroll arrows -->
+                <button class="nav-scroll-arrow left" id="navScrollLeft">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
                 <div class="nav-scroll-wrapper" id="navScrollWrapper">
                     <a href="#executive-summary" class="nav-item active">Overview</a>
                     <a href="#pre-launch" class="nav-item">Pre-launch</a>
@@ -405,13 +1745,19 @@
                     <a href="#team-timeline" class="nav-item">Team & Timeline</a>
                     <a href="#success-criteria" class="nav-item">Success Criteria</a>
                 </div>
-                <button class="nav-scroll-arrow right" id="navScrollRight"><i class="fas fa-chevron-right"></i></button>
+                
+                <button class="nav-scroll-arrow right" id="navScrollRight">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </nav>
         
+        <!-- MAIN CONTENT -->
         <main class="content">
+            <!-- PART I: STRATEGY OVERVIEW -->
             <section id="executive-summary" class="section">
                 <h2>PART I: PRACTICAL STRATEGY OVERVIEW</h2>
+                
                 <div class="section-intro crypto-border" style="background: #f5f3ff;">
                     <p><strong>🎯 Core Philosophy:</strong> "Social trading ecosystem - Quality signals over quantity"</p>
                     <p><strong>Product:</strong> CryptoCopyPro - Social copy trading platform for Binance/Bybit traders</p>
@@ -420,6 +1766,7 @@
                     <p><strong>Total Budget:</strong> $20,000 (focused on liquidity incentives)</p>
                     <p><strong>Key Differentiator:</strong> Social features, transparent performance metrics, dual-sided marketplace</p>
                 </div>
+                
                 <h3>1. Target Market Focus (Crypto Trading Communities)</h3>
                 <ul>
                     <li><strong>Priority 1:</strong> Southeast Asia crypto traders (Vietnam, Philippines, Indonesia)</li>
@@ -427,170 +1774,577 @@
                     <li><strong>Platform Focus:</strong> Binance and Bybit API integration</li>
                     <li><strong>Strategic Partners:</strong> Trading education platforms, crypto influencers, telegram signal groups</li>
                 </ul>
+                
                 <h3>2. SWOT Analysis (Crypto Copy Trading)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
-                        <tr><th>Strengths</th><th>Weaknesses</th></tr>
-                        <tr><td><ul><li>Social features (chat, leaderboards, transparency)</li><li>Easy API integration with Binance/Bybit</li><li>Performance-based fee model</li><li>Focus on crypto-native communities</li></ul></td><td><ul><li>Network effects required for success</li><li>Regulatory uncertainty in some markets</li><li>Competition from established platforms</li><li>Dependent on crypto market sentiment</li></ul></td></tr>
-                        <tr><th>Opportunities</th><th>Threats</th></tr>
-                        <tr><td><ul><li>Growing crypto adoption in emerging markets</li><li>Demand for transparent copy trading solutions</li><li>Partnerships with crypto influencers</li><li>Expansion to other exchanges (KuCoin, OKX)</li></ul></td><td><ul><li>Exchange API changes or restrictions</li><li>Regulatory crackdowns on copy trading</li><li>Security concerns (API key management)</li><li>Market downturns reducing trading activity</li></ul></td></tr>
+                        <tr>
+                            <th>Strengths</th>
+                            <th>Weaknesses</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li>Social features (chat, leaderboards, transparency)</li>
+                                    <li>Easy API integration with Binance/Bybit</li>
+                                    <li>Performance-based fee model</li>
+                                    <li>Focus on crypto-native communities</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Network effects required for success</li>
+                                    <li>Regulatory uncertainty in some markets</li>
+                                    <li>Competition from established platforms</li>
+                                    <li>Dependent on crypto market sentiment</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Opportunities</th>
+                            <th>Threats</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li>Growing crypto adoption in emerging markets</li>
+                                    <li>Demand for transparent copy trading solutions</li>
+                                    <li>Partnerships with crypto influencers</li>
+                                    <li>Expansion to other exchanges (KuCoin, OKX)</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Exchange API changes or restrictions</li>
+                                    <li>Regulatory crackdowns on copy trading</li>
+                                    <li>Security concerns (API key management)</li>
+                                    <li>Market downturns reducing trading activity</li>
+                                </ul>
+                            </td>
+                        </tr>
                     </table>
                 </div>
+                
                 <h3>3. Summary Cards (Realistic Targets)</h3>
                 <div class="summary-grid">
-                    <div class="summary-card"><h3>3-MONTH TARGET</h3><div class="value">250</div><div class="unit">signal providers</div></div>
-                    <div class="summary-card"><h3>FOLLOWERS</h3><div class="value">1,000</div><div class="unit">active copiers</div></div>
-                    <div class="summary-card"><h3>TARGET CAC</h3><div class="value">$60</div><div class="unit">(lower due to referrals)</div></div>
-                    <div class="summary-card"><h3>OPTIMIZED BUDGET</h3><div class="value">$20,000</div><div class="unit">(focus on liquidity incentives)</div></div>
+                    <div class="summary-card">
+                        <h3>3-MONTH TARGET</h3>
+                        <div class="value">250</div>
+                        <div class="unit">signal providers</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>FOLLOWERS</h3>
+                        <div class="value">1,000</div>
+                        <div class="unit">active copiers</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>TARGET CAC</h3>
+                        <div class="value">$60</div>
+                        <div class="unit">(lower due to referrals)</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>OPTIMIZED BUDGET</h3>
+                        <div class="value">$20,000</div>
+                        <div class="unit">(focus on liquidity incentives)</div>
+                    </div>
                 </div>
             </section>
             
+            <!-- PART II: PRE-LAUNCH PHASE -->
             <section id="pre-launch" class="section">
                 <h2>PART II: PRE-LAUNCH PHASE (OPTIMIZED)</h2>
                 <h3>PHASE 1: OPTIMIZED PRE-LAUNCH (6 WEEKS - $8,000)</h3>
+                
                 <h4>Week 1-2: Foundation Setup</h4>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
-                        <thead><tr><th class="col-activity">Activity</th><th class="col-purpose">Purpose</th><th class="col-why">Why?</th><th class="col-achieve">Outcome</th><th class="col-how">How?</th><th class="col-cost">Cost</th><th class="col-kpi">KPIs</th><th class="col-risk">Risk & Solution</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th class="col-activity">Activity</th>
+                                <th class="col-purpose">Purpose</th>
+                                <th class="col-why">Why?</th>
+                                <th class="col-achieve">Outcome</th>
+                                <th class="col-how">How?</th>
+                                <th class="col-cost">Cost</th>
+                                <th class="col-kpi">KPIs</th>
+                                <th class="col-risk">Risk & Solution</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td><strong>1.1 Waitlist with Early Adopter Rewards</strong></td><td>Build community, seed initial users</td><td>Copy trading needs both sides (traders + followers). Early incentives create network effects.</td><td>500+ waitlist, 100+ signal providers pre-committed</td><td>- Landing page with referral rewards<br>- Offer: "First 100 signal providers get 0% fees for 3 months"<br>- Integration tutorials for Binance/Bybit</td><td>$800</td><td>- Waitlist conversion (>15%)<br>- Signal provider commitments</td><td><span class="risk-low">R: Not enough signal providers</span><br><strong>S:</strong> Partner with existing telegram signal groups</td></tr>
-                            <tr><td><strong>1.2 Influencer & Community Partnerships</strong></td><td>Leverage existing crypto communities</td><td>Crypto communities are tight-knit. Influencers can bring entire communities.</td><td>3-5 crypto influencer partnerships, 10+ community ambassadors</td><td>- Outreach to crypto YouTubers/Telegram admins<br>- Revenue sharing model (20% of follower fees)<br>- Co-branded educational content</td><td>$1,500</td><td>- Influencer conversion rate<br>- Community member signups</td><td><span class="risk-medium">R: Influencers want upfront payment</span><br><strong>S:</strong> Revenue share model with minimum guarantee</td></tr>
+                            <tr>
+                                <td><strong>1.1 Waitlist with Early Adopter Rewards</strong></td>
+                                <td>Build community, seed initial users</td>
+                                <td>Copy trading needs both sides (traders + followers). Early incentives create network effects.</td>
+                                <td>500+ waitlist, 100+ signal providers pre-committed</td>
+                                <td>- Landing page with referral rewards<br>- Offer: "First 100 signal providers get 0% fees for 3 months"<br>- Integration tutorials for Binance/Bybit</td>
+                                <td>$800</td>
+                                <td>- Waitlist conversion (>15%)<br>- Signal provider commitments</td>
+                                <td><span class="risk-low">R: Not enough signal providers</span><br><strong>S:</strong> Partner with existing telegram signal groups</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1.2 Influencer & Community Partnerships</strong></td>
+                                <td>Leverage existing crypto communities</td>
+                                <td>Crypto communities are tight-knit. Influencers can bring entire communities.</td>
+                                <td>3-5 crypto influencer partnerships, 10+ community ambassadors</td>
+                                <td>- Outreach to crypto YouTubers/Telegram admins<br>- Revenue sharing model (20% of follower fees)<br>- Co-branded educational content</td>
+                                <td>$1,500</td>
+                                <td>- Influencer conversion rate<br>- Community member signups</td>
+                                <td><span class="risk-medium">R: Influencers want upfront payment</span><br><strong>S:</strong> Revenue share model with minimum guarantee</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+                
                 <div class="kpi-grid">
-                    <div class="kpi-card"><div class="kpi-title">TOTAL PRE-LAUNCH BUDGET</div><div class="kpi-value">$8,000</div><div class="kpi-title">(focus on partnerships)</div></div>
-                    <div class="kpi-card"><div class="kpi-title">WAITLIST TARGET</div><div class="kpi-value">500+</div><div class="kpi-title">crypto traders</div></div>
-                    <div class="kpi-card"><div class="kpi-title">INFLUENCER PARTNERS</div><div class="kpi-value">3-5</div><div class="kpi-title">crypto content creators</div></div>
-                    <div class="kpi-card"><div class="kpi-title">COMMUNITIES</div><div class="kpi-value">10+</div><div class="kpi-title">telegram/discord groups</div></div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">TOTAL PRE-LAUNCH BUDGET</div>
+                        <div class="kpi-value">$8,000</div>
+                        <div class="kpi-title">(focus on partnerships)</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">WAITLIST TARGET</div>
+                        <div class="kpi-value">500+</div>
+                        <div class="kpi-title">crypto traders</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">INFLUENCER PARTNERS</div>
+                        <div class="kpi-value">3-5</div>
+                        <div class="kpi-title">crypto content creators</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">COMMUNITIES</div>
+                        <div class="kpi-value">10+</div>
+                        <div class="kpi-title">telegram/discord groups</div>
+                    </div>
                 </div>
             </section>
             
+            <!-- PART III: LAUNCH WEEK -->
             <section id="launch-week" class="section">
                 <h3>PHASE 2: LAUNCH WEEK (WEEK 7 - $5,000)</h3>
+                
                 <h4>Launch Week Timeline</h4>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
-                        <thead><tr><th>Day</th><th>Activity</th><th>Purpose</th><th>Why this day?</th><th>Owner</th><th>KPIs</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Activity</th>
+                                <th>Purpose</th>
+                                <th>Why this day?</th>
+                                <th>Owner</th>
+                                <th>KPIs</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td><strong>Day 1 (Mon)</strong></td><td>Platform Live + Partner Launch</td><td>Activate influencer partnerships simultaneously</td><td>Coordinated launch creates network effect immediately</td><td>Founder + Partnerships</td><td>100+ signal providers onboarded</td></tr>
-                            <tr><td><strong>Day 2 (Tue)</strong></td><td>Twitter Spaces + AMA Sessions</td><td>Build trust, answer security questions</td><td>Crypto community values transparency and direct access</td><td>Founder + Influencers</td><td>500+ attendees, 50+ followers</td></tr>
-                            <tr><td><strong>Day 4 (Thu)</strong></td><td>Trading Competition Launch</td><td>Incentivize signal providers, generate activity</td><td>Competitions drive engagement and attract followers</td><td>Founder + Marketing</td><td>50+ competition entries, $5k+ prize pool</td></tr>
+                            <tr>
+                                <td><strong>Day 1 (Mon)</strong></td>
+                                <td>Platform Live + Partner Launch</td>
+                                <td>Activate influencer partnerships simultaneously</td>
+                                <td>Coordinated launch creates network effect immediately</td>
+                                <td>Founder + Partnerships</td>
+                                <td>100+ signal providers onboarded</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 2 (Tue)</strong></td>
+                                <td>Twitter Spaces + AMA Sessions</td>
+                                <td>Build trust, answer security questions</td>
+                                <td>Crypto community values transparency and direct access</td>
+                                <td>Founder + Influencers</td>
+                                <td>500+ attendees, 50+ followers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 4 (Thu)</strong></td>
+                                <td>Trading Competition Launch</td>
+                                <td>Incentivize signal providers, generate activity</td>
+                                <td>Competitions drive engagement and attract followers</td>
+                                <td>Founder + Marketing</td>
+                                <td>50+ competition entries, $5k+ prize pool</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+                
                 <h4>Launch Week Budget Allocation</h4>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
-                        <thead><tr><th>Item</th><th>Cost</th><th>Team</th><th>Why Important?</th><th>Expected Outcome</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Cost</th>
+                                <th>Team</th>
+                                <th>Why Important?</th>
+                                <th>Expected Outcome</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td><strong>Influencer Campaigns</strong></td><td>$2,500</td><td>Partnerships Manager</td><td>Credibility and reach in crypto communities</td><td>200+ signal providers, CAC ~$30-40</td></tr>
-                            <tr><td><strong>Trading Competition Prizes</strong></td><td>$1,500</td><td>Marketing + Tech</td><td>Drives platform activity and attracts followers</td><td>50+ active traders, 300+ followers</td></tr>
-                            <tr><td><strong>TOTAL LAUNCH WEEK</strong></td><td><strong>$5,000</strong></td><td><strong>4-5 people</strong></td><td></td><td></td></tr>
+                            <tr>
+                                <td><strong>Influencer Campaigns</strong></td>
+                                <td>$2,500</td>
+                                <td>Partnerships Manager</td>
+                                <td>Credibility and reach in crypto communities</td>
+                                <td>200+ signal providers, CAC ~$30-40</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trading Competition Prizes</strong></td>
+                                <td>$1,500</td>
+                                <td>Marketing + Tech</td>
+                                <td>Drives platform activity and attracts followers</td>
+                                <td>50+ active traders, 300+ followers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL LAUNCH WEEK</strong></td>
+                                <td><strong>$5,000</strong></td>
+                                <td><strong>4-5 people</strong></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
             
+            <!-- PART IV: POST-LAUNCH -->
             <section id="post-launch" class="section">
                 <h3>PHASE 3: POST-LAUNCH - NETWORK EFFECTS & SCALE (WEEK 8-12 - $7,000)</h3>
+                
                 <h4>Post-launch Focus Areas</h4>
                 <div class="team-grid">
-                    <div class="team-card"><div class="team-role">Founder (CEO/Growth)</div><div class="team-cost">$0 (Equity)</div><p><strong>Why:</strong> Vision, partnerships, community building</p><p><strong>Responsibility:</strong> Overall strategy, exchange partnerships, influencer relations</p><p><strong>Time:</strong> Full-time</p></div>
-                    <div class="team-card"><div class="team-role">Full-stack Developer</div><div class="team-cost">$2,500/month</div><p><strong>Why:</strong> Platform stability, new features</p><p><strong>Responsibility:</strong> API integrations, security, performance</p><p><strong>Time:</strong> Full-time</p></div>
-                    <div class="team-card"><div class="team-role">Community Manager</div><div class="team-cost">$1,200/month</div><p><strong>Why:</strong> Engagement, retention, support</p><p><strong>Responsibility:</strong> Telegram/Discord, content, user support</p><p><strong>Time:</strong> Part-time (25h/week)</p></div>
+                    <div class="team-card">
+                        <div class="team-role">Founder (CEO/Growth)</div>
+                        <div class="team-cost">$0 (Equity)</div>
+                        <p><strong>Why:</strong> Vision, partnerships, community building</p>
+                        <p><strong>Responsibility:</strong> Overall strategy, exchange partnerships, influencer relations</p>
+                        <p><strong>Time:</strong> Full-time</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-role">Full-stack Developer</div>
+                        <div class="team-cost">$2,500/month</div>
+                        <p><strong>Why:</strong> Platform stability, new features</p>
+                        <p><strong>Responsibility:</strong> API integrations, security, performance</p>
+                        <p><strong>Time:</strong> Full-time</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-role">Community Manager</div>
+                        <div class="team-cost">$1,200/month</div>
+                        <p><strong>Why:</strong> Engagement, retention, support</p>
+                        <p><strong>Responsibility:</strong> Telegram/Discord, content, user support</p>
+                        <p><strong>Time:</strong> Part-time (25h/week)</p>
+                    </div>
                 </div>
-                <div class="summary-card" style="max-width: 400px; margin: 2rem auto; background: #f5f3ff;"><h3>TOTAL POST-LAUNCH BUDGET</h3><div class="value">$7,000</div><div class="unit">6 weeks (community focus)</div></div>
+                
+                <div class="summary-card" style="max-width: 400px; margin: 2rem auto; background: #f5f3ff;">
+                    <h3>TOTAL POST-LAUNCH BUDGET</h3>
+                    <div class="value">$7,000</div>
+                    <div class="unit">6 weeks (community focus)</div>
+                </div>
             </section>
             
+            <!-- PART V: FINANCIAL & KPIS -->
             <section id="financial-kpi" class="section">
                 <h2>PART V: FINANCIAL SUMMARY & KPIS</h2>
+                
                 <h3>3-Month Budget Summary ($20,000)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
-                        <thead><tr><th>Category</th><th>Pre-launch</th><th>Launch</th><th>Post-launch</th><th>Total</th><th>%</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Pre-launch</th>
+                                <th>Launch</th>
+                                <th>Post-launch</th>
+                                <th>Total</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td><strong>Team</strong></td><td>$3,000</td><td>$1,000</td><td>$4,200</td><td>$8,200</td><td>41%</td></tr>
-                            <tr><td><strong>Partnerships & Marketing</strong></td><td>$3,500</td><td>$3,000</td><td>$2,000</td><td>$8,500</td><td>42.5%</td></tr>
-                            <tr><td><strong>Platform & Security</strong></td><td>$1,000</td><td>$500</td><td>$500</td><td>$2,000</td><td>10%</td></tr>
-                            <tr><td><strong>TOTAL</strong></td><td><strong>$7,500</strong></td><td><strong>$4,500</strong></td><td><strong>$6,700</strong></td><td><strong>$18,700</strong></td><td><strong>93.5%</strong></td></tr>
-                            <tr style="background: #f6ffed;"><td><strong>CONTINGENCY (6.5%)</strong></td><td>$500</td><td>$500</td><td>$300</td><td><strong>$1,300</strong></td><td><strong>6.5%</strong></td></tr>
+                            <tr>
+                                <td><strong>Team</strong></td>
+                                <td>$3,000</td>
+                                <td>$1,000</td>
+                                <td>$4,200</td>
+                                <td>$8,200</td>
+                                <td>41%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Partnerships & Marketing</strong></td>
+                                <td>$3,500</td>
+                                <td>$3,000</td>
+                                <td>$2,000</td>
+                                <td>$8,500</td>
+                                <td>42.5%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Platform & Security</strong></td>
+                                <td>$1,000</td>
+                                <td>$500</td>
+                                <td>$500</td>
+                                <td>$2,000</td>
+                                <td>10%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL</strong></td>
+                                <td><strong>$7,500</strong></td>
+                                <td><strong>$4,500</strong></td>
+                                <td><strong>$6,700</strong></td>
+                                <td><strong>$18,700</strong></td>
+                                <td><strong>93.5%</strong></td>
+                            </tr>
+                            <tr style="background: #f6ffed;">
+                                <td><strong>CONTINGENCY (6.5%)</strong></td>
+                                <td>$500</td>
+                                <td>$500</td>
+                                <td>$300</td>
+                                <td><strong>$1,300</strong></td>
+                                <td><strong>6.5%</strong></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+                
                 <h3>Key Performance Indicators (Crypto Platform)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="roi-table">
-                        <thead><tr><th>Metric</th><th>Month 1</th><th>Month 2</th><th>Month 3</th><th>Why Important?</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Month 1</th>
+                                <th>Month 2</th>
+                                <th>Month 3</th>
+                                <th>Why Important?</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td><strong>Signal Providers</strong></td><td>80</td><td>150</td><td>250</td><td>Supply side of marketplace</td></tr>
-                            <tr><td><strong>Active Followers</strong></td><td>300</td><td>650</td><td>1,000</td><td>Demand side of marketplace</td></tr>
-                            <tr><td><strong>Monthly Volume</strong></td><td>$500k</td><td>$1.2M</td><td>$2.5M</td><td>Platform activity & fee potential</td></tr>
-                            <tr><td><strong>Net Revenue</strong></td><td>$4,000</td><td>$8,000</td><td>$12,000</td><td>Revenue growth (10-20% of profits)</td></tr>
+                            <tr>
+                                <td><strong>Signal Providers</strong></td>
+                                <td>80</td>
+                                <td>150</td>
+                                <td>250</td>
+                                <td>Supply side of marketplace</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Active Followers</strong></td>
+                                <td>300</td>
+                                <td>650</td>
+                                <td>1,000</td>
+                                <td>Demand side of marketplace</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Monthly Volume</strong></td>
+                                <td>$500k</td>
+                                <td>$1.2M</td>
+                                <td>$2.5M</td>
+                                <td>Platform activity & fee potential</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Net Revenue</strong></td>
+                                <td>$4,000</td>
+                                <td>$8,000</td>
+                                <td>$12,000</td>
+                                <td>Revenue growth (10-20% of profits)</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+                
                 <h3>Revenue Projection (Performance Fee Model)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
-                    <table class="table-full">
-                        <thead><tr><th>Scenario</th><th>Signal Providers</th><th>Followers</th><th>Avg. Copy Size</th><th>Platform Fee</th><th>Monthly Revenue</th></tr></thead>
+                    <table class="roi-table">
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Signal Providers</th>
+                                <th>Followers</th>
+                                <th>Avg. Copy Size</th>
+                                <th>Platform Fee</th>
+                                <th>Monthly Revenue</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr class="scenario-conservative"><td><strong>Conservative</strong></td><td>150</td><td>600</td><td>$500</td><td>15% of profits</td><td>$6,750</td></tr>
-                            <tr class="scenario-expected"><td><strong>Expected (Target)</strong></td><td>250</td><td>1,000</td><td>$800</td><td>15% of profits</td><td>$12,000</td></tr>
-                            <tr class="scenario-aggressive"><td><strong>Aggressive</strong></td><td>400</td><td>2,000</td><td>$1,000</td><td>15% of profits</td><td>$30,000</td></tr>
+                            <tr class="scenario-conservative">
+                                <td><strong>Conservative</strong></td>
+                                <td>150</td>
+                                <td>600</td>
+                                <td>$500</td>
+                                <td>15% of profits</td>
+                                <td>$6,750</td>
+                            </tr>
+                            <tr class="scenario-expected">
+                                <td><strong>Expected (Target)</strong></td>
+                                <td>250</td>
+                                <td>1,000</td>
+                                <td>$800</td>
+                                <td>15% of profits</td>
+                                <td>$12,000</td>
+                            </tr>
+                            <tr class="scenario-aggressive">
+                                <td><strong>Aggressive</strong></td>
+                                <td>400</td>
+                                <td>2,000</td>
+                                <td>$1,000</td>
+                                <td>15% of profits</td>
+                                <td>$30,000</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
             
+            <!-- PART VI: RISK MANAGEMENT -->
             <section id="risk-management" class="section">
                 <h2>PART VI: RISK MANAGEMENT (CRYPTO SPECIFIC)</h2>
+                
                 <h3>Risk Assessment</h3>
                 <div class="contingency-grid">
-                    <div class="contingency-card cac"><h4>Scenario 1: Exchange API Restrictions</h4><p><strong>Why:</strong> Binance/Bybit restrict copy trading APIs</p><p><strong>Action Plan:</strong></p><ul><li>Diversify to KuCoin, OKX, Gate.io APIs</li><li>Develop manual copy trading features</li><li>Focus on educational content during transition</li></ul></div>
-                    <div class="contingency-card churn"><h4>Scenario 2: Bear Market Sentiment</h4><p><strong>Why:</strong> Crypto downturn reduces trading activity</p><p><strong>Action Plan:</strong></p><ul><li>Pivot to educational content and community building</li><li>Introduce spot copy trading (lower risk)</li><li>Focus on DCA and long-term strategies</li></ul></div>
-                    <div class="contingency-card regulatory"><h4>Scenario 3: Regulatory Challenges</h4><p><strong>Why:</strong> Country bans copy trading platforms</p><p><strong>Action Plan:</strong></p><ul><li>Geo-block restricted regions</li><li>Focus on crypto-friendly jurisdictions</li><li>Legal structure in Singapore/Dubai</li></ul></div>
+                    <div class="contingency-card cac">
+                        <h4>Scenario 1: Exchange API Restrictions</h4>
+                        <p><strong>Why:</strong> Binance/Bybit restrict copy trading APIs</p>
+                        <p><strong>Action Plan:</strong></p>
+                        <ul>
+                            <li>Diversify to KuCoin, OKX, Gate.io APIs</li>
+                            <li>Develop manual copy trading features</li>
+                            <li>Focus on educational content during transition</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="contingency-card churn">
+                        <h4>Scenario 2: Bear Market Sentiment</h4>
+                        <p><strong>Why:</strong> Crypto downturn reduces trading activity</p>
+                        <p><strong>Action Plan:</strong></p>
+                        <ul>
+                            <li>Pivot to educational content and community building</li>
+                            <li>Introduce spot copy trading (lower risk)</li>
+                            <li>Focus on DCA and long-term strategies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="contingency-card regulatory">
+                        <h4>Scenario 3: Regulatory Challenges</h4>
+                        <p><strong>Why:</strong> Country bans copy trading platforms</p>
+                        <p><strong>Action Plan:</strong></p>
+                        <ul>
+                            <li>Geo-block restricted regions</li>
+                            <li>Focus on crypto-friendly jurisdictions</li>
+                            <li>Legal structure in Singapore/Dubai</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
             
+            <!-- PART VII: TEAM & TIMELINE -->
             <section id="team-timeline" class="section">
                 <h2>PART VII: TEAM STRUCTURE & TIMELINE</h2>
+                
                 <h3>12-Week Timeline</h3>
                 <div class="timeline">
-                    <div class="timeline-item"><div class="timeline-date">WEEK 1-3</div><div class="timeline-content"><p><strong>Focus:</strong> Platform MVP & Community</p><p><strong>Activities:</strong> Binance API integration, waitlist building, influencer outreach</p><p><strong>Milestone:</strong> 500+ waitlist, 3 influencer partners</p></div></div>
-                    <div class="timeline-item"><div class="timeline-date">WEEK 4-6</div><div class="timeline-content"><p><strong>Focus:</strong> Beta Testing & Security</p><p><strong>Activities:</strong> Closed beta with 50 traders, security audit, compliance check</p><p><strong>Milestone:</strong> 100+ beta testers, security certified</p></div></div>
-                    <div class="timeline-item"><div class="timeline-date">WEEK 7</div><div class="timeline-content"><p><strong>Focus:</strong> LAUNCH WEEK</p><p><strong>Activities:</strong> Platform live, influencer campaigns, trading competition</p><p><strong>Milestone:</strong> 150+ signal providers, 500+ followers</p></div></div>
-                    <div class="timeline-item"><div class="timeline-date">WEEK 10-12</div><div class="timeline-content"><p><strong>Focus:</strong> Network Effects & Monetization</p><p><strong>Activities:</strong> Referral programs, advanced features, revenue optimization</p><p><strong>Milestone:</strong> 250 signal providers, $12,000 MRR</p></div></div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 1-3</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> Platform MVP & Community</p>
+                            <p><strong>Activities:</strong> Binance API integration, waitlist building, influencer outreach</p>
+                            <p><strong>Milestone:</strong> 500+ waitlist, 3 influencer partners</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 4-6</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> Beta Testing & Security</p>
+                            <p><strong>Activities:</strong> Closed beta with 50 traders, security audit, compliance check</p>
+                            <p><strong>Milestone:</strong> 100+ beta testers, security certified</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 7</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> LAUNCH WEEK</p>
+                            <p><strong>Activities:</strong> Platform live, influencer campaigns, trading competition</p>
+                            <p><strong>Milestone:</strong> 150+ signal providers, 500+ followers</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">WEEK 10-12</div>
+                        <div class="timeline-content">
+                            <p><strong>Focus:</strong> Network Effects & Monetization</p>
+                            <p><strong>Activities:</strong> Referral programs, advanced features, revenue optimization</p>
+                            <p><strong>Milestone:</strong> 250 signal providers, $12,000 MRR</p>
+                        </div>
+                    </div>
                 </div>
             </section>
             
+            <!-- PART VIII: SUCCESS CRITERIA -->
             <section id="success-criteria" class="section">
                 <h2>PART VIII: SUCCESS CRITERIA & NEXT STEPS</h2>
+                
                 <h3>Success After 3 Months</h3>
                 <div class="section-intro" style="background: #f5f3ff; border-left: 4px solid #9f7aea;">
-                    <p><strong>✅ Platform Success:</strong></p><ul><li>250+ verified signal providers with transparent track records</li><li>1,000+ active followers copying trades</li><li>API uptime > 99.9%, security audit completed</li></ul>
-                    <p><strong>✅ Financial Success:</strong></p><ul><li>$12,000+ MRR from performance fees</li><li>CAC < $60, LTV > $300</li><li>Positive unit economics, 9+ months runway</li></ul>
-                    <p><strong>✅ Community Success:</strong></p><ul><li>Active Discord/Telegram community (2,000+ members)</li><li>5+ key influencer partnerships</li><li>10+ trading communities integrated</li></ul>
+                    <p><strong>✅ Platform Success:</strong></p>
+                    <ul>
+                        <li>250+ verified signal providers with transparent track records</li>
+                        <li>1,000+ active followers copying trades</li>
+                        <li>API uptime > 99.9%, security audit completed</li>
+                    </ul>
+                    
+                    <p><strong>✅ Financial Success:</strong></p>
+                    <ul>
+                        <li>$12,000+ MRR from performance fees</li>
+                        <li>CAC < $60, LTV > $300</li>
+                        <li>Positive unit economics, 9+ months runway</li>
+                    </ul>
+                    
+                    <p><strong>✅ Community Success:</strong></p>
+                    <ul>
+                        <li>Active Discord/Telegram community (2,000+ members)</li>
+                        <li>5+ key influencer partnerships</li>
+                        <li>10+ trading communities integrated</li>
+                    </ul>
                 </div>
+                
                 <h3>Immediate Next Steps (Next 7 Days)</h3>
-                <div class="table-responsive">
+                <div class="table-container">
                     <div class="table-scroll-hint">← Scroll →</div>
                     <table class="table-full">
-                        <thead><tr><th>Action</th><th>Why Urgent?</th><th>Owner</th><th>Deadline</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Why Urgent?</th>
+                                <th>Owner</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td><strong>Finalize Binance API Integration</strong></td><td>Core functionality dependency</td><td>Tech Lead</td><td>Day 3</td></tr>
-                            <tr><td><strong>Secure 3 Crypto Influencer Partnerships</strong></td><td>Critical for launch momentum</td><td>Founder</td><td>Day 5</td></tr>
-                            <tr><td><strong>Setup Security & Compliance Framework</strong></td><td>Trust is everything in crypto</td><td>Founder + Legal</td><td>Day 4</td></tr>
+                            <tr>
+                                <td><strong>Finalize Binance API Integration</strong></td>
+                                <td>Core functionality dependency</td>
+                                <td>Tech Lead</td>
+                                <td>Day 3</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Secure 3 Crypto Influencer Partnerships</strong></td>
+                                <td>Critical for launch momentum</td>
+                                <td>Founder</td>
+                                <td>Day 5</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Setup Security & Compliance Framework</strong></td>
+                                <td>Trust is everything in crypto</td>
+                                <td>Founder + Legal</td>
+                                <td>Day 4</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+                
                 <div class="section-intro" style="background: #f0f9ff; border-left: 4px solid #1890ff;">
                     <h4>🎯 Key Takeaways for Crypto Copy Trading:</h4>
                     <ol>
@@ -604,10 +2358,12 @@
                 </div>
             </section>
             
+            <!-- ====== GTM PLAN INFO SECTION (MOVED BEFORE ABOUT) ====== -->
             <section id="gtm-plan-info" class="section">
                 <h2><i class="fas fa-cube"></i> CryptoCopyPro - Practical Go-to-Market Plan</h2>
                 <p style="text-align: center;">Social copy trading platform for Binance/Bybit ecosystems with $20,000 bootstrap budget</p>
                 <p style="text-align: center;">Document Version: 3.0 (Crypto Edition) | Last Updated: December 9, 2025 | Owner: Founder</p>
+                
                 <div class="version">
                     <p><strong>🎯 Crypto-Specific Philosophy:</strong></p>
                     <ul>
@@ -621,46 +2377,108 @@
                 </div>
             </section>
             
+            <!-- ====== ABOUT SECTION (from index.html) ====== -->
             <section id="about" class="section">
                 <h2><i class="fas fa-user"></i> About the Dashboard Architect</h2>
                 <p>Combining data science, marketing strategy, and Web3 expertise</p>
+                
                 <div class="about-section">
                     <div class="about-content">
                         <div class="about-profile">
-                            <div class="profile-image"><img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></div>
+                            <div class="profile-image">
+                                <img src="https://avatars.githubusercontent.com/u/247514700" alt="HIEP NGUYEN" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
                             <div class="profile-name">HIEP NGUYEN</div>
                             <div class="profile-title">Senior Performance Marketing Architect</div>
-                            <p class="profile-desc">With expertise in Esport × Web3 ecosystems, I architect data-driven marketing systems that deliver measurable business impact. My approach combines growth hacking, data analytics, and marketing automation to build scalable acquisition engines with positive unit economics.</p>
+                            <p class="profile-desc">
+                                With expertise in Esport × Web3 ecosystems, I architect data-driven marketing systems that deliver measurable business impact. My approach combines growth hacking, data analytics, and marketing automation to build scalable acquisition engines with positive unit economics.
+                            </p>
                         </div>
+                        
                         <div class="skills-grid">
-                            <div class="skill-card skill-analytics"><div class="skill-icon"><i class="fas fa-chart-line"></i></div><h4 class="skill-title">Data Analytics</h4><p class="skill-desc">Advanced analytics & dashboard architecture, SQL/Python, predictive modeling, and data visualization for actionable insights.</p></div>
-                            <div class="skill-card skill-growth"><div class="skill-icon"><i class="fas fa-rocket"></i></div><h4 class="skill-title">Growth Marketing</h4><p class="skill-desc">Scalable acquisition & retention strategies, funnel optimization, A/B testing, and marketing automation for sustainable growth.</p></div>
-                            <div class="skill-card skill-web3"><div class="skill-icon"><i class="fas fa-coins"></i></div><h4 class="skill-title">Web3 Marketing</h4><p class="skill-desc">Tokenomics design, NFT marketing strategies, community growth, and blockchain-based user acquisition for Web3 projects.</p></div>
-                            <div class="skill-card skill-esports"><div class="skill-icon"><i class="fas fa-gamepad"></i></div><h4 class="skill-title">Esports Ecosystems</h4><p class="skill-desc">Tournament marketing, player engagement strategies, esports team partnerships, and gaming community development.</p></div>
+                            <div class="skill-card skill-analytics">
+                                <div class="skill-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4 class="skill-title">Data Analytics</h4>
+                                <p class="skill-desc">Advanced analytics & dashboard architecture, SQL/Python, predictive modeling, and data visualization for actionable insights.</p>
+                            </div>
+                            
+                            <div class="skill-card skill-growth">
+                                <div class="skill-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h4 class="skill-title">Growth Marketing</h4>
+                                <p class="skill-desc">Scalable acquisition & retention strategies, funnel optimization, A/B testing, and marketing automation for sustainable growth.</p>
+                            </div>
+                            
+                            <div class="skill-card skill-web3">
+                                <div class="skill-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <h4 class="skill-title">Web3 Marketing</h4>
+                                <p class="skill-desc">Tokenomics design, NFT marketing strategies, community growth, and blockchain-based user acquisition for Web3 projects.</p>
+                            </div>
+                            
+                            <div class="skill-card skill-esports">
+                                <div class="skill-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <h4 class="skill-title">Esports Ecosystems</h4>
+                                <p class="skill-desc">Tournament marketing, player engagement strategies, esports team partnerships, and gaming community development.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
             
+            <!-- ====== CONTACT SECTION (from index.html) ====== -->
             <section id="contact" class="section">
                 <h2><i class="fas fa-envelope"></i> Contact Information</h2>
                 <p>Get in touch for collaborations, consulting, or project inquiries</p>
+                
                 <div class="contact-grid">
-                    <div class="contact-item"><div class="contact-label">Email</div><div class="contact-value">hiep@example.com</div></div>
-                    <div class="contact-item"><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/hiepnguyen</div></div>
-                    <div class="contact-item"><div class="contact-label">Portfolio</div><div class="contact-value">h13digital.github.io</div></div>
+                    <div class="contact-item">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">hiep@example.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value">linkedin.com/in/hiepnguyen</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Portfolio</div>
+                        <div class="contact-value">h13digital.github.io</div>
+                    </div>
                 </div>
-                <p style="text-align: center; color: #2d3748; max-width: 600px; margin: 0 auto 30px;">Interested in building data-driven marketing systems for your Web3 or gaming project? Let's discuss how we can create measurable impact together.</p>
-                <div style="text-align: center;"><a href="mailto:hiep@example.com" class="cta-button"><i class="fas fa-envelope"></i> Contact Me</a></div>
+                
+                <p style="text-align: center; color: #2d3748; max-width: 600px; margin: 0 auto 30px;">
+                    Interested in building data-driven marketing systems for your Web3 or gaming project? Let's discuss how we can create measurable impact together.
+                </p>
+                
+                <div style="text-align: center;">
+                    <a href="mailto:hiep@example.com" class="cta-button">
+                        <i class="fas fa-envelope"></i> Contact Me
+                    </a>
+                </div>
             </section>
         </main>
         
+        <!-- ====== SECONDARY FOOTER (ADDED FROM PREVIOUS VERSION) - UPDATED BACKGROUND ====== -->
         <div class="footer-secondary">
             <div class="footer-secondary-content">
                 <div>
-                    <div class="footer-secondary-brand"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;"><div style="width: 30px; height: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white;"><i class="fas fa-cube"></i></div><div class="logo-text" style="font-size: 18px; color: white;">HIEP NGUYEN</div></div></div>
+                    <div class="footer-secondary-brand">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <div style="width: 30px; height: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white;">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <div class="logo-text" style="font-size: 18px; color: white;">HIEP NGUYEN</div>
+                        </div>
+                    </div>
                     <p class="footer-secondary-desc">Data-driven marketing architect specializing in Web3 × Esports ecosystems. Building scalable acquisition engines with positive unit economics.</p>
                 </div>
+                
                 <div>
                     <h4 class="footer-secondary-title">Quick Links</h4>
                     <ul class="footer-secondary-links">
@@ -677,6 +2495,7 @@
                         <li><a href="#contact" class="footer-secondary-link">Contact</a></li>
                     </ul>
                 </div>
+                
                 <div>
                     <h4 class="footer-secondary-title">Resources</h4>
                     <ul class="footer-secondary-links">
@@ -688,17 +2507,23 @@
                     </ul>
                 </div>
             </div>
-            <div class="footer-secondary-bottom"><p>© 2025 HIEP NGUYEN | Marketing Dashboard Suite v2.0</p><p style="margin-top: 10px; font-size: 12px;">Built with ❤️ for Web3 gaming ecosystems</p></div>
+            
+            <div class="footer-secondary-bottom">
+                <p>© 2025 HIEP NGUYEN | Marketing Dashboard Suite v2.0</p>
+                <p style="margin-top: 10px; font-size: 12px;">Built with ❤️ for Web3 gaming ecosystems</p>
+            </div>
         </div>
     </div>
     
     <script>
+        // ====== MOBILE NAVIGATION FUNCTIONALITY ======
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const topNavMenu = document.getElementById('topNavMenu');
         const mobileNavOverlay = document.getElementById('mobileNavOverlay');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
         const mobileNavBtn = document.getElementById('mobileNavBtn');
         
+        // Toggle top navigation menu (for tablets and mobile)
         if (hamburgerMenu) {
             hamburgerMenu.addEventListener('click', function() {
                 this.classList.toggle('active');
@@ -706,6 +2531,8 @@
                 document.body.style.overflow = topNavMenu.classList.contains('active') ? 'hidden' : '';
             });
         }
+        
+        // Toggle mobile navigation menu (for small mobile)
         if (mobileNavBtn) {
             mobileNavBtn.addEventListener('click', function() {
                 mobileNavMenu.classList.add('active');
@@ -713,52 +2540,103 @@
                 document.body.style.overflow = 'hidden';
             });
         }
+        
+        // Close mobile navigation when clicking overlay
         if (mobileNavOverlay) {
             mobileNavOverlay.addEventListener('click', function() {
                 this.classList.remove('active');
                 mobileNavMenu.classList.remove('active');
                 document.body.style.overflow = '';
-                if (hamburgerMenu) { hamburgerMenu.classList.remove('active'); topNavMenu.classList.remove('active'); }
+                
+                // Also close top nav if open
+                if (hamburgerMenu) {
+                    hamburgerMenu.classList.remove('active');
+                    topNavMenu.classList.remove('active');
+                }
             });
         }
+        
+        // Close mobile navigation when clicking a link
         document.querySelectorAll('.mobile-nav-item').forEach(item => {
             item.addEventListener('click', function() {
                 mobileNavOverlay.classList.remove('active');
                 mobileNavMenu.classList.remove('active');
                 document.body.style.overflow = '';
-                if (hamburgerMenu) { hamburgerMenu.classList.remove('active'); topNavMenu.classList.remove('active'); }
-                document.querySelectorAll('.mobile-nav-item').forEach(nav => nav.classList.remove('active'));
+                
+                // Also close top nav if open
+                if (hamburgerMenu) {
+                    hamburgerMenu.classList.remove('active');
+                    topNavMenu.classList.remove('active');
+                }
+                
+                // Update active state in mobile nav
+                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
                 this.classList.add('active');
             });
         });
+        
+        // Close menus when window is resized to desktop size
         window.addEventListener('resize', function() {
             if (window.innerWidth > 900) {
-                if (hamburgerMenu) { hamburgerMenu.classList.remove('active'); topNavMenu.classList.remove('active'); }
+                if (hamburgerMenu) {
+                    hamburgerMenu.classList.remove('active');
+                    topNavMenu.classList.remove('active');
+                }
                 document.body.style.overflow = '';
             }
         });
         
+        // ====== MAIN NAVIGATION SCROLL FUNCTIONALITY ======
         const navScrollWrapper = document.getElementById('navScrollWrapper');
         const navScrollLeft = document.getElementById('navScrollLeft');
         const navScrollRight = document.getElementById('navScrollRight');
+        
         if (navScrollWrapper && navScrollLeft && navScrollRight) {
+            // Show/hide scroll arrows based on scroll position
             function updateScrollArrows() {
                 const scrollLeft = navScrollWrapper.scrollLeft;
                 const maxScroll = navScrollWrapper.scrollWidth - navScrollWrapper.clientWidth;
+                
                 navScrollLeft.style.display = scrollLeft > 0 ? 'flex' : 'none';
                 navScrollRight.style.display = scrollLeft < maxScroll - 5 ? 'flex' : 'none';
             }
-            navScrollLeft.addEventListener('click', () => navScrollWrapper.scrollBy({ left: -200, behavior: 'smooth' }));
-            navScrollRight.addEventListener('click', () => navScrollWrapper.scrollBy({ left: 200, behavior: 'smooth' }));
+            
+            // Scroll left
+            navScrollLeft.addEventListener('click', function() {
+                navScrollWrapper.scrollBy({
+                    left: -200,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Scroll right
+            navScrollRight.addEventListener('click', function() {
+                navScrollWrapper.scrollBy({
+                    left: 200,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Update arrows on scroll
             navScrollWrapper.addEventListener('scroll', updateScrollArrows);
+            
+            // Initial update
             updateScrollArrows();
         }
         
+        // ====== TABLE SCROLL FUNCTIONALITY - FIXED ======
+        // Function to enable horizontal scrolling for tables on mobile
         function enableTableHorizontalScroll() {
-            const tableContainers = document.querySelectorAll('.table-responsive');
+            const tableContainers = document.querySelectorAll('.table-container');
+            
             tableContainers.forEach(container => {
                 let isDragging = false;
                 let startX, startScrollLeft;
+                let touchStartX = 0;
+                
+                // Mouse events for desktop
                 container.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     startX = e.pageX - container.offsetLeft;
@@ -766,83 +2644,228 @@
                     container.style.cursor = 'grabbing';
                     container.style.userSelect = 'none';
                 });
+                
                 container.addEventListener('mousemove', (e) => {
                     if (!isDragging) return;
                     e.preventDefault();
                     const x = e.pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2;
+                    const walk = (x - startX) * 1.5; // Multiply for faster scrolling
                     container.scrollLeft = startScrollLeft - walk;
                 });
-                container.addEventListener('mouseup', () => { isDragging = false; container.style.cursor = 'grab'; container.style.userSelect = 'auto'; });
-                container.addEventListener('mouseleave', () => { isDragging = false; container.style.cursor = 'grab'; container.style.userSelect = 'auto'; });
-                if (window.innerWidth > 768) container.style.cursor = 'grab';
+                
+                container.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                container.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                    container.style.cursor = 'grab';
+                    container.style.userSelect = 'auto';
+                });
+                
+                // Touch events for mobile - FIXED VERSION
+                container.addEventListener('touchstart', (e) => {
+                    if (e.touches.length === 1) {
+                        isDragging = true;
+                        touchStartX = e.touches[0].clientX;
+                        startScrollLeft = container.scrollLeft;
+                        e.preventDefault(); // Prevent default scrolling
+                    }
+                }, { passive: false });
+                
+                container.addEventListener('touchmove', (e) => {
+                    if (!isDragging || e.touches.length !== 1) return;
+                    
+                    const touchX = e.touches[0].clientX;
+                    const diffX = touchStartX - touchX;
+                    
+                    // Only prevent default if we're actually scrolling horizontally
+                    if (Math.abs(diffX) > 5) {
+                        e.preventDefault();
+                        container.scrollLeft = startScrollLeft + diffX;
+                    }
+                }, { passive: false });
+                
+                container.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+                
+                // Add cursor style for desktop
+                if (window.innerWidth > 768) {
+                    container.style.cursor = 'grab';
+                }
+                
+                // Prevent vertical scroll on table container when horizontal scrolling
+                container.addEventListener('wheel', (e) => {
+                    // If horizontal scrolling is possible, allow it to take precedence
+                    if (container.scrollWidth > container.clientWidth) {
+                        // If wheel event has significant horizontal delta, allow it
+                        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                            container.scrollLeft += e.deltaX;
+                            e.preventDefault();
+                        }
+                    }
+                }, { passive: false });
             });
         }
         
+        // Function to check if table needs horizontal scroll
         function checkTableScrollNeeded() {
-            const tableContainers = document.querySelectorAll('.table-responsive');
+            const tableContainers = document.querySelectorAll('.table-container');
+            
             tableContainers.forEach(container => {
                 const table = container.querySelector('table');
                 if (table && container.clientWidth < table.scrollWidth) {
                     container.classList.add('scrollable');
-                    const hint = container.querySelector('.table-scroll-hint');
-                    if (hint) hint.style.display = 'block';
                 } else {
                     container.classList.remove('scrollable');
-                    const hint = container.querySelector('.table-scroll-hint');
-                    if (hint) hint.style.display = 'none';
                 }
             });
         }
         
+        // ====== NAVIGATION FUNCTIONALITY ======
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-                document.querySelectorAll('.mobile-nav-item').forEach(nav => nav.classList.remove('active'));
+                
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Remove active class from all mobile nav items
+                document.querySelectorAll('.mobile-nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Add active class to clicked nav item
                 this.classList.add('active');
+                
+                // Get target section
                 const targetId = this.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
-                if (targetSection) window.scrollTo({ top: targetSection.offsetTop - 120, behavior: 'smooth' });
+                
+                // Scroll to target section with smooth behavior
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Update URL hash
                 history.pushState(null, null, targetId);
+                
+                // Update corresponding mobile nav item
                 const mobileNavItem = document.querySelector(`.mobile-nav-item[href="${targetId}"]`);
-                if (mobileNavItem) mobileNavItem.classList.add('active');
+                if (mobileNavItem) {
+                    mobileNavItem.classList.add('active');
+                }
             });
         });
         
+        // ====== HIGHLIGHT ACTIVE SECTION ON SCROLL ======
         window.addEventListener('scroll', function() {
             const sections = document.querySelectorAll('.section');
             const navItems = document.querySelectorAll('.nav-item');
             const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
             const scrollPosition = window.scrollY + 150;
+            
             let currentSection = '';
+            
             sections.forEach(section => {
-                if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.clientHeight) {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                     currentSection = '#' + section.getAttribute('id');
                 }
             });
-            navItems.forEach(item => { item.classList.remove('active'); if (item.getAttribute('href') === currentSection) item.classList.add('active'); });
-            mobileNavItems.forEach(item => { item.classList.remove('active'); if (item.getAttribute('href') === currentSection) item.classList.add('active'); });
             
+            // Update desktop nav items
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Update mobile nav items
+            mobileNavItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Update progress bar
+            updateProgressBar();
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // ====== PROGRESS BAR FUNCTIONALITY ======
+        function updateProgressBar() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             const progressBar = document.getElementById("progressBar");
-            if(progressBar) progressBar.style.width = scrolled + "%";
-            
-            const scrollTopBtn = document.getElementById('scrollTop');
-            if(window.scrollY > 500) scrollTopBtn.classList.add('show'); else scrollTopBtn.classList.remove('show');
+            if (progressBar) {
+                progressBar.style.width = scrolled + "%";
+            }
+        }
+        
+        // ====== SCROLL TO TOP FUNCTIONALITY ======
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         
-        document.getElementById('scrollTop').addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        // ====== PRINT FUNCTIONALITY ======
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
         
-        document.addEventListener('keydown', function(e) { if (e.ctrlKey && e.key === 'p') { e.preventDefault(); window.print(); } });
+        // ====== SET CURRENT DATE ======
+        function setCurrentDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const dateElement = document.getElementById('currentDate');
+            if (dateElement) {
+                dateElement.textContent = now.toLocaleDateString('en-US', options);
+            }
+        }
         
+        // ====== INITIALIZE EVERYTHING ON LOAD ======
         document.addEventListener('DOMContentLoaded', function() {
+            setCurrentDate();
+            
+            // Initialize first nav item as active
             const firstNavItem = document.querySelector('.nav-item');
-            if (firstNavItem) firstNavItem.classList.add('active');
+            if (firstNavItem) {
+                firstNavItem.classList.add('active');
+            }
+            
+            // Initialize first mobile nav item as active
             const firstMobileNavItem = document.querySelector('.mobile-nav-item');
-            if (firstMobileNavItem) firstMobileNavItem.classList.add('active');
+            if (firstMobileNavItem) {
+                firstMobileNavItem.classList.add('active');
+            }
+            
+            // Smooth scroll for anchor links (including top-nav links)
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
@@ -850,44 +2873,89 @@
                         e.preventDefault();
                         const targetElement = document.querySelector(href);
                         if (targetElement) {
-                            window.scrollTo({ top: targetElement.offsetTop - 120, behavior: 'smooth' });
-                            document.querySelectorAll('.nav-item').forEach(item => { item.classList.remove('active'); if (item.getAttribute('href') === href) item.classList.add('active'); });
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 120,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Update active nav items
+                            document.querySelectorAll('.nav-item').forEach(item => {
+                                item.classList.remove('active');
+                                if (item.getAttribute('href') === href) {
+                                    item.classList.add('active');
+                                }
+                            });
+                            
+                            // Update active mobile nav items
+                            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                                item.classList.remove('active');
+                                if (item.getAttribute('href') === href) {
+                                    item.classList.add('active');
+                                }
+                            });
                         }
                     }
                 });
             });
+            
+            // Update scroll arrows on window resize
             if (navScrollWrapper) {
                 window.addEventListener('resize', function() {
                     setTimeout(() => {
                         if (navScrollWrapper && navScrollLeft && navScrollRight) {
                             const scrollLeft = navScrollWrapper.scrollLeft;
                             const maxScroll = navScrollWrapper.scrollWidth - navScrollWrapper.clientWidth;
+                            
                             navScrollLeft.style.display = scrollLeft > 0 ? 'flex' : 'none';
                             navScrollRight.style.display = scrollLeft < maxScroll - 5 ? 'flex' : 'none';
                         }
                     }, 100);
                 });
             }
+            
+            // Initialize table scrolling functionality
             enableTableHorizontalScroll();
             checkTableScrollNeeded();
-            window.addEventListener('resize', function() { setTimeout(checkTableScrollNeeded, 100); });
-            document.querySelectorAll('.table-responsive').forEach(container => {
+            
+            // Re-check table scroll on window resize
+            window.addEventListener('resize', function() {
+                setTimeout(checkTableScrollNeeded, 100);
+            });
+            
+            // Hide scroll hint after user starts scrolling
+            document.querySelectorAll('.table-container').forEach(container => {
                 container.addEventListener('scroll', function() {
                     const hint = this.querySelector('.table-scroll-hint');
-                    if (hint) { hint.style.opacity = '0'; setTimeout(() => { hint.style.display = 'none'; }, 300); }
+                    if (hint) {
+                        hint.style.opacity = '0';
+                        setTimeout(() => {
+                            hint.style.display = 'none';
+                        }, 300);
+                    }
                 });
             });
         });
         
+        // ====== TOP NAV ACTIVE STATE ======
         const currentPage = window.location.pathname.split('/').pop();
-        document.querySelectorAll('.top-nav-link').forEach(link => {
+        const topNavLinks = document.querySelectorAll('.top-nav-link');
+        
+        topNavLinks.forEach(link => {
             const linkHref = link.getAttribute('href');
-            if (linkHref === currentPage || (linkHref === 'crypto-gotomarketplan.html' && currentPage === '')) link.classList.add('active'); else link.classList.remove('active');
+            if (linkHref === currentPage || (linkHref === 'crypto-gotomarketplan.html' && currentPage === '')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
         });
         
+        // ====== CONTACT FORM SIMULATION ======
         document.querySelector('.cta-button[href^="mailto"]')?.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = `mailto:hiep@example.com?subject=${encodeURIComponent('Interest in CryptoCopyPro GTM Plan')}&body=${encodeURIComponent('Hello Hiep,\n\nI saw your CryptoCopyPro GTM Plan and would like to discuss...')}`;
+            const email = 'hiep@example.com';
+            const subject = 'Interest in CryptoCopyPro GTM Plan';
+            const body = 'Hello Hiep,\n\nI saw your CryptoCopyPro GTM Plan and would like to discuss...';
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
     </script>
 </body>
