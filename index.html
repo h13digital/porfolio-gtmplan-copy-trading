@@ -50,10 +50,12 @@
             line-height: 1.7;
             font-size: 16px;
             min-height: 100vh;
-            min-height: calc(var(--vh, 1vh) * 100); /* Sử dụng custom property */
+            min-height: calc(var(--vh, 1vh) * 100);
+            overflow-y: auto;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased; /* Làm mượt font trên iOS */
-            -moz-osx-font-smoothing: grayscale; /* Làm mượt font trên Firefox */
+            width: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         /* Fix cho iOS input zoom */
@@ -1898,6 +1900,19 @@
                 width: 100% !important;
             }
         }
+        
+        /* Đảm bảo safe area cho iOS không ảnh hưởng đến scroll */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+        
+        /* Fix cho iOS momentum scroll */
+        .container, .content, .table-container {
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
     
     <!-- Font Awesome for icons -->
@@ -2821,10 +2836,20 @@
             lastTouchEnd = now;
         }, { passive: false });
         
-        // 3. Ngăn pull-to-refresh trên iOS
+        // 3. Ngăn pull-to-refresh trên iOS - CHỈ áp dụng khi ở đầu trang
+        let startY = 0;
+        document.body.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+        
         document.body.addEventListener('touchmove', function(e) {
-            if (e.touches.length > 1) return; // Allow multi-touch
-            e.preventDefault();
+            // Chỉ ngăn pull-to-refresh khi đang ở đầu trang và kéo xuống
+            if (window.scrollY === 0 && e.touches.length === 1) {
+                const currentY = e.touches[0].clientY;
+                if (currentY > startY) {
+                    e.preventDefault();
+                }
+            }
         }, { passive: false });
         
         // ====== MOBILE NAVIGATION FUNCTIONALITY ======
@@ -3011,8 +3036,11 @@
                                 hint.style.display = 'none';
                             }, 300);
                         }
+                        
+                        // NGĂN KHÔNG CHO SCROLL DỌC KHI ĐANG SCROLL NGANG
+                        e.preventDefault();
                     }
-                }, { passive: true });
+                }, { passive: false });
                 
                 container.addEventListener('touchend', () => {
                     isTouchScrolling = false;
@@ -3287,6 +3315,29 @@
             }
         }
         
+        // ====== KIỂM TRA VÀ ĐẢM BẢO BODY KHÔNG BỊ KHÓA SCROLL ======
+        function ensureBodyScroll() {
+            if (document.body.style.overflow === 'hidden') {
+                // Chỉ mở khóa nếu không có menu nào đang mở
+                const isMobileMenuOpen = mobileNavMenu.classList.contains('active');
+                const isTopMenuOpen = topNavMenu.classList.contains('active');
+                
+                if (!isMobileMenuOpen && !isTopMenuOpen) {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+        
+        // ====== KIỂM TRA XEM PHẦN TỬ CÓ THỂ SCROLL ĐƯỢC KHÔNG ======
+        function checkScrollableElements() {
+            const scrollableElements = document.querySelectorAll('.table-container, .nav-scroll-wrapper, .content');
+            scrollableElements.forEach(el => {
+                if (el.scrollHeight > el.clientHeight) {
+                    el.style.overflowY = 'auto';
+                }
+            });
+        }
+        
         // ====== INITIALIZE EVERYTHING ON LOAD ======
         document.addEventListener('DOMContentLoaded', function() {
             setCurrentDate();
@@ -3349,6 +3400,10 @@
             // Initialize lazy loading
             lazyLoadImages();
             
+            // Initialize scroll checking
+            checkScrollableElements();
+            ensureBodyScroll();
+            
             // Re-check table scroll on window resize
             window.addEventListener('resize', function() {
                 setTimeout(() => {
@@ -3356,6 +3411,8 @@
                     if (navScrollWrapper) {
                         updateScrollArrows();
                     }
+                    checkScrollableElements();
+                    ensureBodyScroll();
                 }, 100);
             });
             
@@ -3364,7 +3421,14 @@
                 setTimeout(() => {
                     checkTableScrollNeeded();
                     setViewportHeight();
+                    checkScrollableElements();
+                    ensureBodyScroll();
                 }, 300);
+            });
+            
+            // Đảm bảo scroll được mở khóa khi load
+            window.addEventListener('load', function() {
+                setTimeout(ensureBodyScroll, 500);
             });
         });
         
@@ -3409,6 +3473,21 @@
                 }, 100);
             }
         }, { passive: true });
+        
+        // Đảm bảo khi click ra ngoài menu thì mở khóa scroll
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.top-nav-menu') && !e.target.closest('.hamburger-menu') 
+                && !e.target.closest('.mobile-nav-menu') && !e.target.closest('.mobile-nav-btn')) {
+                setTimeout(ensureBodyScroll, 50);
+            }
+        });
+        
+        // Gọi hàm này khi trang load và khi resize
+        window.addEventListener('load', ensureBodyScroll);
+        window.addEventListener('resize', ensureBodyScroll);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(ensureBodyScroll, 300);
+        });
     </script>
 </body>
 </html>
